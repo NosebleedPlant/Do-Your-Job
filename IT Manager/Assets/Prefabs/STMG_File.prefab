@@ -83,5 +83,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: STMG_File
       objectReference: {fileID: 0}
+    - target: {fileID: 7591859449723630749, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
+      propertyPath: m_TagString
+      value: STMG_File
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9c422513365a0e43ad0c1303008e635, type: 3}

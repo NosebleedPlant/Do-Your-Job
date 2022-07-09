@@ -70,6 +70,8 @@ public class STMG_Spawner : MonoBehaviour
 
 
             yield return new WaitForSeconds(Random.Range(minSpawnDelay, maxSpawnDelay));
+
         }
     }
+
 }
