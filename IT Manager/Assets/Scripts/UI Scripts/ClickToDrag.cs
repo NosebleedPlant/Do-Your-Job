@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ClickToDrag : MonoBehaviour
+public class ClickToDrag : MonoBehaviour,IDragHandler
 {
     private RectTransform _parentFrame;
     private void Start()
@@ -11,10 +11,10 @@ public class ClickToDrag : MonoBehaviour
         _parentFrame = transform.parent.GetComponent<RectTransform>();
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        _parentFrame.transform.SetAsLastSibling();
-    }
+    // public void OnPointerClick(PointerEventData eventData)
+    // {
+    //     _parentFrame.transform.SetAsLastSibling();
+    // }
 
     public void OnDrag(PointerEventData eventData)
     {

@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class ClickToClose : MonoBehaviour
+public class ClickToClose : MonoBehaviour,IPointerClickHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    private Image _parentFrame;
+    private void Start()
     {
-        
+        _parentFrame = transform.parent.gameObject.GetComponent<Image>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        
+        _parentFrame.enabled = false;
+        //replace with correct method call from application window
     }
 }
