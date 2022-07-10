@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private InputActions playerControls;
     [SerializeField] private Collider2D deleteToolCollider;
     [SerializeField] private string activeGame;
+    [SerializeField] public Vector3 offsetCrd;
     
     public GameObject canvas;
     private GraphicRaycaster uiRaycaster;
@@ -37,6 +38,8 @@ public class InputManager : MonoBehaviour
         uiRaycaster = canvas.GetComponent<GraphicRaycaster>();
         click_data = new PointerEventData(EventSystem.current);
         click_results = new List<RaycastResult>();
+
+        offsetCrd = new Vector3(-50, 0, 0);
     }
 
     private void Update()
@@ -61,7 +64,7 @@ public class InputManager : MonoBehaviour
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(click_data.position);
                 if (activeGame == "st")
                 {
-                    worldPosition.x -= 50;
+                    worldPosition += offsetCrd;
                 }
                 deleteAction(worldPosition);
             }
