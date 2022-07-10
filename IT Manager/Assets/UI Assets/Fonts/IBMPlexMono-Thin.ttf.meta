@@ -1,0 +1,34 @@
+fileFormatVersion: 2
+guid: 1fa3d2d342a39ce4fa6c6382b17467fc
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - IBM Plex Mono
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 219f2de020fa6c64ca0449b8f063e19f, type: 3}
+  - {fileID: 12800000, guid: aa9920ed760ea924d8c2fa917ffb6cef, type: 3}
+  - {fileID: 12800000, guid: 7245b3a339ebe824d8b02771828a6dad, type: 3}
+  - {fileID: 12800000, guid: 1e34c6ff0faeaf44281172570f1eb8c0, type: 3}
+  - {fileID: 12800000, guid: 082d43c61bb637145995665930fe8668, type: 3}
+  - {fileID: 12800000, guid: b914ee1c2fc7d8d438b072e329197b53, type: 3}
+  - {fileID: 12800000, guid: 66204037c994f4f4e888bac44d97656b, type: 3}
+  - {fileID: 12800000, guid: 5133373aa393e214d9b7e4e2309bfbc0, type: 3}
+  - {fileID: 12800000, guid: cb6b7d076a8b37548b14ec77f412ddda, type: 3}
+  - {fileID: 12800000, guid: 8729e5946115aa141876943b660da5a8, type: 3}
+  - {fileID: 12800000, guid: e13e3b16a7bbd894ca059e83abcac1ca, type: 3}
+  - {fileID: 12800000, guid: d743da78b4ea4584a9904a00e4505b2e, type: 3}
+  - {fileID: 12800000, guid: b143e80dc79cde7468ae227ea8a13815, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
