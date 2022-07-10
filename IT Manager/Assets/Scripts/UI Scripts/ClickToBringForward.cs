@@ -5,8 +5,11 @@ using UnityEngine.EventSystems;
 
 public class ClickToBringForward : MonoBehaviour,IPointerDownHandler
 {
+    [SerializeField]
+    private GameObject Frame;
+        
     public void OnPointerDown(PointerEventData eventData)
     {
-        transform.SetAsLastSibling();
+        Frame.transform.SetAsLastSibling();
     }
 }

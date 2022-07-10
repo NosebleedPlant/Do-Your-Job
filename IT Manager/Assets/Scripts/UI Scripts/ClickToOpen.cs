@@ -2,20 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class ClickToOpen : MonoBehaviour,IPointerClickHandler
 {
     [SerializeField]
-    private Image AssociatedFrame;
+    private GameObject AssociatedFrame;
     [SerializeField]
     private Canvas DesktopCanvas;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("test");
-        if(AssociatedFrame.enabled==false) AssociatedFrame.enabled=true;
+        if(AssociatedFrame.activeSelf==false) AssociatedFrame.SetActive(true);
         AssociatedFrame.transform.SetAsLastSibling();
     }
 }

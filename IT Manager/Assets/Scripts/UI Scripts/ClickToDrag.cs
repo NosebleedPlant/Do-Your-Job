@@ -11,11 +11,6 @@ public class ClickToDrag : MonoBehaviour,IDragHandler
         _parentFrame = transform.parent.GetComponent<RectTransform>();
     }
 
-    // public void OnPointerClick(PointerEventData eventData)
-    // {
-    //     _parentFrame.transform.SetAsLastSibling();
-    // }
-
     public void OnDrag(PointerEventData eventData)
     {
         _parentFrame.anchoredPosition += eventData.delta;
