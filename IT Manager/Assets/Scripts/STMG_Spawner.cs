@@ -49,6 +49,7 @@ public class STMG_Spawner : MonoBehaviour
 
             Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
             GameObject file = Instantiate(filePrefab, position, rotation);
+            file.transform.SetParent(this.transform);
 
             Destroy(file, lifespan);
 

@@ -35,6 +35,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MouseOffset"",
+                    ""type"": ""Value"",
+                    ""id"": ""e0b603f1-37c2-4090-b3b3-ca76d5a281ed"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -48,6 +57,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""MouseClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a88aa39b-509c-4f8e-a3b3-9659b5234663"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseOffset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -57,6 +77,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         // Normal
         m_Normal = asset.FindActionMap("Normal", throwIfNotFound: true);
         m_Normal_MouseClick = m_Normal.FindAction("MouseClick", throwIfNotFound: true);
+        m_Normal_MouseOffset = m_Normal.FindAction("MouseOffset", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -117,11 +138,13 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Normal;
     private INormalActions m_NormalActionsCallbackInterface;
     private readonly InputAction m_Normal_MouseClick;
+    private readonly InputAction m_Normal_MouseOffset;
     public struct NormalActions
     {
         private @InputActions m_Wrapper;
         public NormalActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @MouseClick => m_Wrapper.m_Normal_MouseClick;
+        public InputAction @MouseOffset => m_Wrapper.m_Normal_MouseOffset;
         public InputActionMap Get() { return m_Wrapper.m_Normal; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -134,6 +157,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @MouseClick.started -= m_Wrapper.m_NormalActionsCallbackInterface.OnMouseClick;
                 @MouseClick.performed -= m_Wrapper.m_NormalActionsCallbackInterface.OnMouseClick;
                 @MouseClick.canceled -= m_Wrapper.m_NormalActionsCallbackInterface.OnMouseClick;
+                @MouseOffset.started -= m_Wrapper.m_NormalActionsCallbackInterface.OnMouseOffset;
+                @MouseOffset.performed -= m_Wrapper.m_NormalActionsCallbackInterface.OnMouseOffset;
+                @MouseOffset.canceled -= m_Wrapper.m_NormalActionsCallbackInterface.OnMouseOffset;
             }
             m_Wrapper.m_NormalActionsCallbackInterface = instance;
             if (instance != null)
@@ -141,6 +167,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @MouseClick.started += instance.OnMouseClick;
                 @MouseClick.performed += instance.OnMouseClick;
                 @MouseClick.canceled += instance.OnMouseClick;
+                @MouseOffset.started += instance.OnMouseOffset;
+                @MouseOffset.performed += instance.OnMouseOffset;
+                @MouseOffset.canceled += instance.OnMouseOffset;
             }
         }
     }
@@ -148,5 +177,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     public interface INormalActions
     {
         void OnMouseClick(InputAction.CallbackContext context);
+        void OnMouseOffset(InputAction.CallbackContext context);
     }
 }

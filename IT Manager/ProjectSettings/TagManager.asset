@@ -7,6 +7,10 @@ TagManager:
   - MinigameWindow
   - STMG_Folder
   - STMG_File
+  - NTMG_Wires
+  - NTMG_LeftEnd
+  - NTMG_RightEnd
+  - NTMG_StartButton
   layers:
   - Default
   - TransparentFX
@@ -15,7 +19,7 @@ TagManager:
   - Water
   - UI
   - STMG File Objects
-  - 
+  - NTMG_Wires
   - 
   - 
   - 

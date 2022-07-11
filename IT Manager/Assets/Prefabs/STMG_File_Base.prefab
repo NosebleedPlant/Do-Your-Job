@@ -147,7 +147,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7591859449723630749}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -178,7 +178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c2e595904693d47bce96aeb260d7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePrefab: {fileID: 8405282077875933080, guid: 129211bbaf0aa8e47b274c1b76e350a9, type: 3}
+  hitbox: {fileID: 0}
+  filePrefab:
+  - {fileID: 8405282077875933080, guid: 129211bbaf0aa8e47b274c1b76e350a9, type: 3}
+  - {fileID: 8405282077875933080, guid: c06fa76e575854745a9c4b5591ad6993, type: 3}
+  - {fileID: 8405282077875933080, guid: 8f76635a82e06f9419359d4568ce082a, type: 3}
   secondaryTarget: {fileID: 0}
   minFiles: 2
   maxFiles: 4

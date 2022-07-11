@@ -9,8 +9,12 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] private InputActions playerControls;
     [SerializeField] private Collider2D deleteToolCollider;
+    [SerializeField] private Collider2D dragToolCollider;
     [SerializeField] private string activeGame;
-    [SerializeField] public Vector3 offsetCrd;
+    [SerializeField] public Vector3 stOffsetCord;
+    [SerializeField] public Vector3 ntOffsetCord;
+    [SerializeField] public Vector3 scOffsetCord;
+    [SerializeField] public Vector3 csOffsetCord;
     
     public GameObject canvas;
     private GraphicRaycaster uiRaycaster;
@@ -39,7 +43,8 @@ public class InputManager : MonoBehaviour
         click_data = new PointerEventData(EventSystem.current);
         click_results = new List<RaycastResult>();
 
-        offsetCrd = new Vector3(-50, 0, 0);
+        stOffsetCord = new Vector3(-50, 0, 0);
+        ntOffsetCord = new Vector3(50, 0, 0);
     }
 
     private void Update()
@@ -48,6 +53,7 @@ public class InputManager : MonoBehaviour
         {
             getUiElementsClicked();
         }
+
     }
 
     private void getUiElementsClicked()
@@ -64,9 +70,15 @@ public class InputManager : MonoBehaviour
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(click_data.position);
                 if (activeGame == "st")
                 {
-                    worldPosition += offsetCrd;
+                    worldPosition += stOffsetCord;
+                    deleteAction(worldPosition);
                 }
-                deleteAction(worldPosition);
+                else if (activeGame == "nt")
+                {
+                    worldPosition += ntOffsetCord;
+                    beginDrag(worldPosition);
+                }
+                
             }
         }
     }
@@ -77,10 +89,23 @@ public class InputManager : MonoBehaviour
         StartCoroutine(enableDeleteTool(0.1f, deleteToolCollider));
     }
 
+    private void beginDrag(Vector2 dragLocation)
+    {
+        dragToolCollider.transform.position = dragLocation;
+        StartCoroutine(dragToolClick(0.1f, dragToolCollider));
+    }
+
     private IEnumerator enableDeleteTool(float seconds, Collider2D deleteToolCollider)
     {
         deleteToolCollider.enabled = true;
         yield return new WaitForSeconds(seconds);
         deleteToolCollider.enabled = false;
+    }
+
+    private IEnumerator dragToolClick(float seconds, Collider2D deleteToolCollider)
+    {
+        dragToolCollider.enabled = true;
+        yield return new WaitForSeconds(seconds);
+        dragToolCollider.enabled = false;
     }
 }

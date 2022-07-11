@@ -7,6 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1806249037148453910, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5385828
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806249037148453910, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
+      propertyPath: m_Size.y
+      value: 0.6114171
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806249037148453910, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.00083875656
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806249037148453910, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0041938126
+      objectReference: {fileID: 0}
     - target: {fileID: 2109918633099603156, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
       propertyPath: m_Size.x
       value: 4.74
@@ -18,22 +34,22 @@ PrefabInstance:
     - target: {fileID: 2109918633099603156, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0b76c438102513c439b347600d05790c, type: 3}
+      objectReference: {fileID: 21300000, guid: 4b74839162fe2674caa7491426450b2d, type: 3}
     - target: {fileID: 2109918633099603156, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5664197193535389663, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5664197193535389663, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5664197193535389663, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7113247710933581407, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
       propertyPath: m_RootOrder
@@ -81,7 +97,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7591859449723630749, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
       propertyPath: m_Name
-      value: STMG_File
+      value: STMG_File_V3
       objectReference: {fileID: 0}
     - target: {fileID: 7591859449723630749, guid: e9c422513365a0e43ad0c1303008e635, type: 3}
       propertyPath: m_TagString

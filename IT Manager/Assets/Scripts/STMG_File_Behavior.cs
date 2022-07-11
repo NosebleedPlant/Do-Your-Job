@@ -3,14 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class STMG_File_Behavior : MonoBehaviour
-{
-    [SerializeField] private GameObject filePrefab;
+{   
+    [SerializeField] private Collider2D hitbox;
+    [SerializeField] private GameObject[] filePrefab;
     [SerializeField] public GameObject secondaryTarget;
     [SerializeField] private int minFiles;
     [SerializeField] private int maxFiles;
     [SerializeField] private float lifespan;
     [SerializeField] private float maxVelocity;
     [SerializeField] private float minVelocity;
+    
+    private void Start()
+    {
+        hitbox = GetComponent<Collider2D>();
+        StartCoroutine(activateHitbox());
+    }
+
+    private IEnumerator activateHitbox()
+    {
+        yield return new WaitForSeconds(0.2f);
+        hitbox.enabled = true;
+    }
     
     private void deleteFile()
     {
@@ -25,7 +38,7 @@ public class STMG_File_Behavior : MonoBehaviour
     }
     private IEnumerator spawnFiles()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0);
 
         secondaryTarget = GameObject.Find("STMG_Secondary_Target");
 
@@ -36,8 +49,7 @@ public class STMG_File_Behavior : MonoBehaviour
 
         for (int i = 0; i < Random.Range(minFiles, maxFiles); i++)
         {
-            Debug.Log("instantiate");
-            GameObject file = Instantiate(filePrefab, spawnLocation, rotation);
+            GameObject file = Instantiate(filePrefab[Random.Range(0, 3)], spawnLocation, rotation);
             Destroy(file, lifespan);
 
             Vector3 secondaryTargetDirection = new Vector3();
