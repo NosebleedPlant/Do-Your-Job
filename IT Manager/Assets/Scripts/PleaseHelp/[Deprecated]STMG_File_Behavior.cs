@@ -12,7 +12,7 @@ public class STMG_File_Behavior : MonoBehaviour
     [SerializeField] private float lifespan;
     [SerializeField] private float maxVelocity;
     [SerializeField] private float minVelocity;
-    
+    [SerializeField] private GameStatusData gameData;
     private void Start()
     {
         hitbox = GetComponent<Collider2D>();
@@ -28,10 +28,12 @@ public class STMG_File_Behavior : MonoBehaviour
     private void deleteFile()
     {
         // this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        gameData.StorageGameData.DecreaseFill();
         Destroy(this.gameObject);
     }
     private void deleteFolder()
     {
+        gameData.StorageGameData.DecreaseFill();
         StartCoroutine(spawnFiles());
         // this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         

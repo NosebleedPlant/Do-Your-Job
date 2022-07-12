@@ -189,3 +189,4 @@ MonoBehaviour:
   lifespan: 4
   maxVelocity: 3
   minVelocity: 5
+  gameData: {fileID: 11400000, guid: 18938db552cc60948974b4d0ee943be4, type: 2}

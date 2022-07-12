@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e473326cd91c74f40890d03f34168121, type: 3}
+  m_Name: GameStatusData
+  m_EditorClassIdentifier: 
+  StorageGameData:
+    CurrentFill: 0.1648286
+    FillRate: 0.05
+    FillRateIncrease: 0.003
+    SpawnRate: 0
+    MaxReached: 0
+    FileReward: 0.1
+  ComplaintGameData:
+    ComplaintCount: 0
+    ComplaintRate: 0
+    MaxReached: 0

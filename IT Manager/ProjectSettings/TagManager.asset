@@ -11,6 +11,7 @@ TagManager:
   - NTMG_LeftEnd
   - NTMG_RightEnd
   - NTMG_StartButton
+  - STMG_Game
   layers:
   - Default
   - TransparentFX

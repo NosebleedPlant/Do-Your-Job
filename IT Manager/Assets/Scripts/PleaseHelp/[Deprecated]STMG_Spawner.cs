@@ -8,11 +8,11 @@ public class STMG_Spawner : MonoBehaviour
 
     [SerializeField] private GameObject[] filePrefabs;
 
-    [SerializeField] private GameObject target;
+    //[SerializeField] private GameObject target;
     [SerializeField] private GameObject initialTarget;
 
     public float minSpawnDelay = 0.5f;
-    public float maxSpawnDelay = 2.0f;
+    public float maxSpawnDelay = 1f;
 
     public float minVelocity = 8f;
     public float maxVelocity = 9f;
