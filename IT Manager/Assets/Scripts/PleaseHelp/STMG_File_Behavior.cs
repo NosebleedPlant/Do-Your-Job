@@ -63,7 +63,6 @@ public class STMG_File_Behavior : MonoBehaviour
 
             file.GetComponent<Rigidbody2D>().velocity = fileVelocity;
         }
-
         Destroy(this.gameObject);
     }
     private void OnTriggerEnter2D(Collider2D other)

@@ -31,7 +31,7 @@ public class NTMG_Manager : MonoBehaviour
         _lineRenderer = GetComponent<LineRenderer>();
         // _canvas = GetComponent<Canvas>();
         generatePortIpPairs();
-        wiresStartPosition = new Vector3(-3.5f, 4f, 5f);
+        //wiresStartPosition = new Vector3(-5f, 4f, 5f);-1.439999 2.53
         // for (int i = 0, j = 0; i < 5; i++)
         // {
         //     positionList.Add(new Vector3(7f, j, -6f));
@@ -69,7 +69,6 @@ public class NTMG_Manager : MonoBehaviour
             for (int j = 0; j < 4; j++)
             {
                 ipAddresses.Add(Random.Range(1, 255));
-                Debug.Log(ipAddresses[i*4 + j]);
             }
             portNumbers.Add(Random.Range(10, 1000));
         }
@@ -89,7 +88,7 @@ public class NTMG_Manager : MonoBehaviour
             wirePairs[i].transform.SetParent(this.transform);
             wirePairs[i].transform.localPosition = Vector3.zero;
             wirePairs[i].transform.localPosition += wiresStartPosition;
-            wiresStartPosition.y += -2;
+            wiresStartPosition.y -= 0.8f;
 
             GameObject rightChild = wirePairs[i].transform.GetChild(1).gameObject;
             // GameObject leftChild = wirePairs[i].transform.GetChild(0).gameObject;

@@ -533,7 +533,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224918711}
   m_Layer: 0
-  m_Name: ----------Minigames----------
+  m_Name: -----StandAloneMinigames-----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1097,7 +1097,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: 933dfaba9bb9a394d86d2c1e08c5cc0d, type: 2}
+  m_Texture: {fileID: 8400000, guid: 6159bd344e85b4d4099d33414eee8a28, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1991,8 +1991,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deleteToolCollider: {fileID: 564201928}
   dragToolCollider: {fileID: 1226091512}
-  activeGame: nt
-  stOffsetCord: {x: 0, y: 0, z: 0}
+  activeGame: st
+  StorageFrame: {fileID: 1120951630}
+  StorageMiniGame: {fileID: 1858598393}
   ntOffsetCord: {x: 0, y: 0, z: 0}
   scOffsetCord: {x: 0, y: 0, z: 0}
   csOffsetCord: {x: 0, y: 0, z: 0}

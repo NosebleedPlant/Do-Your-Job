@@ -11,10 +11,11 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Collider2D deleteToolCollider;
     [SerializeField] private Collider2D dragToolCollider;
     [SerializeField] private string activeGame;
-    [SerializeField] public Vector3 stOffsetCord;
-    [SerializeField] public Vector3 ntOffsetCord;
+    [SerializeField] private Transform StorageFrame;
+    [SerializeField] private Transform StorageMiniGame;
+    [SerializeField] private Transform NetwrokFrame;
+    [SerializeField] private Transform NetwrokMiniGame;
     [SerializeField] public Vector3 scOffsetCord;
-    [SerializeField] public Vector3 csOffsetCord;
     
     public GameObject canvas;
     private GraphicRaycaster uiRaycaster;
@@ -42,9 +43,6 @@ public class InputManager : MonoBehaviour
         uiRaycaster = canvas.GetComponent<GraphicRaycaster>();
         click_data = new PointerEventData(EventSystem.current);
         click_results = new List<RaycastResult>();
-
-        stOffsetCord = new Vector3(-50, 0, 0);
-        ntOffsetCord = new Vector3(50, 0, 0);
     }
 
     private void Update()
@@ -70,11 +68,18 @@ public class InputManager : MonoBehaviour
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(click_data.position);
                 if (activeGame == "st")
                 {
+                    //update the offset to make sure its correct
+                    Vector3 framePosition = StorageFrame.position;
+                    Vector3 gamePosition = StorageMiniGame.position;
+                    Vector3 stOffsetCord = gamePosition-framePosition;
                     worldPosition += stOffsetCord;
                     deleteAction(worldPosition);
                 }
                 else if (activeGame == "nt")
                 {
+                    Vector3 framePosition = NetwrokFrame.position;
+                    Vector3 gamePosition = NetwrokMiniGame.position;
+                    Vector3 ntOffsetCord = gamePosition-framePosition;
                     worldPosition += ntOffsetCord;
                     beginDrag(worldPosition);
                 }

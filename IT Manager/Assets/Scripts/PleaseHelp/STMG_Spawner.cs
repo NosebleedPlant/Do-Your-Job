@@ -17,7 +17,7 @@ public class STMG_Spawner : MonoBehaviour
     public float minVelocity = 8f;
     public float maxVelocity = 9f;
 
-    public float lifespan = 5.0f;
+    public float lifespan = 100.0f;
 
     private void Awake()
     {
