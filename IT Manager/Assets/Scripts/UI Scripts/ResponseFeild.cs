@@ -12,14 +12,14 @@ public class ResponseFeild : MonoBehaviour
     private Image ProgressBar;
     [SerializeField]
     private GameObject MinigameManager;
-    private TicketMiniGame _minigameManagerScript;
+    private Complaint_SubManager _minigameManagerScript;
     private static string _message = "Hello, this is XXXXX. I have resolved the issue you were facing. I thank you for you patience and apologize for the inconvinence";
     private static int maxLength = _message.Length;
     public bool completed = false;
 
     private void Awake()
     {
-        _minigameManagerScript = MinigameManager.GetComponent<TicketMiniGame>();
+        _minigameManagerScript = MinigameManager.GetComponent<Complaint_SubManager>();
         InputField.onValueChanged.AddListener(OnValueChange);
     }
 

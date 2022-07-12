@@ -28,12 +28,10 @@ public class STMG_File_Behavior : MonoBehaviour
     private void deleteFile()
     {
         // this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        gameData.StorageGameData.DecreaseFill();
         Destroy(this.gameObject);
     }
     private void deleteFolder()
     {
-        gameData.StorageGameData.DecreaseFill();
         StartCoroutine(spawnFiles());
         // this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         

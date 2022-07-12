@@ -10,21 +10,13 @@ public class Storage_SubManager : MonoBehaviour
     [SerializeField] public Collider2D InitialTargetArea;
     [SerializeField] private Collider2D SecondaryTargetArea;
     private Collider2D[] _spawnAreas;
-    public float minSpawnDelay = 0.5f;
-    public float maxSpawnDelay = 1f;
-    public float minVelocity = 1f;
-    public float maxVelocity = 2.5f;
 
     //GameState
     [SerializeField] public GameStatusData gameData;
-    private int _fileCount = 0;
-    private int _maxFileCount;
-    public int _fileInfolder = 3;
 
     private void Awake()
     {
         _spawnAreas = prefabContainer.GetComponents<Collider2D>();
-        _maxFileCount = 30;
     }
 
     private void OnEnable()
@@ -43,13 +35,13 @@ public class Storage_SubManager : MonoBehaviour
 
         while(enabled)
         {
-            if(_fileCount<_maxFileCount)
+            if(gameData.StorageGameData.FileCount<gameData.StorageGameData.MaxFileCount)
             {
                 Spawn();
-                _fileCount++;
+                gameData.StorageGameData.FileCount++;
             }
             
-            yield return new WaitForSeconds(Random.Range(minSpawnDelay, maxSpawnDelay));
+            yield return new WaitForSeconds(Random.Range(gameData.StorageGameData.MinSpawnDelay, gameData.StorageGameData.MaxSpawnDelay));
         }
     }
 
@@ -74,7 +66,7 @@ public class Storage_SubManager : MonoBehaviour
     public Vector2 CalculatePrefabVelocity(Vector2 position,bool child)
     {
         Collider2D targetArea = (child)?InitialTargetArea:SecondaryTargetArea;
-        float speed = Random.Range(minVelocity, maxVelocity);            
+        float speed = Random.Range(gameData.StorageGameData.CurrentSpeedRange.x, gameData.StorageGameData.CurrentSpeedRange.y);            
         Vector3 initialTargetDirection = new Vector3();
         initialTargetDirection.x = Random.Range(targetArea.bounds.min.x, SecondaryTargetArea.bounds.max.x);
         initialTargetDirection.y = Random.Range(targetArea.bounds.min.y, SecondaryTargetArea.bounds.max.y);
@@ -86,9 +78,9 @@ public class Storage_SubManager : MonoBehaviour
 
     public void HandleFileDeath()
     {
-        _fileCount--;
+        gameData.StorageGameData.FileCount--;
     }
 
     public void IncrementFileCount()
-    {_fileCount++;}
+    {gameData.StorageGameData.FileCount++;}
 }

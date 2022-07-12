@@ -8,6 +8,7 @@ public class Storage_FileBehaviour : MonoBehaviour
     protected Collider2D _hitbox;
     protected Storage_SubManager _manager;
     protected int _fileInfolder;
+    protected bool _resetable = false;
     bool childFile = false;
 
     protected void Awake()
@@ -16,7 +17,7 @@ public class Storage_FileBehaviour : MonoBehaviour
         _hitbox = GetComponent<Collider2D>();
         _manager = FindObjectOfType<Storage_SubManager>();
         _rigidBody.velocity = _manager.CalculatePrefabVelocity(transform.position,childFile);
-        _fileInfolder = _manager._fileInfolder;
+        _fileInfolder = 3;
         StartCoroutine(ActivateHitbox());
     }
     
@@ -33,9 +34,17 @@ public class Storage_FileBehaviour : MonoBehaviour
             DeletePrefab();
             return;
         }
-        if(other.CompareTag("STMG_Game"))
+        if(other.CompareTag("STMG_Game")&&_resetable)
         {
             Reset();
+        }
+    }
+
+    protected void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.CompareTag("STMG_Game"))
+        {
+            _resetable = true;
         }
     }
     

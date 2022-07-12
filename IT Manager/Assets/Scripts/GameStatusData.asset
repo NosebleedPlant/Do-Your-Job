@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: GameStatusData
   m_EditorClassIdentifier: 
   StorageGameData:
-    CurrentFill: 0.1648286
-    FillRate: 0.05
-    FillRateIncrease: 0.003
-    SpawnRate: 0
-    MaxReached: 0
-    FileReward: 0.1
+    _maxFileCount: 40
+    _minSpawnDelay: 0.5
+    _maxSpawnDelay: 1
+    _currentSpeedRange: {x: 2, y: 2.5}
+    MaxSpeedRange: {x: 3, y: 3.5}
   ComplaintGameData:
     ComplaintCount: 0
     ComplaintRate: 0
