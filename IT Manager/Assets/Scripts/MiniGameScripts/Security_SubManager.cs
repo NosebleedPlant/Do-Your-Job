@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Security_SubManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void start()
     {
-        
+        InputManagerV2.current.onMiniGameClickTirggerd +=test;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void test()
     {
-        
+        Debug.Log("hello");
     }
 }

@@ -8,15 +8,21 @@ using UnityEngine.EventSystems;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private InputActions playerControls;
-    [SerializeField] private Collider2D deleteToolCollider;
-    [SerializeField] private Collider2D dragToolCollider;
     [SerializeField] private string activeGame;
+    
     [SerializeField] private Transform StorageFrame;
     [SerializeField] private Transform StorageMiniGame;
+    [SerializeField] private Collider2D StoragePlayerObject;
+
     [SerializeField] private Transform NetwrokFrame;
     [SerializeField] private Transform NetwrokMiniGame;
-    [SerializeField] public Vector3 scOffsetCord;
-    
+    [SerializeField] private Collider2D dragToolCollider;
+
+    [SerializeField] private Transform SecurityFrame;
+    [SerializeField] private Transform SecurityMiniGame;
+    [SerializeField] private Transform SecurityPlayerObject;
+
+        
     public GameObject canvas;
     private GraphicRaycaster uiRaycaster;
     PointerEventData click_data;
@@ -90,8 +96,8 @@ public class InputManager : MonoBehaviour
 
     private void deleteAction(Vector2 deleteLocation)
     {
-        deleteToolCollider.transform.position = deleteLocation;
-        StartCoroutine(enableDeleteTool(0.1f, deleteToolCollider));
+        StoragePlayerObject.transform.position = deleteLocation;
+        StartCoroutine(enableDeleteTool(0.1f, StoragePlayerObject));
     }
 
     private void beginDrag(Vector2 dragLocation)
