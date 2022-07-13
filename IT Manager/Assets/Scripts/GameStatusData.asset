@@ -16,9 +16,14 @@ MonoBehaviour:
     _maxFileCount: 40
     _minSpawnDelay: 0.5
     _maxSpawnDelay: 1
-    _currentSpeedRange: {x: 2, y: 2.5}
+    _currentSpeedRange: {x: 3, y: 3.5}
     MaxSpeedRange: {x: 3, y: 3.5}
+    _fileCount: 36
   ComplaintGameData:
-    ComplaintCount: 0
-    ComplaintRate: 0
-    MaxReached: 0
+    _spawnRate: 0.5
+    _maxComplaintCount: 100
+    _maxReached: 1
+    _visableMaxCount: 4
+    _maxVisableReached: 1
+    _complaintCount: 100
+    _currentVisableCount: 4
