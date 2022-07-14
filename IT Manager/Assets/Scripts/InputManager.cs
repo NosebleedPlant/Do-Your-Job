@@ -29,32 +29,21 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        if(_held)
-        {
-            GameInputRecived(NetwrokMiniGame.dragWire);
-            // Debug.Log("held");
-        }
 
         if(Input.GetMouseButtonDown(0))
         {
-            Debug.Log("clicked");
+            GameInputRecived(NetwrokMiniGame.checkMaking);
+            GameInputRecived(StorageMiniGame.movePlayerObject);
         }
         if(Input.GetMouseButton(0))
         {
-            Debug.Log("held");
+            GameInputRecived(NetwrokMiniGame.dragWire);
+            GameInputRecived(SecurityMiniGame.movePlayerObject);
         }
         if(Input.GetMouseButtonUp(0))
         {
-            Debug.Log("released");
+            NetwrokMiniGame.ClearConnection();
         }
-    }
-
-    public void OnClick(InputAction.CallbackContext context)
-    {
-        if(context.performed)
-        {GameInputRecived(NetwrokMiniGame.checkMaking); _held=true;}
-        if(context.canceled)
-        {NetwrokMiniGame.ClearConnection(); _held=false;Debug.Log("released");}
     }
 
     private void GameInputRecived(Action<Vector3> func)

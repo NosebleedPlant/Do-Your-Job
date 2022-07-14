@@ -36,18 +36,21 @@ public class Network_SubManager : MonoBehaviour
         if(_makingConnection && _activeNode!=null)
         {
             position += transform.position -_framePosition;
+
             Collider2D overlap = Physics2D.OverlapPoint(position);
             if( overlap!=null
                 &&_activeNode!=null
                 &&overlap.transform.CompareTag("NTMG_RightEnd")
-                &&_activeNode.Port== overlap.transform.GetComponent<Network_PortNumber>().portNumber
-            )
+                &&_activeNode.Port== overlap.transform.GetComponent<Network_PortNumber>().portNumber)
             {
-                 _activeNode.FreezConnection(position);
-                //Debug.Log("test");
+                _activeNode.FreezConnection(position);
+                _activeNode=null;
+            }
+            else
+            {
+                _activeNode.SetConnection(position,false);
             }
             
-            _activeNode.SetConnection(position);
         }
     }
 
@@ -57,23 +60,12 @@ public class Network_SubManager : MonoBehaviour
         position += transform.position -_framePosition;
 
         Collider2D overlap = Physics2D.OverlapPoint(position);
-        if(overlap!=null)
+        if( overlap!=null
+            &&overlap.transform.CompareTag("NTMG_LeftEnd"))
         {
-            if(overlap.transform.CompareTag("NTMG_LeftEnd"))
-            {
-                _makingConnection =  true;
-                _activeNode = overlap.transform.GetComponent<Network_ConnectionRenderer>();
-            }
+            _makingConnection =  true;
+            _activeNode = overlap.transform.GetComponent<Network_ConnectionRenderer>();
         }
-
-        // position += transform.position -_framePosition;
-
-        // Collider2D overlap = Physics2D.OverlapPoint(position);
-        // if(overlap!=null && overlap.transform.CompareTag("NTMG_LeftEnd"))
-        // {
-        //     _makingConnection =  true;
-        //     _activeNode = overlap.transform.GetComponent<Network_ConnectionRenderer>();
-        // }
     }
 
     public void ClearConnection()
@@ -81,8 +73,7 @@ public class Network_SubManager : MonoBehaviour
         _makingConnection=false;
         if(_activeNode!=null)
         {
-            _activeNode.Ends[1] = Vector2.zero;
-            _activeNode=null;
+            _activeNode.SetConnection(Vector2.negativeInfinity,true);
         }
     }
 
@@ -102,25 +93,45 @@ public class Network_SubManager : MonoBehaviour
         }
     }
 
+
     private void InstancePortIP_Pairs()
     {
         Vector2 offsetPort = new Vector2(0f,0.9f);
         Vector2 offsetIP = new Vector2(0f,0.9f);
-        for (int i = 0; i < (_pairCount/2); i++)
-        {
-            Vector2 positionPort = (_startingPositionPort + (offsetPort*i));
-            Vector2 positionIP = (_startingPositionIP + (offsetIP*i));
-            Network_PortNumber port = Instantiate(PortPrefab,positionPort,Quaternion.identity,PrefabContainer);
-            Network_ConnectionRenderer ip = Instantiate(IpPrefab,positionIP,Quaternion.identity,PrefabContainer);
-            ip.Port = i;
-            port.portNumber = i;
+        // for (int i = 0; i < (_pairCount/2); i++)
+        // {
+        //     Vector2 positionPort = (_startingPositionPort + (offsetPort*i));
+        //     Vector2 positionIP = (_startingPositionIP + (offsetIP*i));
+        //     Network_PortNumber port = Instantiate(PortPrefab,positionPort,Quaternion.identity,PrefabContainer);
+        //     Network_ConnectionRenderer ip = Instantiate(IpPrefab,positionIP,Quaternion.identity,PrefabContainer);
+        //     ip.Port = i;
+        //     port.portNumber = i;
 
-            positionPort = (_startingPositionPort - (offsetPort*i));
-            positionIP = (_startingPositionIP - (offsetIP*i));
-            port = Instantiate(PortPrefab,positionPort,Quaternion.identity,PrefabContainer);
-            ip = Instantiate(IpPrefab,positionIP,Quaternion.identity,PrefabContainer);
+        //     positionPort = (_startingPositionPort - (offsetPort*i));
+        //     positionIP = (_startingPositionIP - (offsetIP*i));
+        //     port = Instantiate(PortPrefab,positionPort,Quaternion.identity,PrefabContainer);
+        //     ip = Instantiate(IpPrefab,positionIP,Quaternion.identity,PrefabContainer);
+        //     ip.Port = i;
+        //     port.portNumber = i;
+
+        //     FindSpawn();
+        // }
+
+        for (int i = 0; i < (_pairCount); i++)
+        {
+            Vector2 position = FindSpawn();
+            Network_PortNumber port = Instantiate(PortPrefab,position,Quaternion.identity,PrefabContainer);
+            position = FindSpawn();
+            Network_ConnectionRenderer ip = Instantiate(IpPrefab,position,Quaternion.identity,PrefabContainer);
             ip.Port = i;
             port.portNumber = i;
         }
+    }
+
+    private Vector2 FindSpawn()
+    {
+        //setup grid at runtime
+        //randomly pick
+        return Vector2.zero;
     }
 }
