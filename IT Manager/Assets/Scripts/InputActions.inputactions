@@ -2,25 +2,16 @@
     "name": "InputActions",
     "maps": [
         {
-            "name": "Normal",
+            "name": "InGame",
             "id": "b200ec51-54f7-4f04-908e-e030728ec3fb",
             "actions": [
                 {
                     "name": "MouseClick",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "1b5cc158-937c-4fd0-a986-df7663633d12",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "MouseOffset",
-                    "type": "Value",
-                    "id": "e0b603f1-37c2-4090-b3b3-ca76d5a281ed",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
+                    "interactions": "Press,Hold",
                     "initialStateCheck": true
                 }
             ],
@@ -29,21 +20,10 @@
                     "name": "",
                     "id": "7ad96b25-d55f-4e7c-8790-381ac6e14e24",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Press(behavior=2),Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a88aa39b-509c-4f8e-a3b3-9659b5234663",
-                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MouseOffset",
+                    "action": "MouseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

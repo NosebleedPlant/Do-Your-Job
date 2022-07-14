@@ -5,25 +5,36 @@ using UnityEngine;
 public class Network_ConnectionRenderer : MonoBehaviour
 {
     [SerializeField] private LineRenderer Connection;
+    [SerializeField] public int Port;
     private const int ENDCOUNT = 2;
-    private Vector2[] _ends = new Vector2[ENDCOUNT];
+    public Vector2[] Ends = new Vector2[ENDCOUNT];
+    private bool _connected = false;
 
     private void Awake()
     {
-        _ends=new Vector2[]{Vector2.zero,Vector2.zero};
+        Ends=new Vector2[]{Vector2.zero,Vector2.zero};
     }
 
     private void Update()
     {
-        for(int i=0;i<ENDCOUNT;i++)
+        if(!_connected)
         {
-            Connection.SetPosition(i,_ends[i]);
+            Connection.SetPosition(1,Ends[1]);
         }
     }
 
     public void SetConnection(Vector2 end)
     {
         end = transform.InverseTransformPoint(end);
-        _ends[1] = end;
+        Ends[1] = end;
+    }
+
+    public void FreezConnection(Vector2 end)
+    {
+        Connection.SetPosition(1,end);
+        Ends[1] = end;
+        Connection.startColor = new Color(84f,220f,147f,0f);
+        Connection.endColor = new Color(84f,220f,147f,0f);
+        _connected = true;
     }
 }

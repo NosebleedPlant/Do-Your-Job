@@ -24,25 +24,16 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     ""name"": ""InputActions"",
     ""maps"": [
         {
-            ""name"": ""Normal"",
+            ""name"": ""InGame"",
             ""id"": ""b200ec51-54f7-4f04-908e-e030728ec3fb"",
             ""actions"": [
                 {
                     ""name"": ""MouseClick"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""1b5cc158-937c-4fd0-a986-df7663633d12"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""MouseOffset"",
-                    ""type"": ""Value"",
-                    ""id"": ""e0b603f1-37c2-4090-b3b3-ca76d5a281ed"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press,Hold"",
                     ""initialStateCheck"": true
                 }
             ],
@@ -51,21 +42,10 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""7ad96b25-d55f-4e7c-8790-381ac6e14e24"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Press(behavior=2),Hold"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouseClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a88aa39b-509c-4f8e-a3b3-9659b5234663"",
-                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MouseOffset"",
+                    ""action"": ""MouseClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -74,10 +54,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // Normal
-        m_Normal = asset.FindActionMap("Normal", throwIfNotFound: true);
-        m_Normal_MouseClick = m_Normal.FindAction("MouseClick", throwIfNotFound: true);
-        m_Normal_MouseOffset = m_Normal.FindAction("MouseOffset", throwIfNotFound: true);
+        // InGame
+        m_InGame = asset.FindActionMap("InGame", throwIfNotFound: true);
+        m_InGame_MouseClick = m_InGame.FindAction("MouseClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -134,49 +113,40 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Normal
-    private readonly InputActionMap m_Normal;
-    private INormalActions m_NormalActionsCallbackInterface;
-    private readonly InputAction m_Normal_MouseClick;
-    private readonly InputAction m_Normal_MouseOffset;
-    public struct NormalActions
+    // InGame
+    private readonly InputActionMap m_InGame;
+    private IInGameActions m_InGameActionsCallbackInterface;
+    private readonly InputAction m_InGame_MouseClick;
+    public struct InGameActions
     {
         private @InputActions m_Wrapper;
-        public NormalActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MouseClick => m_Wrapper.m_Normal_MouseClick;
-        public InputAction @MouseOffset => m_Wrapper.m_Normal_MouseOffset;
-        public InputActionMap Get() { return m_Wrapper.m_Normal; }
+        public InGameActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MouseClick => m_Wrapper.m_InGame_MouseClick;
+        public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(NormalActions set) { return set.Get(); }
-        public void SetCallbacks(INormalActions instance)
+        public static implicit operator InputActionMap(InGameActions set) { return set.Get(); }
+        public void SetCallbacks(IInGameActions instance)
         {
-            if (m_Wrapper.m_NormalActionsCallbackInterface != null)
+            if (m_Wrapper.m_InGameActionsCallbackInterface != null)
             {
-                @MouseClick.started -= m_Wrapper.m_NormalActionsCallbackInterface.OnMouseClick;
-                @MouseClick.performed -= m_Wrapper.m_NormalActionsCallbackInterface.OnMouseClick;
-                @MouseClick.canceled -= m_Wrapper.m_NormalActionsCallbackInterface.OnMouseClick;
-                @MouseOffset.started -= m_Wrapper.m_NormalActionsCallbackInterface.OnMouseOffset;
-                @MouseOffset.performed -= m_Wrapper.m_NormalActionsCallbackInterface.OnMouseOffset;
-                @MouseOffset.canceled -= m_Wrapper.m_NormalActionsCallbackInterface.OnMouseOffset;
+                @MouseClick.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnMouseClick;
+                @MouseClick.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnMouseClick;
+                @MouseClick.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnMouseClick;
             }
-            m_Wrapper.m_NormalActionsCallbackInterface = instance;
+            m_Wrapper.m_InGameActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @MouseClick.started += instance.OnMouseClick;
                 @MouseClick.performed += instance.OnMouseClick;
                 @MouseClick.canceled += instance.OnMouseClick;
-                @MouseOffset.started += instance.OnMouseOffset;
-                @MouseOffset.performed += instance.OnMouseOffset;
-                @MouseOffset.canceled += instance.OnMouseOffset;
             }
         }
     }
-    public NormalActions @Normal => new NormalActions(this);
-    public interface INormalActions
+    public InGameActions @InGame => new InGameActions(this);
+    public interface IInGameActions
     {
         void OnMouseClick(InputAction.CallbackContext context);
-        void OnMouseOffset(InputAction.CallbackContext context);
     }
 }
