@@ -22,5 +22,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void OnDisable()
-    {}
+    {
+        _gameData.ResetData();
+    }
 }

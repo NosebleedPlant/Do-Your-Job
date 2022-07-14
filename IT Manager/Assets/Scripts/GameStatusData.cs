@@ -2,34 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 
 [CreateAssetMenu(fileName = "GameStatusData", menuName = "")]
 public class GameStatusData : ScriptableObject
-{
+{    
     private double time;
-    public StorageMiniGameData StorageGameData;
-    public ComplaintMiniGameData ComplaintGameData;
+    [SerializeField]public StorageMiniGameData StorageGameData;
+    [SerializeField]public ComplaintMiniGameData ComplaintGameData;
+    [SerializeField]public SecurityMiniGameData SecurityGameData;
+
+    public void ResetData()
+    {
+        Debug.Log("reset");
+        time = 0;
+        StorageGameData = new StorageMiniGameData();
+        ComplaintGameData = new ComplaintMiniGameData();
+        SecurityGameData = new SecurityMiniGameData();
+    }
 }
 
 [Serializable]
 public class StorageMiniGameData
 {
-    [SerializeField]private int _maxFileCount = 40;
-    public int MaxFileCount{get=>_maxFileCount;}
-    [SerializeField]private float _minSpawnDelay = 0.5f;
+    private float _minSpawnDelay = 0.5f;
     public float MinSpawnDelay{get=>_minSpawnDelay;}
-    [SerializeField]private float _maxSpawnDelay = 1f;
+    private float _maxSpawnDelay = 1f;
     public float MaxSpawnDelay{get=>_maxSpawnDelay;}
-    [SerializeField]private Vector2 _currentSpeedRange = new Vector2(2f,2.5f);
+
+    private Vector2 _currentSpeedRange = new Vector2(2f,2.5f);
     public Vector2 CurrentSpeedRange{get=>_currentSpeedRange;}
-    [SerializeField]private Vector2 MaxSpeedRange = new Vector2(3f,3.5f);
+    private Vector2 MaxSpeedRange = new Vector2(3f,4f);
+
+    private int _maxFileCount = 40;
+    public int MaxFileCount{get=>_maxFileCount;}
     private bool _maxReached = false;
     public bool MaxReached{get=>_maxReached;}
     private float _currentFill = 0;
     public float CurrentFill{get=>_currentFill;}
     
-    [SerializeField]private int _fileCount = 0;
+    private int _fileCount = 0;
     public int FileCount
     {
         get => _fileCount;
@@ -53,20 +66,20 @@ public class StorageMiniGameData
 [Serializable]
 public class ComplaintMiniGameData
 {
-    [SerializeField]private float _spawnRate = 2f;
+    private float _spawnRate = 2f;
     public float SpawnRate{get=>_spawnRate;}
 
-    [SerializeField]private int _maxComplaintCount = 10;
+    private int _maxComplaintCount = 10;
     public float MaxComplaintCount{get=>_maxComplaintCount;}
-    [SerializeField]private bool _maxReached = false;
+    private bool _maxReached = false;
     public bool MaxReached{get=>_maxReached;}
 
-    [SerializeField]private int _visableMaxCount = 4;
+    private int _visableMaxCount = 4;
     public float VisableMaxCount{get=>_visableMaxCount;}
-    [SerializeField]private bool _maxVisableReached = false;
+    private bool _maxVisableReached = false;
     public bool MaxVisableReached{get=>_maxVisableReached;}
 
-    [SerializeField]private int _complaintCount = 0;
+    private int _complaintCount = 0;
     public int ComplaintCount
     {
         get => _complaintCount;
@@ -78,7 +91,7 @@ public class ComplaintMiniGameData
         }
     }
 
-    [SerializeField]private int _currentVisableCount = 0;
+    private int _currentVisableCount = 0;
     public int CurrentVisableCount
     {
         get => _currentVisableCount;
@@ -87,6 +100,39 @@ public class ComplaintMiniGameData
             _currentVisableCount=value;
             _currentVisableCount = Mathf.Clamp(_currentVisableCount,0,_visableMaxCount);
             _maxVisableReached = (_currentVisableCount>=VisableMaxCount)?true:false;
+        }
+    }
+}
+
+[Serializable]
+public class SecurityMiniGameData
+{
+    private float _minSpawnDelay = 0.5f;
+    public float MinSpawnDelay{get=>_minSpawnDelay;}
+    private float _maxSpawnDelay = 1f;
+    public float MaxSpawnDelay{get=>_maxSpawnDelay;}
+
+    private Vector2 _currentSpeedRange = new Vector2(2f,2.5f);
+    public Vector2 CurrentSpeedRange{get=>_currentSpeedRange;}
+    private Vector2 MaxSpeedRange = new Vector2(3f,3.5f);
+
+    private int _maxVirusCount = 40;
+    public int MaxVirusCount{get=>_maxVirusCount;}
+    private bool _maxReached = false;
+    public bool MaxReached{get=>_maxReached;}
+    private float _currentFill = 0;
+    public float CurrentFill{get=>_currentFill;}
+    
+    private int _virusCount = 0;
+    public int VirusCount
+    {
+        get => _virusCount;
+        set
+        {
+            _virusCount=value;
+            _virusCount = Mathf.Clamp(_virusCount,0,_maxVirusCount);
+            _currentFill = (float)_virusCount/MaxVirusCount;
+            _maxReached = (_virusCount>=MaxVirusCount)?true:false;
         }
     }
 }

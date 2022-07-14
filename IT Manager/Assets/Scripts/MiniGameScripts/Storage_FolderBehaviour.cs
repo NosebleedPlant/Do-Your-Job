@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class Storage_FolderBehaviour : Storage_FileBehaviour
 {    
-    override public void DeletePrefab()
-    {
-        StartCoroutine(SpawnThenDie());
-    }
+    override public void DeletePrefab() => StartCoroutine(SpawnThenDie());
 
     private IEnumerator SpawnThenDie()
     {

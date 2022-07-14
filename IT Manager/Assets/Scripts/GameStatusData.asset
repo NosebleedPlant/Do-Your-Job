@@ -12,18 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e473326cd91c74f40890d03f34168121, type: 3}
   m_Name: GameStatusData
   m_EditorClassIdentifier: 
-  StorageGameData:
-    _maxFileCount: 40
-    _minSpawnDelay: 0.5
-    _maxSpawnDelay: 1
-    _currentSpeedRange: {x: 2.9999998, y: 3.4999998}
-    MaxSpeedRange: {x: 3, y: 3.5}
-    _fileCount: 2
-  ComplaintGameData:
-    _spawnRate: 2
-    _maxComplaintCount: 10
-    _maxReached: 0
-    _visableMaxCount: 4
-    _maxVisableReached: 0
-    _complaintCount: 0
-    _currentVisableCount: 0

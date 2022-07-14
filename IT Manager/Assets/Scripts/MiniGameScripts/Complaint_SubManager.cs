@@ -12,15 +12,9 @@ public class Complaint_SubManager : MonoBehaviour
     private List<Transform> _tickets = new List<Transform>();
     private int ticketNumber = 203236;
 
-    private void OnEnable()
-    {
-        StartCoroutine(SpawnRoutine());
-    }
+    private void OnEnable() =>  StartCoroutine(SpawnRoutine());
 
-    private void OnDisable()
-    {
-        StopAllCoroutines();
-    }
+    private void OnDisable() =>  StopAllCoroutines();
 
     private IEnumerator SpawnRoutine()
     {

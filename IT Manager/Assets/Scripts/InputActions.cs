@@ -51,7 +51,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""7ad96b25-d55f-4e7c-8790-381ac6e14e24"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2),Hold"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MouseClick"",

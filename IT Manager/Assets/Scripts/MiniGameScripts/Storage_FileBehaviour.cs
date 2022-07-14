@@ -9,32 +9,33 @@ public class Storage_FileBehaviour : MonoBehaviour
     protected Storage_SubManager _manager;
     protected int _fileInfolder;
     protected bool _resetable = false;
+    bool _invo = true;
     bool childFile = false;
 
     protected void Awake()
     {
         _rigidBody = transform.GetComponent<Rigidbody2D>();
-        _hitbox = GetComponent<Collider2D>();
         _manager = FindObjectOfType<Storage_SubManager>();
         _rigidBody.velocity = _manager.CalculatePrefabVelocity(transform.position,childFile);
         _fileInfolder = 3;
         StartCoroutine(ActivateHitbox());
     }
+
+    protected void OnDisable() => StopAllCoroutines();
     
     protected IEnumerator ActivateHitbox()
     {
         yield return new WaitForSeconds(0.2f);
-        _hitbox.enabled = true;
+        _invo = false;
     }
 
     protected void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")&&!_invo)
         {
             DeletePrefab();
-            return;
         }
-        if(other.CompareTag("STMG_Game")&&_resetable)
+        if(other.CompareTag("STMG_Game"))
         {
             Reset();
         }
@@ -60,10 +61,5 @@ public class Storage_FileBehaviour : MonoBehaviour
         Vector2 velocity = _manager.CalculatePrefabVelocity(position,_manager.InitialTargetArea);
         _rigidBody.velocity = velocity;
         transform.position = position;
-    }
-
-    protected void OnDisable()
-    {
-        StopAllCoroutines();
     }
 }
