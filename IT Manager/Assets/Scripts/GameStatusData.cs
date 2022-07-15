@@ -26,10 +26,10 @@ public class GameStatusData : ScriptableObject
 [Serializable]
 public class StorageMiniGameData
 {
+    private float _currentDelay = 0.5f;
+    public float CurrentSpawnDelay{get=>_currentDelay;}
     private float _minSpawnDelay = 0.5f;
-    public float MinSpawnDelay{get=>_minSpawnDelay;}
     private float _maxSpawnDelay = 1f;
-    public float MaxSpawnDelay{get=>_maxSpawnDelay;}
 
     private Vector2 _currentSpeedRange = new Vector2(2f,2.5f);
     public Vector2 CurrentSpeedRange{get=>_currentSpeedRange;}
@@ -53,6 +53,7 @@ public class StorageMiniGameData
             _currentFill = (float)_fileCount/MaxFileCount;
             _maxReached = (_fileCount>=MaxFileCount)?true:false;
             UpdateSpeedRange();
+            UpdateSpawnDelay();
         }
     }
 
@@ -60,6 +61,11 @@ public class StorageMiniGameData
     {
         _currentSpeedRange.x = Mathf.Lerp(_currentSpeedRange.x,MaxSpeedRange.x,CurrentFill);
         _currentSpeedRange.y = Mathf.Lerp(_currentSpeedRange.y,MaxSpeedRange.y,CurrentFill);
+    }
+
+    public void UpdateSpawnDelay()
+    {
+        _currentSpeedRange.x = Mathf.Lerp(_minSpawnDelay,_maxSpawnDelay,CurrentFill);
     }
 }
 

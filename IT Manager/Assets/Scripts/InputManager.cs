@@ -8,13 +8,13 @@ using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private string activeGame;
-    
+    [SerializeField] private GameManager mainManager;
     [SerializeField] private Storage_SubManager StorageMiniGame;
     [SerializeField] private Network_SubManager NetwrokMiniGame;
     [SerializeField] private Security_SubManager SecurityMiniGame;
     [SerializeField] private GameObject Canvas;
-
+    private InputActions playerControls;
+    
     private bool _held = false;
     private PointerEventData _mouseEventData;
     private GraphicRaycaster _uiRaycaster;
@@ -27,9 +27,8 @@ public class InputManager : MonoBehaviour
         _click_results = new List<RaycastResult>();
     }
 
-    private void Update()
+    public void MouseEvent()
     {
-
         if(Input.GetMouseButtonDown(0))
         {
             GameInputRecived(NetwrokMiniGame.checkMaking);

@@ -11,8 +11,10 @@ public class Storage_SubManager : MonoBehaviour
     [SerializeField] public Collider2D InitialTargetArea;
     [SerializeField] private Collider2D SecondaryTargetArea;
     private Collider2D[] _spawnAreas;
-    private Vector3 _framePosition;
+    private Transform _frame;
     private Collider2D _playerObject;
+    public float shakeAmount;
+    [SerializeField] Transform debug;
 
     //GameState
     [SerializeField] public GameStatusData gameData;
@@ -20,7 +22,7 @@ public class Storage_SubManager : MonoBehaviour
     private void Awake()
     {
         _spawnAreas = prefabContainer.GetComponents<Collider2D>();
-        _framePosition = GameObject.Find("StorageFrame").transform.position;
+        _frame = GameObject.Find("StorageFrame").GetComponent<Transform>();
         _playerObject = GameObject.Find("STMG_PlayerObject").GetComponent<Collider2D>();
         movePlayerObject = _MovePlayerObject;
     }
@@ -41,7 +43,7 @@ public class Storage_SubManager : MonoBehaviour
                 gameData.StorageGameData.FileCount++;
             }
             
-            yield return new WaitForSeconds(UnityEngine.Random.Range(gameData.StorageGameData.MinSpawnDelay, gameData.StorageGameData.MaxSpawnDelay));
+            yield return new WaitForSeconds(gameData.StorageGameData.CurrentSpawnDelay);
         }
     }
 
@@ -76,16 +78,37 @@ public class Storage_SubManager : MonoBehaviour
         return direction.normalized * speed;
     }
 
-    public void HandleFileDeath() => gameData.StorageGameData.FileCount--;
+    public void HandleFileDeath() 
+    {
+        gameData.StorageGameData.FileCount--;
+        StartCoroutine(Shake());
+    }
+
+    private IEnumerator Shake()
+    {
+        float timer = 0;
+        float max = 0.1f;
+        Vector3 originalPosition = _frame.position;
+        while (timer<max)
+        {
+            Debug.Log("clicked");
+            timer += Time.deltaTime;
+            Vector3 offset = UnityEngine.Random.insideUnitCircle*(Time.deltaTime*shakeAmount);
+            _frame.position+=offset;
+            yield return null;
+        }
+        _frame.position = originalPosition;
+    }
 
     public void IncrementFileCount() => gameData.StorageGameData.FileCount++;
 
     public Action<Vector3>movePlayerObject;
     private void _MovePlayerObject(Vector3 position)
     {
-        position += transform.position -_framePosition;
+        position += transform.position -_frame.transform.position;
         _playerObject.transform.position = position;
         StartCoroutine(enableDeleteTool());
+        
     }
 
     private IEnumerator enableDeleteTool()

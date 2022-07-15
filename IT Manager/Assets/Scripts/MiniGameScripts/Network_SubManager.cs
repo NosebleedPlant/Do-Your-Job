@@ -10,23 +10,17 @@ public class Network_SubManager : MonoBehaviour
     [SerializeField] private Network_PortNumber PortPrefab;
     [SerializeField] private Network_ConnectionRenderer IpPrefab;
     [SerializeField] private Transform PrefabContainer;
-    [SerializeField] private List<int> _ipAddresses;
-    [SerializeField] private List<int> _portNumbers;
-    [SerializeField] private Camera miniCam;
-    private Vector2 _startingPositionPort= new Vector2(1.4f,0f);
-    private Vector2 _startingPositionIP = new Vector2(-1.4f,0f);
+    private Network_ConnectionRenderer _activeNode;
     private Vector3 _framePosition;
     private int _pairCount=6;
     private bool _makingConnection = false;
-    private Network_ConnectionRenderer _activeNode;
 
     private void Awake()
     {
         dragWire = _DragWire;
         checkMaking = _CheckMaking;
         _framePosition = GameObject.Find("NetworkFrame").transform.position;
-        _startingPositionPort = PrefabContainer.TransformPoint(_startingPositionPort);
-        _startingPositionIP = PrefabContainer.TransformPoint(_startingPositionIP);
+        GenerateSpawnPoints();
         InstancePortIP_Pairs();
     }
 
@@ -76,62 +70,57 @@ public class Network_SubManager : MonoBehaviour
             _activeNode.SetConnection(Vector2.negativeInfinity,true);
         }
     }
+    
+    List<Vector2> spawnGrid = new List<Vector2>();
 
-    private void GeneratePortIP_Pairs()
+    public void GenerateSpawnPoints()
     {
-        _ipAddresses.Clear();
-        _portNumbers.Clear();
-
-        for (int i = 0; i < _pairCount; i++)
+        float y = transform.position.y-2.4f;
+        for(int i=0;i<4;i++)
         {
-            
-            for (int j = 0; j < 4; j++)
+            float x = transform.position.x-2.4f;
+            y+=1f;
+            for(int j=0;j<4;j++)
             {
-                _ipAddresses.Add(UnityEngine.Random.Range(1, 255));
+                x+=1f;
+                spawnGrid.Add(transform.InverseTransformDirection(new Vector2(x,y)));
             }
-            _portNumbers.Add(UnityEngine.Random.Range(10, 1000));
         }
     }
-
-
-    private void InstancePortIP_Pairs()
+    
+    public void InstancePortIP_Pairs()
     {
-        Vector2 offsetPort = new Vector2(0f,0.9f);
-        Vector2 offsetIP = new Vector2(0f,0.9f);
-        // for (int i = 0; i < (_pairCount/2); i++)
-        // {
-        //     Vector2 positionPort = (_startingPositionPort + (offsetPort*i));
-        //     Vector2 positionIP = (_startingPositionIP + (offsetIP*i));
-        //     Network_PortNumber port = Instantiate(PortPrefab,positionPort,Quaternion.identity,PrefabContainer);
-        //     Network_ConnectionRenderer ip = Instantiate(IpPrefab,positionIP,Quaternion.identity,PrefabContainer);
-        //     ip.Port = i;
-        //     port.portNumber = i;
-
-        //     positionPort = (_startingPositionPort - (offsetPort*i));
-        //     positionIP = (_startingPositionIP - (offsetIP*i));
-        //     port = Instantiate(PortPrefab,positionPort,Quaternion.identity,PrefabContainer);
-        //     ip = Instantiate(IpPrefab,positionIP,Quaternion.identity,PrefabContainer);
-        //     ip.Port = i;
-        //     port.portNumber = i;
-
-        //     FindSpawn();
-        // }
 
         for (int i = 0; i < (_pairCount); i++)
-        {
-            Vector2 position = FindSpawn();
-            Network_PortNumber port = Instantiate(PortPrefab,position,Quaternion.identity,PrefabContainer);
-            position = FindSpawn();
-            Network_ConnectionRenderer ip = Instantiate(IpPrefab,position,Quaternion.identity,PrefabContainer);
+        {            
+            Network_PortNumber port = Instantiate(PortPrefab,FindSpawn(),Quaternion.identity,PrefabContainer);
+            Network_ConnectionRenderer ip = Instantiate(IpPrefab,FindSpawn(),Quaternion.identity,PrefabContainer);
             ip.Port = i;
             port.portNumber = i;
         }
     }
 
+    public void GeneratePortIP_Pairs()
+    {
+        List<int> ipList = new List<int>();
+        List<int> portList = new List<int>();
+        
+        for (int i = 0; i < _pairCount; i++)
+        {
+            
+            for (int j = 0; j < 4; j++)
+            {
+                ipList.Add(UnityEngine.Random.Range(1, 255));
+            }
+            portList.Add(UnityEngine.Random.Range(10, 1000));
+        }
+    }
+
     private Vector2 FindSpawn()
     {
-        //setup grid at runtime
-        //randomly pick
-        return Vector2.zero;
-    }
+        int index = UnityEngine.Random.Range(0,spawnGrid.Count);
+        Vector2 postion = spawnGrid[index];
+        spawnGrid.RemoveAt(index);
+        return postion;
+    }    
 }

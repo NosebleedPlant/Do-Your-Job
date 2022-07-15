@@ -19,7 +19,6 @@ public class Security_VirusBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collsiion)
     {
-        Debug.Log("collide");
         if (collsiion.transform.CompareTag("Player"))
         {
             //do proper calculation here
