@@ -11,7 +11,7 @@ public class Network_SubManager : MonoBehaviour
     [SerializeField] private Network_ConnectionRenderer IpPrefab;
     [SerializeField] private Transform PrefabContainer;
     private Network_ConnectionRenderer _activeNode;
-    private Vector3 _framePosition;
+    private Transform _frame;
     private int _pairCount=6;
     private bool _makingConnection = false;
 
@@ -19,7 +19,7 @@ public class Network_SubManager : MonoBehaviour
     {
         dragWire = _DragWire;
         checkMaking = _CheckMaking;
-        _framePosition = GameObject.Find("NetworkFrame").transform.position;
+        _frame = GameObject.Find("NetworkFrame").transform;
         GenerateSpawnPoints();
         InstancePortIP_Pairs();
     }
@@ -27,9 +27,10 @@ public class Network_SubManager : MonoBehaviour
     public Action<Vector3> dragWire;
     private void _DragWire(Vector3 position)
     {
+        Debug.Log("called2");
         if(_makingConnection && _activeNode!=null)
         {
-            position += transform.position -_framePosition;
+            position += transform.position -_frame.position;
 
             Collider2D overlap = Physics2D.OverlapPoint(position);
             if( overlap!=null
@@ -51,7 +52,8 @@ public class Network_SubManager : MonoBehaviour
     public Action<Vector3> checkMaking;
     private void _CheckMaking(Vector3 position)
     {
-        position += transform.position -_framePosition;
+        Debug.Log("called1");
+        position += transform.position -_frame.position;
 
         Collider2D overlap = Physics2D.OverlapPoint(position);
         if( overlap!=null
@@ -122,5 +124,5 @@ public class Network_SubManager : MonoBehaviour
         Vector2 postion = spawnGrid[index];
         spawnGrid.RemoveAt(index);
         return postion;
-    }    
+    }
 }

@@ -7,19 +7,37 @@ using System.Linq;
 
 [CreateAssetMenu(fileName = "GameStatusData", menuName = "")]
 public class GameStatusData : ScriptableObject
-{    
-    private double time;
+{
     [SerializeField]public StorageMiniGameData StorageGameData;
     [SerializeField]public ComplaintMiniGameData ComplaintGameData;
     [SerializeField]public SecurityMiniGameData SecurityGameData;
 
+    private bool _gameOver = false;
+    public bool GameOver{get=>_gameOver;}
+    private static int _totalRevenue = 63000000;
+    private int _currentRevenu = _totalRevenue;
+    public int CurrentRevenue{get=>_currentRevenu;}
+    [SerializeField] private int StorageDeduction = 10;
+
     public void ResetData()
     {
-        Debug.Log("reset");
-        time = 0;
         StorageGameData = new StorageMiniGameData();
         ComplaintGameData = new ComplaintMiniGameData();
         SecurityGameData = new SecurityMiniGameData();
+        _currentRevenu = 63000000;
+    }
+
+    public IEnumerator UpdateRevenue()
+    {
+        while(_currentRevenu>0)
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            if(StorageGameData.MaxReached) _currentRevenu-=100000;//change to more natural progression
+
+            _currentRevenu = Mathf.Clamp(_currentRevenu,0,_totalRevenue);
+        }
+        _gameOver = true;
     }
 }
 

@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour
         _click_results = new List<RaycastResult>();
     }
 
-    public void MouseEvent()
+    public void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
