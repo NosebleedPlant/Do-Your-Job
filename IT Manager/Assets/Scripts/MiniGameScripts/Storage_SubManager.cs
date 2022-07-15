@@ -11,7 +11,7 @@ public class Storage_SubManager : MonoBehaviour
     [SerializeField] public Collider2D InitialTargetArea;
     [SerializeField] private Collider2D SecondaryTargetArea;
     private Collider2D[] _spawnAreas;
-    private Transform _frame;
+    private Transform _frameTransform;
     private Collider2D _playerObject;
     public float shakeAmount;
     [SerializeField] Transform debug;
@@ -22,7 +22,8 @@ public class Storage_SubManager : MonoBehaviour
     private void Awake()
     {
         _spawnAreas = prefabContainer.GetComponents<Collider2D>();
-        _frame = GameObject.Find("StorageFrame").GetComponent<Transform>();
+        GameObject frame_temp = GameObject.Find("StorageFrame");
+        _frameTransform = frame_temp.GetComponent<Transform>();
         _playerObject = GameObject.Find("STMG_PlayerObject").GetComponent<Collider2D>();
         movePlayerObject = _MovePlayerObject;
     }
@@ -88,16 +89,15 @@ public class Storage_SubManager : MonoBehaviour
     {
         float timer = 0;
         float max = 0.1f;
-        Vector3 originalPosition = _frame.position;
+        Vector3 originalPosition = _frameTransform.position;
         while (timer<max)
         {
-            Debug.Log("clicked");
             timer += Time.deltaTime;
             Vector3 offset = UnityEngine.Random.insideUnitCircle*(Time.deltaTime*shakeAmount);
-            _frame.position+=offset;
+            _frameTransform.position+=offset;
             yield return null;
         }
-        _frame.position = originalPosition;
+        _frameTransform.position = originalPosition;
     }
 
     public void IncrementFileCount() => gameData.StorageGameData.FileCount++;
@@ -105,7 +105,8 @@ public class Storage_SubManager : MonoBehaviour
     public Action<Vector3>movePlayerObject;
     private void _MovePlayerObject(Vector3 position)
     {
-        position += transform.position -_frame.transform.position;
+        if(_frameTransform.GetSiblingIndex()!=4){return;}
+        position += transform.position -_frameTransform.transform.position;
         _playerObject.transform.position = position;
         StartCoroutine(enableDeleteTool());
         

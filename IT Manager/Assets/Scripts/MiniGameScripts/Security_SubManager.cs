@@ -7,7 +7,7 @@ public class Security_SubManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] VirusPrefabs;
     [SerializeField] private Transform prefabContainer;
-    private Vector3 _framePosition;
+    private Transform _frameTransform;
     private Rigidbody2D _playerObject;
     private Collider2D _spawnArea;
     private Collider2D _targetArea;
@@ -22,7 +22,7 @@ public class Security_SubManager : MonoBehaviour
     {
         movePlayerObject = _MovePlayerObject;
         _playerObject = transform.Find("SCMG_PlayerObject").GetComponent<Rigidbody2D>();
-        _framePosition = GameObject.Find("SecurityFrame").transform.position;
+        _frameTransform = GameObject.Find("SecurityFrame").transform;
         _spawnArea = transform.Find("SCMG_Spawner").GetComponent<Collider2D>();
         _targetArea = transform.Find("SCMG_TargetArea").GetComponent<Collider2D>();
     }
@@ -57,7 +57,8 @@ public class Security_SubManager : MonoBehaviour
     public Action<Vector3> movePlayerObject;
     private void _MovePlayerObject(Vector3 position)
     {
-        position+=transform.position -_framePosition;
+        if(_frameTransform.GetSiblingIndex()!=4){return;}
+        position+=transform.position -_frameTransform.position;
         position = new Vector3(position.x,0f);
         _playerObject.MovePosition(position);
     }
