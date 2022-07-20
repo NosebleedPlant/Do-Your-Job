@@ -7,16 +7,18 @@ public class Complaint_SubManager : MonoBehaviour
 {
 
     [SerializeField] public GameStatusData gameData;
-    [SerializeField] private Transform TicketPrefab;
-    [SerializeField] private Transform TicketList;
-    private List<Transform> _tickets = new List<Transform>();
+    [SerializeField] private Complaint_List ComplaintList;
     private int ticketNumber = 203236;
 
-    private void OnEnable() =>  StartCoroutine(SpawnRoutine());
+    private void OnEnable() 
+    {
+        StartCoroutine(AddTickets());
+        StartCoroutine(SpawnTickets());
+    }
 
     private void OnDisable() =>  StopAllCoroutines();
 
-    private IEnumerator SpawnRoutine()
+    private IEnumerator AddTickets()
     {
         yield return new WaitForSeconds(0);
 
@@ -26,32 +28,32 @@ public class Complaint_SubManager : MonoBehaviour
             {
                 gameData.ComplaintGameData.ComplaintCount++;
             }
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(gameData.ComplaintGameData.SpawnRate);
         }
     }
 
-    private void Update()
+    private int _visableMaxCount = 4;
+    private int _currentVisableCount = 0;
+    private float _wait = 0;
+    private IEnumerator SpawnTickets()
     {
-        if(!gameData.ComplaintGameData.MaxVisableReached)
+        while(enabled)
         {
-            SpawnTickets();
+            if(_currentVisableCount<_visableMaxCount && _currentVisableCount<gameData.ComplaintGameData.ComplaintCount)
+            {
+                _currentVisableCount++;
+                ComplaintList.InstanceComplaint();
+                _wait = 0;
+            }
+            yield return new WaitForSeconds(_wait);
         }
-    }
-
-    private void SpawnTickets()
-    {
-        var ticket = Instantiate(TicketPrefab,TicketList);
-        ticket.SetAsFirstSibling();
-        _tickets.Add(ticket);
-        gameData.ComplaintGameData.CurrentVisableCount++;
     }
 
     public void DestroyTicket()
     {
-        var ticket = _tickets[0];
-        _tickets.RemoveAt(0);
-        Destroy(ticket.gameObject);
-        gameData.ComplaintGameData.CurrentVisableCount--;
+        ComplaintList.DeleteComplaint();
+        _currentVisableCount--;
         gameData.ComplaintGameData.ComplaintCount--;
+        _wait = 0.5f;
     }
 }

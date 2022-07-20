@@ -4,27 +4,27 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class ResponseFeild : MonoBehaviour
+public class Complaint_ResponseFeild : MonoBehaviour
 {
-    [SerializeField]
-    private TMP_InputField InputField;
-    [SerializeField]
-    private Image ProgressBar;
-    [SerializeField]
-    private GameObject MinigameManager;
+    [SerializeField] private TMP_InputField InputField;
+    [SerializeField] private Image ProgressBar;
+    [SerializeField] private GameObject MinigameManager;
     private Complaint_SubManager _minigameManagerScript;
-    private static string _message = "Hello, this is XXXXX. I have resolved the issue you were facing. I thank you for you patience and apologize for the inconvinence";
-    private static int maxLength = _message.Length;
+    private string[] _messages = {"its done","fixed it","trying my best here","did u try googling it?","did you try turning it on and off","Im sorry of the inconvience its fixed now","u need help? buddy IM the one that needs help",@"beats me lol ¯\_(ツ)_/¯"};
+    private string _message;
+    // private static int maxLength = _message.Length;
     public bool completed = false;
 
     private void Awake()
     {
+        _message = _messages[Random.Range(0,_messages.Length-1)];
         _minigameManagerScript = MinigameManager.GetComponent<Complaint_SubManager>();
         InputField.onValueChanged.AddListener(OnValueChange);
     }
 
     private void OnValueChange(string text)
     {
+        int maxLength = _message.Length;
         int length = text.Length;
         completed = (maxLength==length)?true:false;
         if(length>0 && length<=maxLength)
@@ -45,6 +45,7 @@ public class ResponseFeild : MonoBehaviour
     public void Submit()
     {
         InputField.text = "";
+        _message = _messages[Random.Range(0,_messages.Length-1)];
         _minigameManagerScript.DestroyTicket();
     }
 }

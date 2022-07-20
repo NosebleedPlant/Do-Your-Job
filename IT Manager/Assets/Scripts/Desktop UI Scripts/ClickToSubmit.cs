@@ -6,11 +6,11 @@ using UnityEngine.EventSystems;
 public class ClickToSubmit : MonoBehaviour,IPointerClickHandler
 {
     [SerializeField]
-    private GameObject Respose;
-    private ResponseFeild _responseScript;
+    private GameObject Response;
+    private Complaint_ResponseFeild _responseScript;
     private void Start()
     {
-        _responseScript = Respose.GetComponent<ResponseFeild>();
+        _responseScript = Response.GetComponent<Complaint_ResponseFeild>();
     }
 
     public void OnPointerClick(PointerEventData eventData)

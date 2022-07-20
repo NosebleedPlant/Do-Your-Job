@@ -93,15 +93,10 @@ public class ComplaintMiniGameData
     private float _spawnRate = 2f;
     public float SpawnRate{get=>_spawnRate;}
 
-    private int _maxComplaintCount = 10;
+    private int _maxComplaintCount = 50;
     public float MaxComplaintCount{get=>_maxComplaintCount;}
     private bool _maxReached = false;
     public bool MaxReached{get=>_maxReached;}
-
-    private int _visableMaxCount = 4;
-    public float VisableMaxCount{get=>_visableMaxCount;}
-    private bool _maxVisableReached = false;
-    public bool MaxVisableReached{get=>_maxVisableReached;}
 
     private int _complaintCount = 0;
     public int ComplaintCount
@@ -112,18 +107,6 @@ public class ComplaintMiniGameData
             _complaintCount=value;
             _complaintCount = Mathf.Clamp(_complaintCount,0,_maxComplaintCount);
             _maxReached = (_complaintCount>=MaxComplaintCount)?true:false;
-        }
-    }
-
-    private int _currentVisableCount = 0;
-    public int CurrentVisableCount
-    {
-        get => _currentVisableCount;
-        set
-        {
-            _currentVisableCount=value;
-            _currentVisableCount = Mathf.Clamp(_currentVisableCount,0,_visableMaxCount);
-            _maxVisableReached = (_currentVisableCount>=VisableMaxCount)?true:false;
         }
     }
 }
