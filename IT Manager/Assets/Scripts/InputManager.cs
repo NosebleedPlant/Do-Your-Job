@@ -15,7 +15,6 @@ public class InputManager : MonoBehaviour
     [SerializeField] private GameObject Canvas;
     private InputActions playerControls;
     
-    private bool _held = false;
     private PointerEventData _mouseEventData;
     private GraphicRaycaster _uiRaycaster;
     private List<RaycastResult> _click_results;

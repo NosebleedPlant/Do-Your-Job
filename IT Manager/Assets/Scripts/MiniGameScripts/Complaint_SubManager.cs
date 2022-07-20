@@ -9,10 +9,22 @@ public class Complaint_SubManager : MonoBehaviour
     [SerializeField] public GameStatusData gameData;
     [SerializeField] private RectTransform complaintPrefab;
     [SerializeField] private RectTransform complaintContainer;
+    [SerializeField] private Transform FrameTransform;
     public List<RectTransform> complaints;
+    public float shakeAmount;
     private float _height, _start = 121.415f;
     private int ticketNumber = 203236;
-    private int _visableMaxCount = 4, _currentVisableCount = 0;
+    private int _visableMaxCount = 4; 
+    private int _currentVisableCount = 0;
+    private int currentVisable
+    {
+        get => _currentVisableCount;
+        set
+        {
+            _currentVisableCount=value;
+            _currentVisableCount = Mathf.Clamp(_currentVisableCount,0,_visableMaxCount);
+        }
+    }
     
     void Start()
     {
@@ -25,16 +37,16 @@ public class Complaint_SubManager : MonoBehaviour
     
     private void Update()
     {
-        if(_currentVisableCount<_visableMaxCount && _currentVisableCount<gameData.ComplaintGameData.ComplaintCount)
+        if(currentVisable<_visableMaxCount && currentVisable<gameData.ComplaintGameData.ComplaintCount)
         {
-            _currentVisableCount++;
+            currentVisable++;
             InstanceComplaint();
         }
     }
 
     private IEnumerator AddTickets()
     {
-        yield return new WaitForSeconds(0);
+        yield return new WaitForSeconds(4);
 
         while(enabled)
         {
@@ -44,12 +56,6 @@ public class Complaint_SubManager : MonoBehaviour
             }
             yield return new WaitForSeconds(gameData.ComplaintGameData.SpawnRate);
         }
-    }
-
-    public void DestroyTicket()
-    {
-        DeleteComplaint();
-        
     }
 
     public void InstanceComplaint()
@@ -76,23 +82,30 @@ public class Complaint_SubManager : MonoBehaviour
             ()=>
             {
                 Destroy(complaints[0].gameObject);
+                gameData.ComplaintGameData.ComplaintCount--;
                 complaints.RemoveAt(0);
                 int i =0;
-                foreach(RectTransform complaint in complaints)
+                if(complaints.Count>0)
                 {
-                    i++;
-                    float newPosition = -_height+ (((complaintPrefab.sizeDelta.y/2)+10)*(complaints.FindIndex(a=>a==complaint)));
-                    if(i<complaints.Count) LeanTween.moveLocal(complaint.gameObject,new Vector3(0,newPosition,0),0.5f).setEaseOutBounce();
-                    else LeanTween.moveLocal(complaint.gameObject,new Vector3(0,newPosition,0),0.5f).setEaseOutBounce().setOnComplete
-                    (
-                        ()=>
-                        {
-                            _currentVisableCount--;
-                            gameData.ComplaintGameData.ComplaintCount--;
-                        }
-                    );
+                    foreach(RectTransform complaint in complaints)
+                    {
+                        i++;
+                        float newPosition = -_height+ (((complaintPrefab.sizeDelta.y/2)+10)*(complaints.FindIndex(a=>a==complaint)));
+                        if(i<complaints.Count) LeanTween.moveLocal(complaint.gameObject,new Vector3(0,newPosition,0),0.5f).setEaseOutBounce();
+                        else LeanTween.moveLocal(complaint.gameObject,new Vector3(0,newPosition,0),0.5f).setEaseOutBounce().setOnComplete
+                        (
+                            ()=>
+                            {
+                                currentVisable--;
+                            }
+                        );
+                    }
+                }
+                else
+                {
+                    currentVisable--;
                 }
             }
         );
-    }  
+    }
 }

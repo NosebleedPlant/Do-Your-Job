@@ -8,17 +8,16 @@ using System.Linq;
 [CreateAssetMenu(fileName = "GameStatusData", menuName = "")]
 public class GameStatusData : ScriptableObject
 {
-    [SerializeField]public StorageMiniGameData StorageGameData;
-    [SerializeField]public ComplaintMiniGameData ComplaintGameData;
-    [SerializeField]public SecurityMiniGameData SecurityGameData;
+    [SerializeField] public StorageMiniGameData StorageGameData;
+    [SerializeField] public ComplaintMiniGameData ComplaintGameData;
+    [SerializeField] public SecurityMiniGameData SecurityGameData;
 
     private bool _gameOver = false;
     public bool GameOver{get=>_gameOver;}
     private static int _totalRevenue = 63000000;
     private int _currentRevenu = _totalRevenue;
     public int CurrentRevenue{get=>_currentRevenu;}
-    [SerializeField] private int StorageDeduction = 10;
-
+    
     public void ResetData()
     {
         StorageGameData = new StorageMiniGameData();
@@ -90,10 +89,10 @@ public class StorageMiniGameData
 [Serializable]
 public class ComplaintMiniGameData
 {
-    private float _spawnRate = 2f;
+    private float _spawnRate = 6f;
     public float SpawnRate{get=>_spawnRate;}
 
-    private int _maxComplaintCount = 50;
+    private int _maxComplaintCount = 10;
     public float MaxComplaintCount{get=>_maxComplaintCount;}
     private bool _maxReached = false;
     public bool MaxReached{get=>_maxReached;}
