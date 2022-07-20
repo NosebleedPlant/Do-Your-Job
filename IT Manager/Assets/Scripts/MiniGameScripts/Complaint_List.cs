@@ -7,7 +7,6 @@ public class Complaint_List : MonoBehaviour
 {
     [SerializeField] private RectTransform complaintPrefab;
     public List<RectTransform> complaints;
-
     private float _height;
     private float _start = 121.415f;
     void Start()
@@ -46,7 +45,6 @@ public class Complaint_List : MonoBehaviour
                 }
             }
         );
-        
     }
 
     private void TweenPosition(Transform obj)

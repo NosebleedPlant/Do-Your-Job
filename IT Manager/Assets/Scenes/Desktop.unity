@@ -930,7 +930,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 308557529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89ad8c081136fac4c8658143ef5bd380, type: 3}
+  m_Script: {fileID: 11500000, guid: c15e84f5b2a9d124fb41f2aa38ae4d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   InputField: {fileID: 1261236041}
@@ -2121,8 +2121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca532f7e7e94c440819e44cee177574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  complaints: []
   complaintPrefab: {fileID: 300451503132224109, guid: 226a2a5600eb522408b78151b036e5a1, type: 3}
+  complaints: []
 --- !u!1 &511219891
 GameObject:
   m_ObjectHideFlags: 0
@@ -5918,7 +5918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1c7c3eaad0bdd4abb5da0812950a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Respose: {fileID: 308557529}
+  Response: {fileID: 308557529}
 --- !u!1 &1218956864
 GameObject:
   m_ObjectHideFlags: 0
@@ -8187,14 +8187,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682273057}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9572807c72e4c448625b597058b617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameData: {fileID: 0}
-  TicketPrefab: {fileID: 300451503132224109, guid: 226a2a5600eb522408b78151b036e5a1, type: 3}
-  TicketList: {fileID: 464798329}
+  gameData: {fileID: 11400000, guid: 18938db552cc60948974b4d0ee943be4, type: 2}
+  ComplaintList: {fileID: 464798332}
 --- !u!1 &1695299427
 GameObject:
   m_ObjectHideFlags: 0
