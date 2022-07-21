@@ -12,7 +12,7 @@ public class Network_SubManager : MonoBehaviour
     [SerializeField] private Transform PrefabContainer;
     private Network_ConnectionRenderer _activeNode;
     private Transform _frameTransform;
-    private int _pairCount=6;
+    private int _pairCount=3;//no more then 6 please
     private bool _makingConnection = false;
 
     private void Awake()
@@ -20,6 +20,7 @@ public class Network_SubManager : MonoBehaviour
         dragWire = _DragWire;
         checkMaking = _CheckMaking;
         _frameTransform = GameObject.Find("NetworkFrame").transform;
+        GeneratePortIP_Pairs();
         GenerateSpawnPoints();
         InstancePortIP_Pairs();
     }
@@ -41,8 +42,16 @@ public class Network_SubManager : MonoBehaviour
                 _activeNode.FreezConnection(position);
                 _activeNode=null;
             }
+            else if(overlap!=null
+                &&_activeNode!=null
+                &&overlap.transform.CompareTag("NTMG_RightEnd"))
+            {
+                ClearConnection();
+                //raise reset flag here.
+            }
             else
             {
+                Debug.Log("wrong");
                 _activeNode.SetConnection(position,false);
             }
             
@@ -73,20 +82,21 @@ public class Network_SubManager : MonoBehaviour
         }
     }
     
-    List<Vector2> spawnGrid = new List<Vector2>();
-
-    public void GenerateSpawnPoints()
+    List<int> ipList;
+    List<int> portList;
+    public void GeneratePortIP_Pairs()
     {
-        float y = transform.position.y-2.4f;
-        for(int i=0;i<4;i++)
+        ipList = new List<int>();
+        portList = new List<int>();
+        
+        for (int i = 0; i < _pairCount; i++)
         {
-            float x = transform.position.x-2.4f;
-            y+=1f;
-            for(int j=0;j<4;j++)
+            
+            for (int j = 0; j < 4; j++)
             {
-                x+=1f;
-                spawnGrid.Add(transform.InverseTransformDirection(new Vector2(x,y)));
+                ipList.Add(UnityEngine.Random.Range(1, 255));
             }
+            portList.Add(UnityEngine.Random.Range(10, 1000));
         }
     }
     
@@ -99,22 +109,31 @@ public class Network_SubManager : MonoBehaviour
             Network_ConnectionRenderer ip = Instantiate(IpPrefab,FindSpawn(),Quaternion.identity,PrefabContainer);
             ip.Port = i;
             port.portNumber = i;
+
+            string displayText = "";
+            for(int j = 0; j < 4; j++)
+            {
+                displayText += (ipList[(i*4) + j] + ".");
+            }
+            ip.SetIp(displayText);
+            port.SetPort(portList[i].ToString());
         }
     }
 
-    public void GeneratePortIP_Pairs()
+    List<Vector2> spawnGrid = new List<Vector2>();
+
+    public void GenerateSpawnPoints()
     {
-        List<int> ipList = new List<int>();
-        List<int> portList = new List<int>();
-        
-        for (int i = 0; i < _pairCount; i++)
+        float y = transform.position.y-2.95f;
+        for(int i=0;i<5;i++)
         {
-            
-            for (int j = 0; j < 4; j++)
+            float x = transform.position.x-3f;
+            y+=1f;
+            for(int j=0;j<3;j++)
             {
-                ipList.Add(UnityEngine.Random.Range(1, 255));
+                x+=1.5f;
+                spawnGrid.Add(transform.InverseTransformDirection(new Vector2(x,y)));
             }
-            portList.Add(UnityEngine.Random.Range(10, 1000));
         }
     }
 
