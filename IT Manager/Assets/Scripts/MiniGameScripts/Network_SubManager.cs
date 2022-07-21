@@ -14,6 +14,7 @@ public class Network_SubManager : MonoBehaviour
     [SerializeField] private GameObject PreGame;
     [SerializeField] private TextMeshProUGUI IPdisplay;
     [SerializeField] private TextMeshProUGUI Portdisplay;
+    [SerializeField] private GameObject Dressing;
     private Network_ConnectionRenderer _activeNode;
     private Transform _frameTransform;
     private int _pairCount=3;//no more then 6 please
@@ -28,15 +29,11 @@ public class Network_SubManager : MonoBehaviour
         PreGameReady();
     }
 
-    private void OnEnable()
-    {
-        
-    }
-
     private void PreGameReady()
     {
         _connected =0;
         PreGame.SetActive(true);
+        Dressing.SetActive(false);
         GeneratePortIP_Pairs();
         GenerateSpawnPoints();
         foreach (Transform child in PrefabContainer) 
@@ -62,6 +59,7 @@ public class Network_SubManager : MonoBehaviour
     public void OnReady()
     {
         PreGame.SetActive(false);
+        Dressing.SetActive(true);
         InstancePortIP_Pairs();
     }
 
@@ -86,7 +84,9 @@ public class Network_SubManager : MonoBehaviour
                 _activeNode=null;
                 if(_connected>=_pairCount)
                 {   gameStatus.NetworkGameData.Current-=5;
-                    PreGameReady();}
+                    // StartCoroutine(win());
+                    PreGameReady();
+                    }
             }
             else if(overlap!=null
                 &&_activeNode!=null
@@ -172,11 +172,11 @@ public class Network_SubManager : MonoBehaviour
         float y = transform.position.y-2.95f;
         for(int i=0;i<5;i++)
         {
-            float x = transform.position.x-3f;
+            float x = transform.position.x-3.3f;
             y+=1f;
             for(int j=0;j<3;j++)
             {
-                x+=1.5f;
+                x+=1.6f;
                 spawnGrid.Add(transform.InverseTransformDirection(new Vector2(x,y)));
             }
         }
@@ -189,4 +189,12 @@ public class Network_SubManager : MonoBehaviour
         spawnGrid.RemoveAt(index);
         return postion;
     }
+
+    private IEnumerator win()
+    {
+        yield return new WaitForSeconds(1f);
+        //add winscreen here
+        PreGameReady();
+    }
+    private void OnDisable() => StopAllCoroutines();
 }
