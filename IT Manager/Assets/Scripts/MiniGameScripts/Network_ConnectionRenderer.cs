@@ -21,14 +21,14 @@ public class Network_ConnectionRenderer : MonoBehaviour
         end = (_clear)? Vector2.zero : transform.InverseTransformPoint(end);
         if(!_connected)
         {
-            Connection.SetPosition(1,end);
+            Connection.SetPosition(1,new Vector3(end.x,end.y,3));
         }
     }
 
     public void FreezConnection(Vector2 end)
     {
         end = transform.InverseTransformPoint(end);
-        Connection.SetPosition(1,end);
+        Connection.SetPosition(1,new Vector3(end.x,end.y,3));
         _connected = true;
     }
 

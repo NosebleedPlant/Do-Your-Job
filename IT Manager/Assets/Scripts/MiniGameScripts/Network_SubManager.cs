@@ -4,24 +4,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-
+using TMPro;
 public class Network_SubManager : MonoBehaviour
 {
+    [SerializeField] private GameStatusData gameStatus;
     [SerializeField] private Network_PortNumber PortPrefab;
     [SerializeField] private Network_ConnectionRenderer IpPrefab;
     [SerializeField] private Transform PrefabContainer;
+    [SerializeField] private GameObject PreGame;
+    [SerializeField] private TextMeshProUGUI IPdisplay;
+    [SerializeField] private TextMeshProUGUI Portdisplay;
     private Network_ConnectionRenderer _activeNode;
     private Transform _frameTransform;
     private int _pairCount=3;//no more then 6 please
     private bool _makingConnection = false;
+    private int _connected =0;
 
     private void Awake()
     {
         dragWire = _DragWire;
         checkMaking = _CheckMaking;
         _frameTransform = GameObject.Find("NetworkFrame").transform;
+        PreGameReady();
+    }
+
+    private void OnEnable()
+    {
+        
+    }
+
+    private void PreGameReady()
+    {
+        _connected =0;
+        PreGame.SetActive(true);
         GeneratePortIP_Pairs();
         GenerateSpawnPoints();
+        foreach (Transform child in PrefabContainer) 
+        {
+            child.gameObject.SetActive(false);
+            GameObject.Destroy(child.gameObject);
+        }
+
+        IPdisplay.text = "";
+        Portdisplay.text = "";
+        for (int i = 0; i < (_pairCount); i++)
+        {            
+            string displayText = "";
+            for(int j = 0; j < 4; j++)
+            {
+                displayText += (ipList[(i*4) + j] + ".");
+            }
+            IPdisplay.text += displayText+("\n");
+            Portdisplay.text += portList[i].ToString()+ "."+("\n");
+        }
+    }
+
+    public void OnReady()
+    {
+        PreGame.SetActive(false);
         InstancePortIP_Pairs();
     }
 
@@ -39,8 +79,14 @@ public class Network_SubManager : MonoBehaviour
                 &&overlap.transform.CompareTag("NTMG_RightEnd")
                 &&_activeNode.Port== overlap.transform.GetComponent<Network_PortNumber>().portNumber)
             {
+                //decrement network counter
+                _connected++;
+                gameStatus.NetworkGameData.Current-=3;
                 _activeNode.FreezConnection(position);
                 _activeNode=null;
+                if(_connected>=_pairCount)
+                {   gameStatus.NetworkGameData.Current-=5;
+                    PreGameReady();}
             }
             else if(overlap!=null
                 &&_activeNode!=null
@@ -48,10 +94,10 @@ public class Network_SubManager : MonoBehaviour
             {
                 ClearConnection();
                 //raise reset flag here.
+                PreGameReady();
             }
             else
             {
-                Debug.Log("wrong");
                 _activeNode.SetConnection(position,false);
             }
             
@@ -96,13 +142,12 @@ public class Network_SubManager : MonoBehaviour
             {
                 ipList.Add(UnityEngine.Random.Range(1, 255));
             }
-            portList.Add(UnityEngine.Random.Range(10, 1000));
+            portList.Add(UnityEngine.Random.Range(100, 1000));
         }
     }
     
     public void InstancePortIP_Pairs()
     {
-
         for (int i = 0; i < (_pairCount); i++)
         {            
             Network_PortNumber port = Instantiate(PortPrefab,FindSpawn(),Quaternion.identity,PrefabContainer);
@@ -116,14 +161,14 @@ public class Network_SubManager : MonoBehaviour
                 displayText += (ipList[(i*4) + j] + ".");
             }
             ip.SetIp(displayText);
-            port.SetPort(portList[i].ToString());
+            port.SetPort(portList[i].ToString()+ ".");
         }
     }
 
     List<Vector2> spawnGrid = new List<Vector2>();
-
     public void GenerateSpawnPoints()
     {
+        spawnGrid = new List<Vector2>();
         float y = transform.position.y-2.95f;
         for(int i=0;i<5;i++)
         {

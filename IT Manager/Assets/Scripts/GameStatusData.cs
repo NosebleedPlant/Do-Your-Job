@@ -11,6 +11,7 @@ public class GameStatusData : ScriptableObject
     [SerializeField] public StorageMiniGameData StorageGameData;
     [SerializeField] public ComplaintMiniGameData ComplaintGameData;
     [SerializeField] public SecurityMiniGameData SecurityGameData;
+    [SerializeField] public NetworkMiniGameData NetworkGameData;
 
     private bool _gameOver = false;
     public bool GameOver{get=>_gameOver;}
@@ -23,6 +24,7 @@ public class GameStatusData : ScriptableObject
         StorageGameData = new StorageMiniGameData();
         ComplaintGameData = new ComplaintMiniGameData();
         SecurityGameData = new SecurityMiniGameData();
+        NetworkGameData = new NetworkMiniGameData();
         _currentRevenu = 63000000;
     }
 
@@ -33,6 +35,7 @@ public class GameStatusData : ScriptableObject
             yield return new WaitForSeconds(0.1f);
 
             if(StorageGameData.MaxReached) _currentRevenu-=100000;//change to more natural progression
+            if(NetworkGameData.MaxReached) _currentRevenu-=100000;//change to more natural progression
 
             _currentRevenu = Mathf.Clamp(_currentRevenu,0,_totalRevenue);
         }
@@ -108,6 +111,38 @@ public class ComplaintMiniGameData
             _maxReached = (_complaintCount>=MaxComplaintCount)?true:false;
         }
     }
+}
+
+[Serializable]
+public class NetworkMiniGameData
+{
+    private int _max = 100;
+    private int _current = 0;
+    public int Current
+    {
+        get=>_current;
+        set
+        {
+            _current = value;
+            _current = Mathf.Clamp(_current,0,_max);
+        }
+    }
+    private float _fillRate = 1f;
+    public float FillRate{get=>_fillRate;}
+    public float CurrentFill{get=>(float)_current/_max;}
+    private bool _maxReached = false;
+    public bool MaxReached{get=>_maxReached;}
+
+    public IEnumerator UpdateNetworkUse()
+    {
+        while(_current<=_max)
+        {
+            Current+=UnityEngine.Random.Range(1,3);
+            _maxReached = (_current>=_max)? true:false;
+            yield return new WaitForSeconds(_fillRate);
+        }
+    }
+
 }
 
 [Serializable]
