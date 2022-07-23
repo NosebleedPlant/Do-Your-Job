@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        RevenuCounter.text = "[$<color=#FF3369><b>"+_gameData.CurrentRevenue+"</b></color>]";
+        RevenuCounter.text = "[$<color=#FF3369><b>"+_gameData.CurrentRevenue.ToString("D8")+"</b></color>]";
         
         StorageBar.value = _gameData.StorageGameData.CurrentFill;
         StorageETA.text = "[ETA:"+_gameData.StorageGameData.CurrentFill*100+"%]";

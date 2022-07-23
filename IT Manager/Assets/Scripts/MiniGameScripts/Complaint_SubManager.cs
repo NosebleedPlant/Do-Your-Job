@@ -60,10 +60,12 @@ public class Complaint_SubManager : MonoBehaviour
 
     public void InstanceComplaint()
     {
+        ticketNumber++;
         RectTransform complaintObject = Instantiate(complaintPrefab,complaintContainer);
         complaintObject.localPosition = new Vector3(0,_start,0);
         complaintObject.localScale = Vector3.zero;
         complaints.Add(complaintObject);
+        complaintObject.GetComponent<Complaint_SetText>().Set(ticketNumber.ToString());
         // tweenPosition(complaintObject);
         LeanTween.scale(complaintObject,new Vector3(0.5f,0.5f,0.5f),0.1f).setOnComplete(
             ()=>
