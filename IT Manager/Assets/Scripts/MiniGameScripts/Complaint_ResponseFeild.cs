@@ -13,6 +13,7 @@ public class Complaint_ResponseFeild : MonoBehaviour
     private Complaint_SubManager _minigameManagerScript;
     private string[] _messages = {"its done.","fixed it!","trying my best here ;-;","did u try googling it?","did you try turning it on and off?","Im sorry of the inconvience its fixed now.","u need help? buddy IM the one that needs help","beats me lol.","please dont fire me.."};
     private string _message;
+    private Vector3 submitScale = new Vector3(0.56f,0.56f,0.56f);
     // private static int maxLength = _message.Length;
     public bool completed = false;
 
@@ -32,7 +33,7 @@ public class Complaint_ResponseFeild : MonoBehaviour
         {
             //cancel any tweens
             LeanTween.cancel(SubmitButton);
-            SubmitButton.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
+            SubmitButton.transform.localScale = submitScale;
             //replace text
             string sub = _message.Substring(0, length);
             InputField.text = sub;
@@ -43,7 +44,7 @@ public class Complaint_ResponseFeild : MonoBehaviour
         {
             //cancel any tweens
             LeanTween.cancel(SubmitButton);
-            SubmitButton.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
+            SubmitButton.transform.localScale = submitScale;
             ProgressBar.fillAmount = 2-(float)length/maxLength;
         }
         if(length==maxLength)
@@ -59,7 +60,7 @@ public class Complaint_ResponseFeild : MonoBehaviour
         ProgressBar.fillAmount = 0;
         //cancel any tweens
         LeanTween.cancel(SubmitButton);
-        SubmitButton.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
+        SubmitButton.transform.localScale = submitScale;
         //select new message
         _message = _messages[Random.Range(0,_messages.Length-1)];
         //delete the complaint
