@@ -39,7 +39,6 @@ public class Security_SubManager : MonoBehaviour
             if(gameData.SecurityGameData.VirusCount<gameData.SecurityGameData.MaxVirusCount)
             {
                 Spawn();
-                gameData.SecurityGameData.VirusCount++;
             }
             yield return new WaitForSeconds(UnityEngine.Random.Range(gameData.SecurityGameData.MinSpawnDelay, gameData.SecurityGameData.MaxSpawnDelay));
         }
@@ -69,18 +68,6 @@ public class Security_SubManager : MonoBehaviour
         position.x = UnityEngine.Random.Range(_spawnArea.bounds.min.x, _spawnArea.bounds.max.x);
         position.y = UnityEngine.Random.Range(_spawnArea.bounds.min.y, _spawnArea.bounds.max.y);
         return position;
-    }
-
-    public Vector2 CalculatePrefabVelocity(Vector2 position)
-    {
-        float speed = UnityEngine.Random.Range(gameData.SecurityGameData.CurrentSpeedRange.x, gameData.SecurityGameData.CurrentSpeedRange.y);            
-        Vector3 initialTargetDirection = new Vector3();
-        initialTargetDirection.x = UnityEngine.Random.Range(_targetArea.bounds.min.x, _targetArea.bounds.max.x);
-        initialTargetDirection.y = UnityEngine.Random.Range(_targetArea.bounds.min.y, _targetArea.bounds.max.y);
-        initialTargetDirection.z = 0;
-        
-        Vector2 direction = initialTargetDirection - new Vector3(position.x,position.y,0f);
-        return direction.normalized * speed;
     }
 
     public void IncrementVirusCount()  => gameData.SecurityGameData.VirusCount--;

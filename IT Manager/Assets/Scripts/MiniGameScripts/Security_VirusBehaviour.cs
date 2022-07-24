@@ -10,9 +10,9 @@ public class Security_VirusBehaviour : MonoBehaviour
 
     private void Awake()
     {
-        _rigidBody = transform.GetComponent<Rigidbody2D>();
         _manager = FindObjectOfType<Security_SubManager>();
-        _rigidBody.velocity = _manager.CalculatePrefabVelocity(transform.position);
+        _rigidBody = transform.GetComponent<Rigidbody2D>();
+        _rigidBody.velocity = Vector2.down*6f;
     }
 
     private void OnDisable() => StopAllCoroutines();
@@ -21,21 +21,22 @@ public class Security_VirusBehaviour : MonoBehaviour
     {
         if (collsiion.transform.CompareTag("Player"))
         {
-            //do proper calculation here
-            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x,-(_rigidBody.velocity.y));
+            _rigidBody.velocity = new Vector2(0,Mathf.Abs(3f));
+            StartCoroutine(DeleteVirus());
         }
     }
     
     private void OnTriggerExit2D(Collider2D other)
     {
-        if(other.CompareTag("SCMG_LossArea"))
-            {
-                _manager.IncrementVirusCount();}
-        
         if(other.CompareTag("SCMG_PlayArea"))
-        {   
-            _manager.DecrementVirusCount();
-            Destroy(this.gameObject);
+        {
+            StartCoroutine(DeleteVirus());
         }
+    }
+
+    private IEnumerator DeleteVirus()
+    {
+        yield return new WaitForSeconds(0.3f);
+        Destroy(this.gameObject);
     }
 }

@@ -148,14 +148,10 @@ public class NetworkMiniGameData
 [Serializable]
 public class SecurityMiniGameData
 {
-    private float _minSpawnDelay = 0.5f;
+    private float _minSpawnDelay = 0.1f;
     public float MinSpawnDelay{get=>_minSpawnDelay;}
-    private float _maxSpawnDelay = 1f;
+    private float _maxSpawnDelay = 0.3f;
     public float MaxSpawnDelay{get=>_maxSpawnDelay;}
-
-    private Vector2 _currentSpeedRange = new Vector2(2f,2.5f);
-    public Vector2 CurrentSpeedRange{get=>_currentSpeedRange;}
-    private Vector2 MaxSpeedRange = new Vector2(3f,3.5f);
 
     private int _maxVirusCount = 40;
     public int MaxVirusCount{get=>_maxVirusCount;}
