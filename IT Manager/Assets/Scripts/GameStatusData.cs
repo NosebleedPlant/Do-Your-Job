@@ -148,32 +148,31 @@ public class NetworkMiniGameData
 [Serializable]
 public class SecurityMiniGameData
 {
-    private float _minSpawnDelay = 0.5f;
-    public float MinSpawnDelay{get=>_minSpawnDelay;}
-    private float _maxSpawnDelay = 1f;
-    public float MaxSpawnDelay{get=>_maxSpawnDelay;}
-
-    private Vector2 _currentSpeedRange = new Vector2(2f,2.5f);
-    public Vector2 CurrentSpeedRange{get=>_currentSpeedRange;}
-    private Vector2 MaxSpeedRange = new Vector2(3f,3.5f);
-
-    private int _maxVirusCount = 40;
-    public int MaxVirusCount{get=>_maxVirusCount;}
-    private bool _maxReached = false;
-    public bool MaxReached{get=>_maxReached;}
-    private float _currentFill = 0;
-    public float CurrentFill{get=>_currentFill;}
-    
-    private int _virusCount = 0;
-    public int VirusCount
+    private float _fallRate = 6f;
+    private int _maxLives = 7;
+    public int MaxLives {get=>_maxLives;}
+    private int _currentLives = 7;
+    public int CurrentLives 
     {
-        get => _virusCount;
+        get=>_currentLives; 
         set
         {
-            _virusCount=value;
-            _virusCount = Mathf.Clamp(_virusCount,0,_maxVirusCount);
-            _currentFill = (float)_virusCount/MaxVirusCount;
-            _maxReached = (_virusCount>=MaxVirusCount)?true:false;
+            _currentLives = Mathf.Clamp(value,0,_maxLives);
+            _minReached = (_currentLives==0)? true:false;
+        }
+    }
+
+    private bool _minReached = false;
+    private bool MinReached {get=>_minReached;}
+
+    public IEnumerator UpdateSecurity()
+    {
+        yield return new WaitForSeconds(_fallRate);
+        while(_currentLives>=0)
+        {
+            _currentLives--;
+            _minReached = (_currentLives==0)? true:false;
+            yield return new WaitForSeconds(_fallRate);
         }
     }
 }

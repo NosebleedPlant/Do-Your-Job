@@ -2,88 +2,76 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Security_SubManager : MonoBehaviour
 {
+    [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private GameObject[] VirusPrefabs;
-    [SerializeField] private Transform prefabContainer;
+    [SerializeField] private Transform PrefabContainer;
+    [SerializeField] private Image ProgressBar;
     private Transform _frameTransform;
-    private Rigidbody2D _playerObject;
-    private Collider2D _spawnArea;
-    private Collider2D _targetArea;
-
+    private LayerMask _triggerMask;
+    public float _elapsedTime = 0;
+    private float _resotreTime = 3f;
     //GameState
-    [SerializeField] public GameStatusData gameData;
-
-    //MOVE TO DATACONTAINER 
-    
+    [SerializeField] public GameStatusData gameData;  
 
     private void Awake()
     {
         movePlayerObject = _MovePlayerObject;
-        _playerObject = transform.Find("SCMG_PlayerObject").GetComponent<Rigidbody2D>();
         _frameTransform = GameObject.Find("SecurityFrame").transform;
-        _spawnArea = transform.Find("SCMG_Spawner").GetComponent<Collider2D>();
-        _targetArea = transform.Find("SCMG_TargetArea").GetComponent<Collider2D>();
+        _triggerMask= LayerMask.GetMask("SCMG_TriggerArea");
     }
 
     private void OnEnable() => StartCoroutine(SpawnRoutine());
 
     private void OnDisable() => StopAllCoroutines();
 
+    private void Update()
+    {
+        float completion = _elapsedTime/_resotreTime;
+        ProgressBar.fillAmount = completion;
+        _elapsedTime += Time.deltaTime;
+        if(completion>=1){gameData.SecurityGameData.CurrentLives++;_elapsedTime=0;}
+    }
+
     private IEnumerator SpawnRoutine()
     {
         yield return new WaitForSeconds(1f);
         while(enabled)
         {
-            if(gameData.SecurityGameData.VirusCount<gameData.SecurityGameData.MaxVirusCount)
-            {
-                Spawn();
-                gameData.SecurityGameData.VirusCount++;
-            }
-            yield return new WaitForSeconds(UnityEngine.Random.Range(gameData.SecurityGameData.MinSpawnDelay, gameData.SecurityGameData.MaxSpawnDelay));
+            Spawn();
+            yield return new WaitForSeconds(0.4f);
+            //0.17f
         }
     }
 
-    public void Spawn(Transform parentFolder=null)
+    public void Spawn()
     {
-        int prefabIndex = UnityEngine.Random.Range((parentFolder==null)?0:2, VirusPrefabs.Length);
+        int prefabIndex = UnityEngine.Random.Range(0, VirusPrefabs.Length);
         GameObject prefab = VirusPrefabs[prefabIndex];
-        Vector2 spawnPosition = (parentFolder==null)?CalculatePrefabPoisiton():parentFolder.position;
+        Vector2 spawnPosition = CalculatePrefabPoisiton();
         GameObject spawnedfile = Instantiate(prefab, spawnPosition, Quaternion.identity);
-        spawnedfile.transform.SetParent(prefabContainer);
+        spawnedfile.transform.SetParent(PrefabContainer);
     }
 
     public Action<Vector3> movePlayerObject;
     private void _MovePlayerObject(Vector3 position)
     {
         if(_frameTransform.GetSiblingIndex()!=4){return;}
-        position+=transform.position -_frameTransform.position;
-        position = new Vector3(position.x,0f);
-        _playerObject.MovePosition(position);
+        position += transform.position -_frameTransform.position;
+        Collider2D overlap = Physics2D.OverlapPoint(position,_triggerMask);
+        if( overlap!=null)
+        {
+            overlap.SendMessage("Activate");
+        }
+        
     }
 
     public Vector2 CalculatePrefabPoisiton()
     {
-        Vector2 position;
-        position.x = UnityEngine.Random.Range(_spawnArea.bounds.min.x, _spawnArea.bounds.max.x);
-        position.y = UnityEngine.Random.Range(_spawnArea.bounds.min.y, _spawnArea.bounds.max.y);
+        Vector2 position = _spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Length)].position;
         return position;
     }
-
-    public Vector2 CalculatePrefabVelocity(Vector2 position)
-    {
-        float speed = UnityEngine.Random.Range(gameData.SecurityGameData.CurrentSpeedRange.x, gameData.SecurityGameData.CurrentSpeedRange.y);            
-        Vector3 initialTargetDirection = new Vector3();
-        initialTargetDirection.x = UnityEngine.Random.Range(_targetArea.bounds.min.x, _targetArea.bounds.max.x);
-        initialTargetDirection.y = UnityEngine.Random.Range(_targetArea.bounds.min.y, _targetArea.bounds.max.y);
-        initialTargetDirection.z = 0;
-        
-        Vector2 direction = initialTargetDirection - new Vector3(position.x,position.y,0f);
-        return direction.normalized * speed;
-    }
-
-    public void IncrementVirusCount()  => gameData.SecurityGameData.VirusCount--;
-
-    public void DecrementVirusCount() => gameData.SecurityGameData.VirusCount++;
 }

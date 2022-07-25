@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider NetworkBar;
     [SerializeField] private TextMeshProUGUI NetworkETA;
     [SerializeField] private TextMeshProUGUI ComplaintCounter;
+    [SerializeField] private Image[] SecurityLives;
+    [SerializeField] private TextMeshProUGUI SecurityCounter;
     [SerializeField] private GameStatusData _gameData;
 
     private void Awake()
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
         //initalize command
         StartCoroutine(_gameData.UpdateRevenue());
         StartCoroutine(_gameData.NetworkGameData.UpdateNetworkUse());
+        StartCoroutine(_gameData.SecurityGameData.UpdateSecurity());
     }
     private void Update()
     {
@@ -32,11 +35,29 @@ public class GameManager : MonoBehaviour
         NetworkETA.text = "[ETA:"+_gameData.NetworkGameData.CurrentFill*100+"%]";
         
         ComplaintCounter.text = "[<color=#FF3369><b>"+_gameData.ComplaintGameData.ComplaintCount+"</b></color> current open/"+_gameData.ComplaintGameData.MaxComplaintCount+" max]";
+
+        UpdateLives();
+        SecurityCounter.text = "["+_gameData.SecurityGameData.CurrentLives+"/7]";
     }
 
     private void OnDisable()
     {
         _gameData.ResetData();
         StopAllCoroutines();
+    }
+
+    private void UpdateLives()
+    {
+        for(int i = 0;i<SecurityLives.Length;i++)
+        {
+            if(i>=_gameData.SecurityGameData.CurrentLives)
+            {
+                SecurityLives[i].enabled=false;
+            }
+            else
+            {
+                SecurityLives[i].enabled=true;
+            }
+        }
     }
 }

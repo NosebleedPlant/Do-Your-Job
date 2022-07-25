@@ -32,11 +32,11 @@ public class InputManager : MonoBehaviour
         {
             GameInputRecived(NetwrokMiniGame.checkMaking);
             GameInputRecived(StorageMiniGame.movePlayerObject);
+            GameInputRecived(SecurityMiniGame.movePlayerObject);
         }
         if(Input.GetMouseButton(0))
         {
             GameInputRecived(NetwrokMiniGame.dragWire);
-            GameInputRecived(SecurityMiniGame.movePlayerObject);
         }
         if(Input.GetMouseButtonUp(0))
         {
