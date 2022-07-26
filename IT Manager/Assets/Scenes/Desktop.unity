@@ -1899,7 +1899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angle: 360
   speed: 6
-  type: 1
+  type: 37
 --- !u!114 &337380807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2602,6 +2602,7 @@ GameObject:
   - component: {fileID: 427358064}
   - component: {fileID: 427358063}
   - component: {fileID: 427358066}
+  - component: {fileID: 427358067}
   m_Layer: 5
   m_Name: Storage
   m_TagString: Untagged
@@ -2673,8 +2674,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 427358066}
-        m_TargetAssemblyTypeName: ClickToOpen, Assembly-CSharp
+      - m_Target: {fileID: 427358067}
+        m_TargetAssemblyTypeName: ClickToBounce, Assembly-CSharp
         m_MethodName: Pop
         m_Mode: 1
         m_Arguments:
@@ -2737,6 +2738,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AssociatedFrame: {fileID: 1103300564}
   DesktopCanvas: {fileID: 116246981}
+--- !u!114 &427358067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427358061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d1ba08e67dce847bf423f0436406ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TweenTime: 0.1
 --- !u!1 &441968053
 GameObject:
   m_ObjectHideFlags: 0
@@ -6833,6 +6847,7 @@ GameObject:
   - component: {fileID: 1160696330}
   - component: {fileID: 1160696329}
   - component: {fileID: 1160696332}
+  - component: {fileID: 1160696333}
   m_Layer: 5
   m_Name: Complaint
   m_TagString: Untagged
@@ -6904,8 +6919,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1160696332}
-        m_TargetAssemblyTypeName: ClickToOpen, Assembly-CSharp
+      - m_Target: {fileID: 1160696333}
+        m_TargetAssemblyTypeName: ClickToBounce, Assembly-CSharp
         m_MethodName: Pop
         m_Mode: 1
         m_Arguments:
@@ -6968,6 +6983,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AssociatedFrame: {fileID: 1682273057}
   DesktopCanvas: {fileID: 116246981}
+--- !u!114 &1160696333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160696327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d1ba08e67dce847bf423f0436406ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TweenTime: 0.1
 --- !u!1 &1213045322
 GameObject:
   m_ObjectHideFlags: 0
@@ -8108,7 +8136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec65c6a9a1024444a9825214f63fd9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angle: 180
+  angle: 360
   speed: 2
   type: 1
 --- !u!114 &1323903695
@@ -8610,6 +8638,7 @@ GameObject:
   - component: {fileID: 1471524036}
   - component: {fileID: 1471524035}
   - component: {fileID: 1471524038}
+  - component: {fileID: 1471524039}
   m_Layer: 5
   m_Name: Network
   m_TagString: Untagged
@@ -8681,8 +8710,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1471524038}
-        m_TargetAssemblyTypeName: ClickToOpen, Assembly-CSharp
+      - m_Target: {fileID: 1471524039}
+        m_TargetAssemblyTypeName: ClickToBounce, Assembly-CSharp
         m_MethodName: Pop
         m_Mode: 1
         m_Arguments:
@@ -8745,6 +8774,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AssociatedFrame: {fileID: 727155822}
   DesktopCanvas: {fileID: 116246981}
+--- !u!114 &1471524039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471524033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d1ba08e67dce847bf423f0436406ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TweenTime: 0.1
 --- !u!1 &1482721735
 GameObject:
   m_ObjectHideFlags: 0
@@ -12191,6 +12233,7 @@ GameObject:
   - component: {fileID: 1960396317}
   - component: {fileID: 1960396316}
   - component: {fileID: 1960396319}
+  - component: {fileID: 1960396320}
   m_Layer: 5
   m_Name: Security
   m_TagString: Untagged
@@ -12262,8 +12305,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1960396319}
-        m_TargetAssemblyTypeName: ClickToOpen, Assembly-CSharp
+      - m_Target: {fileID: 1960396320}
+        m_TargetAssemblyTypeName: ClickToBounce, Assembly-CSharp
         m_MethodName: Pop
         m_Mode: 1
         m_Arguments:
@@ -12326,6 +12369,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AssociatedFrame: {fileID: 2116349256}
   DesktopCanvas: {fileID: 116246981}
+--- !u!114 &1960396320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960396314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d1ba08e67dce847bf423f0436406ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TweenTime: 0.1
 --- !u!1 &2006471396
 GameObject:
   m_ObjectHideFlags: 0

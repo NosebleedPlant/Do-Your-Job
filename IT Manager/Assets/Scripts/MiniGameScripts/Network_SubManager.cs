@@ -16,7 +16,6 @@ public class Network_SubManager : MonoBehaviour
     [SerializeField] private GameObject Dressing;
     private Network_ConnectionRenderer _activeNode;
     private Transform _frameTransform;
-    private int _pairCount=3;//no more then 6 please
     private bool _makingConnection = false;
     private int _connected =0;
 
@@ -43,7 +42,7 @@ public class Network_SubManager : MonoBehaviour
 
         IPdisplay.text = "";
         Portdisplay.text = "";
-        for (int i = 0; i < (_pairCount); i++)
+        for (int i = 0; i < (gameStatus.NetworkGameData.PairCount); i++)
         {            
             string displayText = "";
             for(int j = 0; j < 4; j++)
@@ -71,34 +70,35 @@ public class Network_SubManager : MonoBehaviour
             position += transform.position -_frameTransform.position;
 
             Collider2D overlap = Physics2D.OverlapPoint(position);
-            if( overlap!=null
-                &&_activeNode!=null
-                &&overlap.transform.CompareTag("NTMG_RightEnd")
-                &&_activeNode.Port== overlap.transform.GetComponent<Network_PortNumber>().portNumber)
-            {
-                //decrement network counter
-                _connected++;
-                gameStatus.NetworkGameData.Current-=3;
-                _activeNode.FreezConnection(position);
-                _activeNode=null;
-                if(_connected>=_pairCount)
-                {   gameStatus.NetworkGameData.Current-=5;
-                    // StartCoroutine(win());
-                    PreGameReady();
-                    }
-            }
-            else if(overlap!=null
+            if(overlap!=null
                 &&_activeNode!=null
                 &&overlap.transform.CompareTag("NTMG_RightEnd"))
             {
-                ClearConnection();
-                //raise reset flag here.
-                PreGameReady();
+                Network_PortNumber port = overlap.transform.GetComponent<Network_PortNumber>();
+                
+                if( _activeNode.Port== port.portNumber)
+                {
+                    //decrement network counter
+                    _connected++;
+                    gameStatus.NetworkGameData.Current-=3;
+                    _activeNode.FreezConnection(position);
+                    port.connected = true;
+                    _activeNode=null;
+                    if(_connected>=gameStatus.NetworkGameData.PairCount)
+                    {   gameStatus.NetworkGameData.Current-=5;
+                        // StartCoroutine(win());
+                        PreGameReady();
+                    }
+                }
+                else if(!port.connected)
+                {
+                    ClearConnection();
+                    //raise reset flag here.
+                    PreGameReady();
+                }
             }
             else
-            {
-                _activeNode.SetConnection(position,false);
-            }
+            { _activeNode.SetConnection(position,false); }
             
         }
     }
@@ -134,7 +134,7 @@ public class Network_SubManager : MonoBehaviour
         ipList = new List<int>();
         portList = new List<int>();
         
-        for (int i = 0; i < _pairCount; i++)
+        for (int i = 0; i < gameStatus.NetworkGameData.PairCount; i++)
         {
             
             for (int j = 0; j < 4; j++)
@@ -147,7 +147,7 @@ public class Network_SubManager : MonoBehaviour
     
     public void InstancePortIP_Pairs()
     {
-        for (int i = 0; i < (_pairCount); i++)
+        for (int i = 0; i < (gameStatus.NetworkGameData.PairCount); i++)
         {            
             Network_PortNumber port = Instantiate(PortPrefab,FindSpawn(),Quaternion.identity,PrefabContainer);
             Network_ConnectionRenderer ip = Instantiate(IpPrefab,FindSpawn(),Quaternion.identity,PrefabContainer);

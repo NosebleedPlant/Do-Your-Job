@@ -42,7 +42,7 @@ public class Security_SubManager : MonoBehaviour
         while(enabled)
         {
             Spawn();
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(gameData.SecurityGameData.SpawnRate);
             //0.17f
         }
     }

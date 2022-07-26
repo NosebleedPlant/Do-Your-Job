@@ -51,14 +51,14 @@ public class StorageMiniGameData
 {
     private float _currentDelay = 0.5f;
     public float CurrentSpawnDelay{get=>_currentDelay;}
-    private float _minSpawnDelay = 0.5f;
-    private float _maxSpawnDelay = 1f;
+    [SerializeField]private float _minSpawnDelay = 0.5f;
+    [SerializeField]private float _maxSpawnDelay = 1f;
 
     private Vector2 _currentSpeedRange = new Vector2(2f,2.5f);
     public Vector2 CurrentSpeedRange{get=>_currentSpeedRange;}
     private Vector2 MaxSpeedRange = new Vector2(3f,4f);
 
-    private int _maxFileCount = 40;
+    [SerializeField] private int _maxFileCount = 40;
     public int MaxFileCount{get=>_maxFileCount;}
     private bool _maxReached = false;
     public bool MaxReached{get=>_maxReached;}
@@ -95,10 +95,10 @@ public class StorageMiniGameData
 [Serializable]
 public class ComplaintMiniGameData
 {
-    private float _spawnRate = 6f;
+    [SerializeField] private float _spawnRate = 6f;
     public float SpawnRate{get=>_spawnRate;}
 
-    private int _maxComplaintCount = 10;
+    [SerializeField] private int _maxComplaintCount = 10;
     public float MaxComplaintCount{get=>_maxComplaintCount;}
     private bool _maxReached = false;
     public bool MaxReached{get=>_maxReached;}
@@ -133,8 +133,10 @@ public class NetworkMiniGameData
             _current = Mathf.Clamp(_current,0,_max);
         }
     }
-    private float _fillRate = 1f;
+    [SerializeField] private float _fillRate = 1f;
     public float FillRate{get=>_fillRate;}
+    [SerializeField] private int _pairCount =3;//no more then 6 please
+    public int PairCount{get=>_pairCount;}
     public float CurrentFill{get=>(float)_current/_max;}
     private bool _maxReached = false;
     public bool MaxReached{get=>_maxReached;}
@@ -154,8 +156,8 @@ public class NetworkMiniGameData
 [Serializable]
 public class SecurityMiniGameData
 {
-    private float _fallRate = 6f;
-    private int _maxDamage = 7;
+    [SerializeField] private float _fallRate = 6f;
+    [SerializeField] private int _maxDamage = 7;
     public int MaxDamage {get=>_maxDamage;}
     private int _currentDamage = 0;
     public int CurrentDamage 
@@ -170,6 +172,9 @@ public class SecurityMiniGameData
 
     private bool _maxReached = false;
     public bool MaxReached {get=>_maxReached;}
+
+    [SerializeField] private float _spawnRate =0.4f;//no more then 6 please
+    public float SpawnRate{get=>_spawnRate;}
 
     public IEnumerator UpdateSecurity()
     {
