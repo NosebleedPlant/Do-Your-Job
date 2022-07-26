@@ -135,7 +135,7 @@ public class NetworkMiniGameData
 
     public IEnumerator UpdateNetworkUse()
     {
-        while(_current<=_max)
+        while(true)
         {
             Current+=UnityEngine.Random.Range(1,3);
             _maxReached = (_current>=_max)? true:false;
@@ -149,30 +149,29 @@ public class NetworkMiniGameData
 public class SecurityMiniGameData
 {
     private float _fallRate = 6f;
-    private int _maxLives = 7;
-    public int MaxLives {get=>_maxLives;}
-    private int _currentLives = 7;
-    public int CurrentLives 
+    private int _maxDamage = 7;
+    public int MaxDamage {get=>_maxDamage;}
+    private int _currentDamage = 0;
+    public int CurrentDamage 
     {
-        get=>_currentLives; 
+        get=>_currentDamage; 
         set
         {
-            _currentLives = Mathf.Clamp(value,0,_maxLives);
-            _minReached = (_currentLives==0)? true:false;
+            _currentDamage = Mathf.Clamp(value,0,_maxDamage);
+            _maxReached = (_currentDamage>=_maxDamage)? true:false;
+            Debug.Log(_maxReached);
         }
     }
 
-    private bool _minReached = false;
-    private bool MinReached {get=>_minReached;}
+    private bool _maxReached = false;
+    private bool MinReached {get=>_maxReached;}
 
     public IEnumerator UpdateSecurity()
     {
-        yield return new WaitForSeconds(_fallRate);
-        while(_currentLives>=0)
+        while(true)
         {
-            _currentLives--;
-            _minReached = (_currentLives==0)? true:false;
             yield return new WaitForSeconds(_fallRate);
+            CurrentDamage++;
         }
     }
 }

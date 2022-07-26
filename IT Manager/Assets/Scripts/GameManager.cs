@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         ComplaintCounter.text = "[<color=#FF3369><b>"+_gameData.ComplaintGameData.ComplaintCount+"</b></color> current open/"+_gameData.ComplaintGameData.MaxComplaintCount+" max]";
 
         UpdateLives();
-        SecurityCounter.text = "["+_gameData.SecurityGameData.CurrentLives+"/7]";
+        SecurityCounter.text = "["+_gameData.SecurityGameData.CurrentDamage+"/7]";
     }
 
     private void OnDisable()
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     {
         for(int i = 0;i<SecurityLives.Length;i++)
         {
-            if(i>=_gameData.SecurityGameData.CurrentLives)
+            if(i>=_gameData.SecurityGameData.CurrentDamage)
             {
                 SecurityLives[i].enabled=false;
             }
