@@ -15,6 +15,6 @@ public class RandomBounce : MonoBehaviour
     public void Tween()
     {
         target = new Vector3(Random.Range(-boundX,boundX),Random.Range(-boundY,boundY),0);
-        LeanTween.moveLocal(transform.gameObject,target,0.3f).setEaseLinear().setOnComplete(Tween);
+        LeanTween.moveLocal(transform.gameObject,target,speed).setEaseLinear().setOnComplete(Tween);
     }
 }
