@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,10 +16,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider NetworkBar;
     [SerializeField] private TextMeshProUGUI NetworkETA;
     [SerializeField] private TextMeshProUGUI ComplaintCounter;
+    [SerializeField] private Slider ComplaintBar;
     [SerializeField] private Image[] SecurityLives;
     [SerializeField] private TextMeshProUGUI SecurityCounter;
     [SerializeField] private GameStatusData _gameData;
-
+    [SerializeField] private Volume PostProcVolume;
+    private Vignette _vignette;
+    private Color baseVColor;
+    private float baseVIntensity;
+    private Color hurtColor = new Color(1f,0.0518868f,0.1453752f);
+    private float hurtIntensity = 0.499f;
+    //000D26
+    
     private void Awake()
     {
         //initalize command
@@ -24,6 +35,14 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_gameData.NetworkGameData.UpdateNetworkUse());
         StartCoroutine(_gameData.SecurityGameData.UpdateSecurity());
     }
+    
+    private void Start() 
+    {
+        PostProcVolume.profile.TryGet<Vignette>(out _vignette);
+        baseVColor = _vignette.color.value;
+        baseVIntensity = _vignette.intensity.value;
+    }
+    
     private void Update()
     {
         RevenuCounter.text = "[$<color=#FF3369><b>"+_gameData.CurrentRevenue.ToString("D8")+"</b></color>]";
@@ -35,9 +54,12 @@ public class GameManager : MonoBehaviour
         NetworkETA.text = "[ETA:"+_gameData.NetworkGameData.CurrentFill*100+"%]";
         
         ComplaintCounter.text = "[<color=#FF3369><b>"+_gameData.ComplaintGameData.ComplaintCount+"</b></color> current open/"+_gameData.ComplaintGameData.MaxComplaintCount+" max]";
+        ComplaintBar.value = _gameData.ComplaintGameData.CurrentFill;
 
         UpdateLives();
         SecurityCounter.text = "["+_gameData.SecurityGameData.CurrentDamage+"/7]";
+
+        AdjustVColor();
     }
 
     private void OnDisable()
@@ -58,6 +80,32 @@ public class GameManager : MonoBehaviour
             {
                 SecurityLives[i].enabled=true;
             }
+        }
+    }
+
+    float _cumulator;
+    int direction = 1;
+    float _transitionTime = 0.5f;
+    private void AdjustVColor()
+    {
+        if(_gameData.StorageGameData.MaxReached||_gameData.NetworkGameData.MaxReached||_gameData.SecurityGameData.MaxReached||_gameData.ComplaintGameData.MaxReached)
+        {
+            _cumulator+=Time.deltaTime*direction;
+            float percentage = _cumulator/_transitionTime;
+            _vignette.color.value = new Color(
+                Mathf.Lerp(baseVColor.r,hurtColor.r,percentage),
+                Mathf.Lerp(baseVColor.g,hurtColor.g,percentage),
+                Mathf.Lerp(baseVColor.b,hurtColor.b,percentage)
+            );
+            _vignette.intensity.value = Mathf.Lerp(baseVIntensity,hurtIntensity,percentage);
+            if(percentage<=0||percentage>=1){direction*=-1;}
+        }
+        else
+        {
+            _vignette.color.value = baseVColor;
+            _vignette.intensity.value = baseVIntensity;
+            _cumulator=0f;
+            direction = 1;
         }
     }
 }

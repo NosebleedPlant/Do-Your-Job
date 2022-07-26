@@ -16,6 +16,7 @@ public class GameStatusData : ScriptableObject
     private bool _gameOver = false;
     public bool GameOver{get=>_gameOver;}
     private static int _totalRevenue = 63000000;
+    public int TotalRevenue{get=>_totalRevenue;}
     private int _currentRevenu = _totalRevenue;
     public int CurrentRevenue{get=>_currentRevenu;}
     
@@ -36,6 +37,8 @@ public class GameStatusData : ScriptableObject
 
             if(StorageGameData.MaxReached) _currentRevenu-=100000;//change to more natural progression
             if(NetworkGameData.MaxReached) _currentRevenu-=100000;//change to more natural progression
+            if(ComplaintGameData.MaxReached) _currentRevenu-=100000;//change to more natural progression
+            if(SecurityGameData.MaxReached) _currentRevenu-=100000;//change to more natural progression
 
             _currentRevenu = Mathf.Clamp(_currentRevenu,0,_totalRevenue);
         }
@@ -101,6 +104,8 @@ public class ComplaintMiniGameData
     public bool MaxReached{get=>_maxReached;}
 
     private int _complaintCount = 0;
+    private float _currentFill = 0f;
+    public float CurrentFill{get=>_currentFill;}
     public int ComplaintCount
     {
         get => _complaintCount;
@@ -108,6 +113,7 @@ public class ComplaintMiniGameData
         {
             _complaintCount=value;
             _complaintCount = Mathf.Clamp(_complaintCount,0,_maxComplaintCount);
+            _currentFill = (float)_complaintCount/_maxComplaintCount;
             _maxReached = (_complaintCount>=MaxComplaintCount)?true:false;
         }
     }
@@ -159,12 +165,11 @@ public class SecurityMiniGameData
         {
             _currentDamage = Mathf.Clamp(value,0,_maxDamage);
             _maxReached = (_currentDamage>=_maxDamage)? true:false;
-            Debug.Log(_maxReached);
         }
     }
 
     private bool _maxReached = false;
-    private bool MinReached {get=>_maxReached;}
+    public bool MaxReached {get=>_maxReached;}
 
     public IEnumerator UpdateSecurity()
     {
