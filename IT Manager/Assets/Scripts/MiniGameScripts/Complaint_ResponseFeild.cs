@@ -11,8 +11,20 @@ public class Complaint_ResponseFeild : MonoBehaviour
     [SerializeField] private GameObject SubmitButton;
     [SerializeField] private GameObject MinigameManager;
     [SerializeField] private Transform FrameTransform;
+    [SerializeField] private float ShakeAmount = 2.81f; 
     private Complaint_SubManager _minigameManagerScript;
-    private string[] _messages = {"its done.","fixed it!","trying my best here ;-;","did u try googling it?","did you try turning it on and off?","Im sorry of the inconvience its fixed now.","u need help? buddy IM the one that needs help","beats me lol.","please dont fire me.."};
+    private string[] _messages = 
+    {
+        "its done.",
+        "fixed it!",
+        "trying my best here ;-;",
+        "did u try googling it?",
+        "did you try turning it on and off?",
+        "Im sorry for the inconvience its fixed now.",
+        "u need help? buddy IM the one that needs help",
+        "beats me lol.",
+        "please dont fire me.."
+    };
     private string _message;
     private Vector3 submitScale = new Vector3(0.56f,0.56f,0.56f);
     // private static int maxLength = _message.Length;
@@ -79,7 +91,7 @@ public class Complaint_ResponseFeild : MonoBehaviour
         while (timer<max)
         {
             timer += Time.deltaTime;
-            Vector3 offset = UnityEngine.Random.insideUnitCircle*(Time.deltaTime*3.81f);
+            Vector3 offset = UnityEngine.Random.insideUnitCircle*(Time.deltaTime*ShakeAmount);
             FrameTransform.position+=offset;
             yield return null;
         }

@@ -10,14 +10,14 @@ public class Complaint_SetText : MonoBehaviour
 
     private string[] Messages = 
     {
-        "	 Hey my damn computer aint working...",
-        "	 Please help...",
-        "	 Hey I accidentally deleted that file..",
-        "	 My computer is slow",
-        "	 Hey cant you help",
+        "	 Hey my damn computer aint working.",
+        "	 Please help.",
+        "	 Hey I accidentally deleted that file.",
+        "	 My computer is slow.",
+        "	 Hey cant you help?",
         "	 Did you take care of the thing?",
         "	 YOU MESSED UP EVERYTHING!",
-        "	 GET YOUR SHIT STRAIGHT",
+        "	 GET YOUR SHIT STRAIGHT!",
         "	 YOUR STUFF AINT DONE!"
     };
 
