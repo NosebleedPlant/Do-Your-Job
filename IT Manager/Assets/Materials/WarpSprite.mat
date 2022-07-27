@@ -38,9 +38,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _NoiseStrength: 9.52
+    - _NoiseStrength: 3.98
     - _Speed: 0.09
-    - _TilingOffset: -5.61
+    - _TilingOffset: -3.84
     m_Colors:
     - _Tiling: {r: 0.51, g: 1, b: 0, a: 0}
     - _Vector2: {r: 0.36, g: 1, b: 0, a: 0}
