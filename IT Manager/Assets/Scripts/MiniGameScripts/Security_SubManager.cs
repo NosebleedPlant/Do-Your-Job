@@ -14,6 +14,7 @@ public class Security_SubManager : MonoBehaviour
     private LayerMask _triggerMask;
     public float _elapsedTime = 0;
     private float _resotreTime = 3f;
+
     //GameState
     [SerializeField] public GameStatusData gameData;  
 

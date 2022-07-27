@@ -10,6 +10,7 @@ public class Complaint_ResponseFeild : MonoBehaviour
     [SerializeField] private Image ProgressBar;
     [SerializeField] private GameObject SubmitButton;
     [SerializeField] private GameObject MinigameManager;
+    [SerializeField] private Transform FrameTransform;
     private Complaint_SubManager _minigameManagerScript;
     private string[] _messages = {"its done.","fixed it!","trying my best here ;-;","did u try googling it?","did you try turning it on and off?","Im sorry of the inconvience its fixed now.","u need help? buddy IM the one that needs help","beats me lol.","please dont fire me.."};
     private string _message;
@@ -23,6 +24,8 @@ public class Complaint_ResponseFeild : MonoBehaviour
         _minigameManagerScript = MinigameManager.GetComponent<Complaint_SubManager>();
         InputField.onValueChanged.AddListener(OnValueChange);
     }
+
+    private void OnDisable() =>  StopAllCoroutines();
 
     private void OnValueChange(string text)
     {
@@ -39,6 +42,7 @@ public class Complaint_ResponseFeild : MonoBehaviour
             InputField.text = sub;
             //update progress
             ProgressBar.fillAmount = (float)length/maxLength;
+            StartCoroutine(Shake());
         }
         else if(length>maxLength)
         {
@@ -65,5 +69,20 @@ public class Complaint_ResponseFeild : MonoBehaviour
         _message = _messages[Random.Range(0,_messages.Length-1)];
         //delete the complaint
         _minigameManagerScript.DeleteComplaint();
+    }
+
+    private IEnumerator Shake()
+    {
+        float timer = 0;
+        float max = 0.1f;
+        Vector3 originalPosition = FrameTransform.position;
+        while (timer<max)
+        {
+            timer += Time.deltaTime;
+            Vector3 offset = UnityEngine.Random.insideUnitCircle*(Time.deltaTime*3.81f);
+            FrameTransform.position+=offset;
+            yield return null;
+        }
+        FrameTransform.position = originalPosition;
     }
 }
