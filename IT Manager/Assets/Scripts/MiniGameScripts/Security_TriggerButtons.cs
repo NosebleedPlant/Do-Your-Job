@@ -4,39 +4,64 @@ using UnityEngine;
 
 public class Security_TriggerButtons : MonoBehaviour
 {
-    [SerializeField] private GameObject _sprite;
+    [SerializeField] private GameObject Sprite;
+    [SerializeField] private Sprite ActiveSprite;
+    [SerializeField] private Color ActiveColor;
+    [SerializeField] private Color WrongColor;
+    private SpriteRenderer _renderer;
+    private Sprite _startTex;
+    private Color _startColor;
     private LayerMask _virusMask;
-    private bool active = false;
+    private bool _active = false;
     private Transform note;
 
     private void Awake()
     {
         _virusMask= LayerMask.GetMask("SCMG_Virus");
+        _renderer = Sprite.GetComponent<SpriteRenderer>();
+        _startColor = _renderer.color;
+        _startTex = _renderer.sprite;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        active = true;
+        _active = true;
         note = other.transform;
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        active = false;
+        _active = false;
         note = null;
     }
 
-    void Activate()
+    public void Activate()
     {
-        if(active && note!=null)
+        if(_active && note!=null)
         {
-            LeanTween.scale(_sprite,new Vector3(0.6f,0.6f,0.6f),0.1f).setOnComplete
+            LeanTween.scale(Sprite,new Vector3(0.6f,0.6f,0.6f),0.1f).setOnStart
             (
                 ()=>
                 {
-                    LeanTween.scale(_sprite,new Vector3(0.5f,0.5f,0.5f),0.1f);
+                    _renderer.sprite = ActiveSprite;
+                    LeanTween.color(Sprite,ActiveColor,0.1f);
+                }
+            ).setOnComplete
+            (
+                ()=>
+                {
+                    _renderer.sprite = _startTex;
+                    LeanTween.scale(Sprite,new Vector3(0.5f,0.5f,0.5f),0.1f);
+                    LeanTween.color(Sprite,_startColor,0.1f);
                 }
             );
             Destroy(note.gameObject);
+        }
+        else
+        {
+            LeanTween.color(Sprite,WrongColor,0.1f).setOnComplete
+            (
+                ()=>{LeanTween.color(Sprite,_startColor,0.1f);}
+            );
         }
     }
 }

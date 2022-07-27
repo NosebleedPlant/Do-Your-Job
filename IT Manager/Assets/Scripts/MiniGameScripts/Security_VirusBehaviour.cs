@@ -33,14 +33,17 @@ public class Security_VirusBehaviour : MonoBehaviour
     
     private void OnTriggerExit2D(Collider2D other)
     {
-        if(other.CompareTag("SCMG_LossArea"))
-        {
-            _manager._elapsedTime=0;
-        }
-        
         if(other.CompareTag("SCMG_PlayArea"))
         {   
             Destroy(this.gameObject);
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("SCMG_LossArea"))
+        {
+            _manager._elapsedTime=0;
         }
     }
 }
