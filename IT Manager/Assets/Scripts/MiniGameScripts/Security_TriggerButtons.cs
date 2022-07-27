@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Security_TriggerButtons : MonoBehaviour
 {
-    [SerializeField] private GameObject Sprite;
+    [SerializeField] private GameObject SpriteObject;
     [SerializeField] private Sprite ActiveSprite;
     [SerializeField] private Sprite WrongSprite;
     [SerializeField] private Color ActiveColor;
@@ -21,7 +21,7 @@ public class Security_TriggerButtons : MonoBehaviour
     private void Awake()
     {
         _virusMask= LayerMask.GetMask("SCMG_Virus");
-        _renderer = Sprite.GetComponent<SpriteRenderer>();
+        _renderer = SpriteObject.GetComponent<SpriteRenderer>();
         _startColor = _renderer.color;
         _startTex = _renderer.sprite;
     }
@@ -30,33 +30,31 @@ public class Security_TriggerButtons : MonoBehaviour
     {
         _active = true;
         note = other.transform;
-        LeanTween.color(Sprite,ActiveColor,0.1f);
+        LeanTween.color(SpriteObject,ActiveColor,0.1f);
     }
     private void OnTriggerExit2D(Collider2D other)
     {
         _active = false;
         note = null;
-        LeanTween.color(Sprite,_startColor,0.1f);
+        LeanTween.color(SpriteObject,_startColor,0.1f);
     }
 
     public void Activate()
     {
         if(_active && note!=null)
         {
-            LeanTween.scale(Sprite,new Vector3(0.6f,0.6f,0.6f),0.1f).setOnStart
+            _renderer.sprite = ActiveSprite;
+            LeanTween.scale(SpriteObject,new Vector3(0.6f,0.6f,0.6f),0.15f).setOnStart
             (
                 ()=>
-                {
-                    _renderer.sprite = ActiveSprite;
-                    LeanTween.color(Sprite,CorrectColor,0.1f);
-                }
+                {LeanTween.color(SpriteObject,CorrectColor,0.1f);}
             ).setOnComplete
             (
                 ()=>
                 {
                     _renderer.sprite = _startTex;
-                    LeanTween.scale(Sprite,new Vector3(0.5f,0.5f,0.5f),0.1f);
-                    LeanTween.color(Sprite,_startColor,0.1f);
+                    LeanTween.scale(SpriteObject,new Vector3(0.5f,0.5f,0.5f),0.1f);
+                    LeanTween.color(SpriteObject,_startColor,0.1f);
                 }
             );
             Bounce();
@@ -65,12 +63,12 @@ public class Security_TriggerButtons : MonoBehaviour
         else
         {
             _renderer.sprite = WrongSprite;
-            LeanTween.color(Sprite,WrongColor,0.1f).setOnComplete
+            LeanTween.color(SpriteObject,WrongColor,0.1f).setOnComplete
             (
                 ()=>
                 {
                     _renderer.sprite = _startTex;
-                    LeanTween.color(Sprite,_startColor,0.1f);
+                    LeanTween.color(SpriteObject,_startColor,0.1f);
                 }
             );
         }
@@ -78,7 +76,7 @@ public class Security_TriggerButtons : MonoBehaviour
 
     private void Bounce()
     {
-        LeanTween.cancel(transform.gameObject);
+        LeanTween.cancel(FrameTransform.gameObject);
         FrameTransform.localScale= new Vector3(0.850176f,0.850176f,0.999936f);
         LeanTween.scale(FrameTransform.gameObject,new Vector3(1,1,0.999936f),0.1f).setEasePunch().setOnComplete
         (
