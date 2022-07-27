@@ -8,6 +8,7 @@ public class Security_TriggerButtons : MonoBehaviour
     [SerializeField] private Sprite ActiveSprite;
     [SerializeField] private Sprite WrongSprite;
     [SerializeField] private Color ActiveColor;
+    [SerializeField] private Color CorrectColor;
     [SerializeField] private Color WrongColor;
     [SerializeField] private Transform FrameTransform;
     private SpriteRenderer _renderer;
@@ -29,7 +30,7 @@ public class Security_TriggerButtons : MonoBehaviour
     {
         _active = true;
         note = other.transform;
-        LeanTween.color(Sprite,WrongColor,0.1f);
+        LeanTween.color(Sprite,ActiveColor,0.1f);
     }
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -47,7 +48,7 @@ public class Security_TriggerButtons : MonoBehaviour
                 ()=>
                 {
                     _renderer.sprite = ActiveSprite;
-                    LeanTween.color(Sprite,ActiveColor,0.1f);
+                    LeanTween.color(Sprite,CorrectColor,0.1f);
                 }
             ).setOnComplete
             (

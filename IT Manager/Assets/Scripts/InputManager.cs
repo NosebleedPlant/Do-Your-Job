@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Network_SubManager NetwrokMiniGame;
     [SerializeField] private Security_SubManager SecurityMiniGame;
     [SerializeField] private GameObject Canvas;
+    [SerializeField] private Transform InGameCursor;
     private InputActions playerControls;
     
     private PointerEventData _mouseEventData;
@@ -21,6 +22,7 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
         _mouseEventData = new PointerEventData(EventSystem.current);
         _uiRaycaster = Canvas.GetComponent<GraphicRaycaster>();
         _click_results = new List<RaycastResult>();
@@ -28,6 +30,8 @@ public class InputManager : MonoBehaviour
 
     public void Update()
     {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        InGameCursor.position = new Vector3(mousePosition.x,mousePosition.y,0f);
         if(Input.GetMouseButtonDown(0))
         {
             GameInputRecived(NetwrokMiniGame.checkMaking);
