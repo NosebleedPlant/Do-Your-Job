@@ -11,6 +11,7 @@ public class Security_TriggerButtons : MonoBehaviour
     [SerializeField] private Color CorrectColor;
     [SerializeField] private Color WrongColor;
     [SerializeField] private Transform FrameTransform;
+    private AudioSource[] _buttonSfx;
     private SpriteRenderer _renderer;
     private Sprite _startTex;
     private Color _startColor;
@@ -24,6 +25,7 @@ public class Security_TriggerButtons : MonoBehaviour
         _renderer = SpriteObject.GetComponent<SpriteRenderer>();
         _startColor = _renderer.color;
         _startTex = _renderer.sprite;
+        _buttonSfx = GetComponentsInParent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -43,6 +45,7 @@ public class Security_TriggerButtons : MonoBehaviour
     {
         if(_active && note!=null)
         {
+            _buttonSfx[0].Play();
             _renderer.sprite = ActiveSprite;
             LeanTween.scale(SpriteObject,new Vector3(0.6f,0.6f,0.6f),0.15f).setOnStart
             (
@@ -62,6 +65,7 @@ public class Security_TriggerButtons : MonoBehaviour
         }
         else
         {
+            _buttonSfx[1].Play();
             _renderer.sprite = WrongSprite;
             LeanTween.color(SpriteObject,WrongColor,0.1f).setOnComplete
             (

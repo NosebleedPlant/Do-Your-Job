@@ -16,6 +16,7 @@ public class Network_SubManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Portdisplay;
     [SerializeField] private GameObject Dressing;
     [SerializeField] private Transform MiniGameArea;
+    private AudioSource[] _ntmgSfx;
     private CanvasGroup PreGameGroup;
     private CanvasGroup PostGameGroup;
     private Network_ConnectionRenderer _activeNode;
@@ -30,6 +31,7 @@ public class Network_SubManager : MonoBehaviour
         _frameTransform = GameObject.Find("NetworkFrame").transform;
         PreGameGroup = PreGame.GetComponent<CanvasGroup>();
         PostGameGroup = PostGame.GetComponent<CanvasGroup>();
+        _ntmgSfx = GetComponents<AudioSource>();
         PreGameReady();
     }
 
@@ -72,6 +74,8 @@ public class Network_SubManager : MonoBehaviour
         Dressing.SetActive(false);
         PreGame.SetActive(false);
         InstancePortIP_Pairs();
+        Debug.Log("on ready");
+        _ntmgSfx[0].Play();
     }
 
     //called on winscreen
@@ -80,6 +84,7 @@ public class Network_SubManager : MonoBehaviour
         PostGame.SetActive(true);
         PostGameGroup.interactable = true;
         PostGameGroup.blocksRaycasts = true;
+        
     }
 
     //called on winscreen button click
@@ -89,6 +94,7 @@ public class Network_SubManager : MonoBehaviour
         PostGameGroup.blocksRaycasts = false;
         PostGame.SetActive(false);
         PreGameReady();
+        _ntmgSfx[4].Play();
     }
 
     
@@ -110,6 +116,7 @@ public class Network_SubManager : MonoBehaviour
                 
                 if( _activeNode.Port== port.portNumber)
                 {
+                    _ntmgSfx[2].Play();
                     //decrement network counter
                     _connected++;
                     gameStatus.NetworkGameData.Current-=3;
@@ -125,6 +132,7 @@ public class Network_SubManager : MonoBehaviour
                 }
                 else if(!port.connected)
                 {
+                    _ntmgSfx[3].Play();
                     ClearConnection();
                     //raise reset flag here.
                     PreGameReady();

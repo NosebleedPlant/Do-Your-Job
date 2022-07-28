@@ -11,6 +11,7 @@ public class Storage_SubManager : MonoBehaviour
     [SerializeField] public Collider2D InitialTargetArea;
     [SerializeField] private Collider2D SecondaryTargetArea;
     [SerializeField] private Transform MiniGameArea;
+    private AudioSource _fileHitSfx;
     private Collider2D[] _spawnAreas;
     private Transform _frameTransform;
     private Collider2D _playerObject;
@@ -27,6 +28,7 @@ public class Storage_SubManager : MonoBehaviour
         _frameTransform = frame_temp.GetComponent<Transform>();
         _playerObject = GameObject.Find("STMG_PlayerObject").GetComponent<Collider2D>();
         movePlayerObject = _MovePlayerObject;
+        _fileHitSfx = GetComponent<AudioSource>();
     }
 
     private void OnEnable() => StartCoroutine(SpawnRoutine());
@@ -88,6 +90,7 @@ public class Storage_SubManager : MonoBehaviour
 
     private IEnumerator Shake()
     {
+        _fileHitSfx.Play();
         float timer = 0;
         float max = 0.1f;
         Vector3 originalPosition = _frameTransform.position;

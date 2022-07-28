@@ -41,6 +41,7 @@ public class Complaint_ResponseFeild : MonoBehaviour
 
     private void OnValueChange(string text)
     {
+        Debug.Log("Button pressed");
         int maxLength = _message.Length;
         int length = text.Length;
         completed = (maxLength==length)?true:false;
