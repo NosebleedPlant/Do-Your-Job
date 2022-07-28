@@ -54,10 +54,11 @@ public class InputManager : MonoBehaviour
         _mouseEventData.position = Mouse.current.position.ReadValue();
         _click_results.Clear();
         _uiRaycaster.Raycast(_mouseEventData, _click_results);
-        foreach(RaycastResult result in _click_results)
+        if(_click_results!=null)
         {
-            if (result.gameObject.CompareTag("MinigameWindow"))
+            if (_click_results[0].gameObject.CompareTag("MinigameWindow"))
             {
+                Debug.Log(_click_results[0].gameObject.name);
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(_mouseEventData.position);
                 func(worldPosition);
             }

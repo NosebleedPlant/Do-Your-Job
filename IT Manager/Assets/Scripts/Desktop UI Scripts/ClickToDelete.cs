@@ -13,7 +13,6 @@ public class ClickToDelete : MonoBehaviour,IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("delete");
         Destroy(_parentFrame);
     }
 }

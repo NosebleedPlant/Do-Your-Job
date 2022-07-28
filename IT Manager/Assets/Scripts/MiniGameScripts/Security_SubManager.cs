@@ -68,7 +68,6 @@ public class Security_SubManager : MonoBehaviour
         {
             overlap.SendMessage("Activate");
         }
-        
     }
 
     public Vector2 CalculatePrefabPoisiton()

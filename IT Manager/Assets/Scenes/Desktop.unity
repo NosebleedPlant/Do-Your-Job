@@ -1881,7 +1881,7 @@ GameObject:
   - component: {fileID: 320891572}
   - component: {fileID: 320891574}
   m_Layer: 5
-  m_Name: TextureImage
+  m_Name: TextureImageStor
   m_TagString: MinigameWindow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2538,7 +2538,7 @@ GameObject:
   - component: {fileID: 361087674}
   - component: {fileID: 361087676}
   m_Layer: 5
-  m_Name: TextureImage
+  m_Name: TextureImageNet
   m_TagString: MinigameWindow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15436,8 +15436,8 @@ GameObject:
   - component: {fileID: 2016437287}
   - component: {fileID: 2016437289}
   m_Layer: 5
-  m_Name: TextureImage
-  m_TagString: Untagged
+  m_Name: TextureImageSec
+  m_TagString: MinigameWindow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16304,7 +16304,7 @@ GameObject:
   - component: {fileID: 2116349259}
   m_Layer: 5
   m_Name: SecurityFrame
-  m_TagString: MinigameWindow
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

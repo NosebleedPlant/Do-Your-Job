@@ -17,6 +17,7 @@ public class Security_TriggerButtons : MonoBehaviour
     private Color _startColor;
     private LayerMask _virusMask;
     private bool _active = false;
+    private bool _triggered  = false;
     private Transform note;
 
     private void Awake()
@@ -30,19 +31,26 @@ public class Security_TriggerButtons : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        _active = true;
-        note = other.transform;
-        LeanTween.color(SpriteObject,ActiveColor,0.1f);
+        if(other.transform.CompareTag("SCMG_Virus"))
+        {
+            _active = true;
+            note = other.transform;
+            if(!_triggered) LeanTween.color(SpriteObject,ActiveColor,0.1f);
+        }
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        _active = false;
-        note = null;
-        LeanTween.color(SpriteObject,_startColor,0.1f);
+        if(other.transform.CompareTag("SCMG_Virus"))
+        {
+            _active = false;
+            note = null;
+            LeanTween.color(SpriteObject,_startColor,0.1f);
+        }
     }
 
     public void Activate()
     {
+        _triggered=true;
         if(_active && note!=null)
         {
             _buttonSfx[0].Play();
@@ -55,6 +63,7 @@ public class Security_TriggerButtons : MonoBehaviour
             (
                 ()=>
                 {
+                    _triggered=false;
                     _renderer.sprite = _startTex;
                     LeanTween.scale(SpriteObject,new Vector3(0.5f,0.5f,0.5f),0.1f);
                     LeanTween.color(SpriteObject,_startColor,0.1f);
@@ -71,6 +80,7 @@ public class Security_TriggerButtons : MonoBehaviour
             (
                 ()=>
                 {
+                    _triggered=false;
                     _renderer.sprite = _startTex;
                     LeanTween.color(SpriteObject,_startColor,0.1f);
                 }
