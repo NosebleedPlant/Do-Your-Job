@@ -11,11 +11,13 @@ public class Network_SubManager : MonoBehaviour
     [SerializeField] private Network_ConnectionRenderer IpPrefab;
     [SerializeField] private Transform PrefabContainer;
     [SerializeField] private GameObject PreGame;
+    [SerializeField] private GameObject PostGame;
     [SerializeField] private TextMeshProUGUI IPdisplay;
     [SerializeField] private TextMeshProUGUI Portdisplay;
     [SerializeField] private GameObject Dressing;
     [SerializeField] private Transform MiniGameArea;
     private CanvasGroup PreGameGroup;
+    private CanvasGroup PostGameGroup;
     private Network_ConnectionRenderer _activeNode;
     private Transform _frameTransform;
     private bool _makingConnection = false;
@@ -27,16 +29,19 @@ public class Network_SubManager : MonoBehaviour
         checkMaking = _CheckMaking;
         _frameTransform = GameObject.Find("NetworkFrame").transform;
         PreGameGroup = PreGame.GetComponent<CanvasGroup>();
+        PostGameGroup = PostGame.GetComponent<CanvasGroup>();
         PreGameReady();
     }
 
+    //called on reset
     private void PreGameReady()
     {
+        Debug.Log("called");
         _connected =0;
+        PreGame.SetActive(true);
         PreGameGroup.interactable = true;
         PreGameGroup.blocksRaycasts = true;
-        PreGame.SetActive(true);
-        Dressing.SetActive(false);
+        Dressing.SetActive(true);
         GeneratePortIP_Pairs();
         GenerateSpawnPoints();
         foreach (Transform child in PrefabContainer) 
@@ -59,14 +64,34 @@ public class Network_SubManager : MonoBehaviour
         }
     }
 
+    //called on start button pressed
     public void OnReady()
     {
         PreGameGroup.interactable = false;
         PreGameGroup.blocksRaycasts = false;
+        Dressing.SetActive(false);
         PreGame.SetActive(false);
-        Dressing.SetActive(true);
         InstancePortIP_Pairs();
     }
+
+    //called on winscreen
+    public void OnWin()
+    {
+        PostGame.SetActive(true);
+        PostGameGroup.interactable = true;
+        PostGameGroup.blocksRaycasts = true;
+    }
+
+    //called on winscreen button click
+    public void OnReset()
+    {
+        PostGameGroup.interactable = false;
+        PostGameGroup.blocksRaycasts = false;
+        PostGame.SetActive(false);
+        PreGameReady();
+    }
+
+    
 
     public Action<Vector3> dragWire;
     private void _DragWire(Vector3 position)
@@ -95,6 +120,7 @@ public class Network_SubManager : MonoBehaviour
                     {   gameStatus.NetworkGameData.Current-=5;
                         // StartCoroutine(win());
                         PreGameReady();
+                        OnWin();
                     }
                 }
                 else if(!port.connected)
