@@ -36,7 +36,7 @@ public class InputManager : MonoBehaviour
         {
             GameInputRecived(NetwrokMiniGame.checkMaking);
             GameInputRecived(StorageMiniGame.movePlayerObject);
-            GameInputRecived(SecurityMiniGame.movePlayerObject);
+            GameInputRecived(SecurityMiniGame.activateTrigger);
         }
         if(Input.GetMouseButton(0))
         {

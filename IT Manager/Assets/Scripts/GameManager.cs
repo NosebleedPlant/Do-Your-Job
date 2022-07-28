@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI SecurityCounter;
     [SerializeField] private GameStatusData _gameData;
     [SerializeField] private Volume PostProcVolume;
+    [SerializeField] private Transform MiniGameArea;
+    [SerializeField] private Transform[] PopupPrefabs;
+    [SerializeField] private Transform AlertPrefab;
     private Vignette _vignette;
     private Color baseVColor;
     private float baseVIntensity;
@@ -34,6 +37,8 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_gameData.UpdateRevenue());
         StartCoroutine(_gameData.NetworkGameData.UpdateNetworkUse());
         StartCoroutine(_gameData.SecurityGameData.UpdateSecurity());
+        StartCoroutine(PopUp());
+        StartCoroutine(SpawnAlert());
     }
     
     private void Start() 
@@ -106,6 +111,43 @@ public class GameManager : MonoBehaviour
             _vignette.intensity.value = baseVIntensity;
             _cumulator=0f;
             direction = 1;
+        }
+    }
+
+    private IEnumerator PopUp()
+    {
+        while(enabled)
+        {
+            if(_gameData.SecurityGameData.MaxReached)
+            {
+                for(int i=0;i<4;i++)
+                {
+                    Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(-257,257),UnityEngine.Random.Range(-230,230),0.137251f);
+                    Transform popup = Instantiate(PopupPrefabs[UnityEngine.Random.Range(0,PopupPrefabs.Length)],MiniGameArea);
+                    popup.localPosition = spawnPosition;
+                    yield return new WaitForSeconds(0.2f);
+                }
+            }
+            yield return new WaitForSeconds(5f);
+        }
+    }
+
+    private IEnumerator SpawnAlert()
+    {
+        while(enabled)
+        {
+            if(_gameData.StorageGameData.MaxReached)
+            {
+                Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(-257,257),UnityEngine.Random.Range(-190,190),0.137251f);
+                for(int i=0;i<4;i++)
+                {
+                    Transform popup = Instantiate(AlertPrefab,MiniGameArea);
+                    popup.localPosition = spawnPosition;
+                    spawnPosition = new Vector3(spawnPosition.x+10f,spawnPosition.y+10f,spawnPosition.z);
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
+            yield return new WaitForSeconds(5f);
         }
     }
 }

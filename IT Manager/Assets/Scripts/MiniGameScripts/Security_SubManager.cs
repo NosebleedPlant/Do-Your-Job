@@ -10,6 +10,7 @@ public class Security_SubManager : MonoBehaviour
     [SerializeField] private GameObject[] VirusPrefabs;
     [SerializeField] private Transform PrefabContainer;
     [SerializeField] private Image ProgressBar;
+    [SerializeField] private Transform MiniGameArea;
     private Transform _frameTransform;
     private LayerMask _triggerMask;
     public float _elapsedTime = 0;
@@ -20,7 +21,7 @@ public class Security_SubManager : MonoBehaviour
 
     private void Awake()
     {
-        movePlayerObject = _MovePlayerObject;
+        activateTrigger = _ActivateTrigger;
         _frameTransform = GameObject.Find("SecurityFrame").transform;
         _triggerMask= LayerMask.GetMask("SCMG_TriggerArea");
     }
@@ -57,10 +58,10 @@ public class Security_SubManager : MonoBehaviour
         spawnedfile.transform.SetParent(PrefabContainer);
     }
 
-    public Action<Vector3> movePlayerObject;
-    private void _MovePlayerObject(Vector3 position)
+    public Action<Vector3> activateTrigger;
+    private void _ActivateTrigger(Vector3 position)
     {
-        if(_frameTransform.GetSiblingIndex()!=4){return;}
+        if(_frameTransform.GetSiblingIndex()!=MiniGameArea.childCount-1){return;}
         position += transform.position -_frameTransform.position;
         Collider2D overlap = Physics2D.OverlapPoint(position,_triggerMask);
         if( overlap!=null)

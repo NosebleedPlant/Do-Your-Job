@@ -10,6 +10,7 @@ public class Storage_SubManager : MonoBehaviour
     [SerializeField] private Transform prefabContainer;
     [SerializeField] public Collider2D InitialTargetArea;
     [SerializeField] private Collider2D SecondaryTargetArea;
+    [SerializeField] private Transform MiniGameArea;
     private Collider2D[] _spawnAreas;
     private Transform _frameTransform;
     private Collider2D _playerObject;
@@ -105,7 +106,7 @@ public class Storage_SubManager : MonoBehaviour
     public Action<Vector3>movePlayerObject;
     private void _MovePlayerObject(Vector3 position)
     {
-        if(_frameTransform.GetSiblingIndex()!=4){return;}
+        if(_frameTransform.GetSiblingIndex()!=MiniGameArea.childCount-1){return;}
         position += transform.position -_frameTransform.transform.position;
         _playerObject.transform.position = position;
         StartCoroutine(enableDeleteTool());

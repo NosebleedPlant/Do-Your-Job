@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI;
 public class Network_SubManager : MonoBehaviour
 {
     [SerializeField] private GameStatusData gameStatus;
@@ -14,6 +14,8 @@ public class Network_SubManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI IPdisplay;
     [SerializeField] private TextMeshProUGUI Portdisplay;
     [SerializeField] private GameObject Dressing;
+    [SerializeField] private Transform MiniGameArea;
+    private CanvasGroup PreGameGroup;
     private Network_ConnectionRenderer _activeNode;
     private Transform _frameTransform;
     private bool _makingConnection = false;
@@ -24,12 +26,15 @@ public class Network_SubManager : MonoBehaviour
         dragWire = _DragWire;
         checkMaking = _CheckMaking;
         _frameTransform = GameObject.Find("NetworkFrame").transform;
+        PreGameGroup = PreGame.GetComponent<CanvasGroup>();
         PreGameReady();
     }
 
     private void PreGameReady()
     {
         _connected =0;
+        PreGameGroup.interactable = true;
+        PreGameGroup.blocksRaycasts = true;
         PreGame.SetActive(true);
         Dressing.SetActive(false);
         GeneratePortIP_Pairs();
@@ -56,6 +61,8 @@ public class Network_SubManager : MonoBehaviour
 
     public void OnReady()
     {
+        PreGameGroup.interactable = false;
+        PreGameGroup.blocksRaycasts = false;
         PreGame.SetActive(false);
         Dressing.SetActive(true);
         InstancePortIP_Pairs();
@@ -64,7 +71,7 @@ public class Network_SubManager : MonoBehaviour
     public Action<Vector3> dragWire;
     private void _DragWire(Vector3 position)
     {
-        if(_frameTransform.GetSiblingIndex()!=4){return;}
+        if(_frameTransform.GetSiblingIndex()!=MiniGameArea.childCount-1){return;}
         if(_makingConnection && _activeNode!=null)
         {
             position += transform.position -_frameTransform.position;
@@ -106,7 +113,7 @@ public class Network_SubManager : MonoBehaviour
     public Action<Vector3> checkMaking;
     private void _CheckMaking(Vector3 position)
     {
-        if(_frameTransform.GetSiblingIndex()!=4){return;}
+        if(_frameTransform.GetSiblingIndex()!=MiniGameArea.childCount-1){return;}
         position += transform.position -_frameTransform.position;
 
         Collider2D overlap = Physics2D.OverlapPoint(position);
