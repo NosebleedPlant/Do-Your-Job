@@ -12,6 +12,7 @@ public class Complaint_ResponseFeild : MonoBehaviour
     [SerializeField] private GameObject MinigameManager;
     [SerializeField] private Transform FrameTransform;
     [SerializeField] private float ShakeAmount = 2.81f; 
+    private AudioSource _keyboardSfx;
     private Complaint_SubManager _minigameManagerScript;
     private string[] _messages = 
     {
@@ -35,13 +36,13 @@ public class Complaint_ResponseFeild : MonoBehaviour
         _message = _messages[Random.Range(0,_messages.Length-1)];
         _minigameManagerScript = MinigameManager.GetComponent<Complaint_SubManager>();
         InputField.onValueChanged.AddListener(OnValueChange);
+        _keyboardSfx = GetComponent<AudioSource>();
     }
 
     private void OnDisable() =>  StopAllCoroutines();
 
     private void OnValueChange(string text)
     {
-        Debug.Log("Button pressed");
         int maxLength = _message.Length;
         int length = text.Length;
         completed = (maxLength==length)?true:false;
@@ -55,6 +56,7 @@ public class Complaint_ResponseFeild : MonoBehaviour
             InputField.text = sub;
             //update progress
             ProgressBar.fillAmount = (float)length/maxLength;
+            
             StartCoroutine(Shake());
         }
         else if(length>maxLength)
@@ -97,5 +99,12 @@ public class Complaint_ResponseFeild : MonoBehaviour
             yield return null;
         }
         FrameTransform.position = originalPosition;
+    }
+
+    private void PlayKbClick()
+    {
+        _keyboardSfx.volume = Random.Range(0.9f, 1f);
+        _keyboardSfx.pitch = Random.Range(0.8f, 1.1f);
+        _keyboardSfx.Play();
     }
 }
