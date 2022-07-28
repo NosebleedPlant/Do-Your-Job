@@ -32,13 +32,6 @@ public class InputManager : MonoBehaviour
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         InGameCursor.position = new Vector3(mousePosition.x,mousePosition.y,0f);
-        _mouseEventData.position = Input.mousePosition;
-        _click_results.Clear();
-        _uiRaycaster.Raycast(_mouseEventData, _click_results);
-        foreach(RaycastResult result in _click_results)
-        {
-            Debug.Log(result.gameObject);
-        }
         
         if(Input.GetMouseButtonDown(0))
         {
@@ -58,7 +51,7 @@ public class InputManager : MonoBehaviour
 
     private void GameInputRecived(Action<Vector3> func)
     {
-        _mouseEventData.position = Input.mousePosition;
+        _mouseEventData.position = Mouse.current.position.ReadValue();
         _click_results.Clear();
         _uiRaycaster.Raycast(_mouseEventData, _click_results);
         foreach(RaycastResult result in _click_results)
