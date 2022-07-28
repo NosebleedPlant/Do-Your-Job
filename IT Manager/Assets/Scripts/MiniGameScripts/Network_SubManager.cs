@@ -154,6 +154,7 @@ public class Network_SubManager : MonoBehaviour
         if( overlap!=null
             &&overlap.transform.CompareTag("NTMG_LeftEnd"))
         {
+            _ntmgSfx[1].Play();
             _makingConnection =  true;
             _activeNode = overlap.transform.GetComponent<Network_ConnectionRenderer>();
         }
