@@ -11,6 +11,7 @@ public class Security_TriggerButtons : MonoBehaviour
     [SerializeField] private Color CorrectColor;
     [SerializeField] private Color WrongColor;
     [SerializeField] private Transform FrameTransform;
+    [SerializeField] private GlitchEffect GlitchEffectTrigger;
     private AudioSource[] _buttonSfx;
     private SpriteRenderer _renderer;
     private Sprite _startTex;
@@ -76,6 +77,7 @@ public class Security_TriggerButtons : MonoBehaviour
         {
             _buttonSfx[1].Play();
             _renderer.sprite = WrongSprite;
+            GlitchEffectTrigger.Trigger();
             LeanTween.color(SpriteObject,WrongColor,0.1f).setOnComplete
             (
                 ()=>

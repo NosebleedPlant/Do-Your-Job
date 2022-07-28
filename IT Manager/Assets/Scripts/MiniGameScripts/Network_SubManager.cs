@@ -16,6 +16,7 @@ public class Network_SubManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Portdisplay;
     [SerializeField] private GameObject Dressing;
     [SerializeField] private Transform MiniGameArea;
+    [SerializeField] private GlitchEffect GlitchEffectTrigger;
     private AudioSource[] _ntmgSfx;
     private CanvasGroup PreGameGroup;
     private CanvasGroup PostGameGroup;
@@ -43,7 +44,7 @@ public class Network_SubManager : MonoBehaviour
         PreGame.SetActive(true);
         PreGameGroup.interactable = true;
         PreGameGroup.blocksRaycasts = true;
-        Dressing.SetActive(true);
+        Dressing.SetActive(false);
         GeneratePortIP_Pairs();
         GenerateSpawnPoints();
         foreach (Transform child in PrefabContainer) 
@@ -71,7 +72,7 @@ public class Network_SubManager : MonoBehaviour
     {
         PreGameGroup.interactable = false;
         PreGameGroup.blocksRaycasts = false;
-        Dressing.SetActive(false);
+        Dressing.SetActive(true);
         PreGame.SetActive(false);
         InstancePortIP_Pairs();
         Debug.Log("on ready");
@@ -135,6 +136,7 @@ public class Network_SubManager : MonoBehaviour
                     _ntmgSfx[3].Play();
                     ClearConnection();
                     //raise reset flag here.
+                    GlitchEffectTrigger.Trigger();
                     PreGameReady();
                 }
             }
