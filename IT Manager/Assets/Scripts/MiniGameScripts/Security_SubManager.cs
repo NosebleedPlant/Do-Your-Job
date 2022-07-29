@@ -35,7 +35,7 @@ public class Security_SubManager : MonoBehaviour
         float completion = _elapsedTime/_resotreTime;
         ProgressBar.fillAmount = completion;
         _elapsedTime += Time.deltaTime;
-        if(completion>=1){gameData.SecurityGameData.CurrentDamage--;_elapsedTime=0;}
+        if(completion>=1){gameData.SecurityGameData.CurrentDamage--;_elapsedTime=0;}//HAFEEZ ADD AUDIO HERE
     }
 
     private IEnumerator SpawnRoutine()
