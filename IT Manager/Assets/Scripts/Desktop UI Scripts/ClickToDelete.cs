@@ -6,16 +6,16 @@ using UnityEngine.EventSystems;
 public class ClickToDelete : MonoBehaviour,IPointerClickHandler
 {
     private GameObject _parentFrame;
-    private AudioSource _clickSfx;
+    private AudioSource[] _clickSfx;
     private void Start()
     {
         _parentFrame = transform.parent.gameObject;
-        _clickSfx = GetComponentInParent<AudioSource>();
+        _clickSfx = GetComponentsInParent<AudioSource>();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         Destroy(_parentFrame);
-        _clickSfx.Play();
+        _clickSfx[1].Play();
     }
 }

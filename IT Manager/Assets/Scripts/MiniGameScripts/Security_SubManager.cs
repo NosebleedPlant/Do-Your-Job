@@ -11,6 +11,7 @@ public class Security_SubManager : MonoBehaviour
     [SerializeField] private Transform PrefabContainer;
     [SerializeField] private Image ProgressBar;
     [SerializeField] private Transform MiniGameArea;
+    private AudioSource _dingSfx;
     private Transform _frameTransform;
     private LayerMask _triggerMask;
     public float _elapsedTime = 0;
@@ -24,6 +25,7 @@ public class Security_SubManager : MonoBehaviour
         activateTrigger = _ActivateTrigger;
         _frameTransform = GameObject.Find("SecurityFrame").transform;
         _triggerMask= LayerMask.GetMask("SCMG_TriggerArea");
+        _dingSfx = GetComponent<AudioSource>();
     }
 
     private void OnEnable() => StartCoroutine(SpawnRoutine());
@@ -35,7 +37,7 @@ public class Security_SubManager : MonoBehaviour
         float completion = _elapsedTime/_resotreTime;
         ProgressBar.fillAmount = completion;
         _elapsedTime += Time.deltaTime;
-        if(completion>=1){gameData.SecurityGameData.CurrentDamage--;_elapsedTime=0;}//HAFEEZ ADD AUDIO HERE
+        if(completion>=1){gameData.SecurityGameData.CurrentDamage--;_elapsedTime=0;_dingSfx.Play();}//HAFEEZ ADD AUDIO HERE
     }
 
     private IEnumerator SpawnRoutine()
