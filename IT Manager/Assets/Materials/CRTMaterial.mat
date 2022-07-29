@@ -40,6 +40,9 @@ Material:
     m_Floats:
     - _LineCount: 82.68
     - _LineVisibility: 0.94
+    - _NoiseScale: 2000
+    - _NoiseSpeed: 10.32
+    - _NoiseStrengh: 1.53
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ScanSpeed: 4.68
