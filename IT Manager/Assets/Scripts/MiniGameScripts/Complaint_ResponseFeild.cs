@@ -45,7 +45,7 @@ public class Complaint_ResponseFeild : MonoBehaviour
     private int _oldLen;
     private void OnValueChange(string text)
     {
-        // PlayKbClick();
+        PlayKbClick();
         int maxLength = _message.Length;
         int length = text.Length;
         completed = (maxLength==length)?true:false;

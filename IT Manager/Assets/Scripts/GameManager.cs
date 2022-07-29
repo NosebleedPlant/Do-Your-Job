@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform MiniGameArea;
     [SerializeField] private Transform[] PopupPrefabs;
     [SerializeField] private Transform AlertPrefab;
+    private AudioSource _crowdSfx;
     private Vignette _vignette;
     private Color baseVColor;
     private float baseVIntensity;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_gameData.SecurityGameData.UpdateSecurity());
         StartCoroutine(PopUp());
         StartCoroutine(SpawnAlert());
+        _crowdSfx = GetComponent<AudioSource>();
     }
     
     private void Start() 
@@ -65,6 +67,15 @@ public class GameManager : MonoBehaviour
         SecurityCounter.text = "["+_gameData.SecurityGameData.CurrentDamage+"/7]";
 
         AdjustVColor();
+
+        if(_gameData.ComplaintGameData.ComplaintCount > 2)
+        {
+            CrowdVolume(_gameData.ComplaintGameData.ComplaintCount);
+        }
+        else
+        {
+            CrowdVolume(0);
+        }
     }
 
     private void OnDisable()
@@ -149,5 +160,10 @@ public class GameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(5f);
         }
+    }
+
+    private void CrowdVolume(float value)
+    {
+        _crowdSfx.volume = Mathf.Lerp(_crowdSfx.volume, (value/10)*0.2f, 0.05f * Time.deltaTime);
     }
 }
