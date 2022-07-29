@@ -113,7 +113,6 @@ public class Storage_SubManager : MonoBehaviour
         position += transform.position -_frameTransform.transform.position;
         _playerObject.transform.position = position;
         StartCoroutine(enableDeleteTool());
-        
     }
 
     private IEnumerator enableDeleteTool()

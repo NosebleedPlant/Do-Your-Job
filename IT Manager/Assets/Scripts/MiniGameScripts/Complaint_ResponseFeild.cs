@@ -11,7 +11,8 @@ public class Complaint_ResponseFeild : MonoBehaviour
     [SerializeField] private GameObject SubmitButton;
     [SerializeField] private GameObject MinigameManager;
     [SerializeField] private Transform FrameTransform;
-    [SerializeField] private float ShakeAmount = 2.81f; 
+    [SerializeField] private float ShakeAmount = 2.81f;
+    [SerializeField] private GlitchEffect GlitchEffectTrigger;
     private AudioSource _keyboardSfx;
     private Complaint_SubManager _minigameManagerScript;
     private string[] _messages = 
@@ -41,9 +42,10 @@ public class Complaint_ResponseFeild : MonoBehaviour
 
     private void OnDisable() =>  StopAllCoroutines();
 
+    private int _oldLen;
     private void OnValueChange(string text)
     {
-        PlayKbClick();
+        // PlayKbClick();
         int maxLength = _message.Length;
         int length = text.Length;
         completed = (maxLength==length)?true:false;
@@ -57,7 +59,7 @@ public class Complaint_ResponseFeild : MonoBehaviour
             InputField.text = sub;
             //update progress
             ProgressBar.fillAmount = (float)length/maxLength;
-            
+            _oldLen = length;
             StartCoroutine(Shake());
         }
         else if(length>maxLength)
@@ -66,6 +68,12 @@ public class Complaint_ResponseFeild : MonoBehaviour
             LeanTween.cancel(SubmitButton);
             SubmitButton.transform.localScale = submitScale;
             ProgressBar.fillAmount = 2-(float)length/maxLength;
+            //glitch if not backspace
+            if(_oldLen <= length)
+            {
+                GlitchEffectTrigger.Trigger();
+            }
+            _oldLen = length;
         }
         if(length==maxLength)
         {
