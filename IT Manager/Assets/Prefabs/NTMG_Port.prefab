@@ -246,7 +246,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.4, y: 1.36}
   m_EdgeRadius: 0
 --- !u!114 &7893452398040622050
 MonoBehaviour:
@@ -262,3 +262,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PortText: {fileID: 7359921920930820157}
   portNumber: 0
+  connected: 0
