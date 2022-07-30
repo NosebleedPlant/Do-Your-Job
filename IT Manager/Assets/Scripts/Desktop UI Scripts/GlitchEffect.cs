@@ -20,8 +20,8 @@ public class GlitchEffect : MonoBehaviour
         float normalizedTime = 0;
         while (normalizedTime <= 1f)
         {
-            GlitchMaterial.SetFloat("_ROffset",Random.Range(-0.03f,0.03f));
-            GlitchMaterial.SetFloat("_GOffset",Random.Range(-0.03f,0.03f));
+            GlitchMaterial.SetFloat("_ROffset",Random.Range(-0.02f,0.02f));
+            GlitchMaterial.SetFloat("_GOffset",Random.Range(-0.02f,0.02f));
             normalizedTime += Time.deltaTime / duration;
             yield return null;
         }
