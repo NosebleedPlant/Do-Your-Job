@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
             popup.localPosition = spawnPosition;
             spawnPosition = new Vector3(spawnPosition.x,spawnPosition.y,spawnPosition.z);
         }
-        else if(_networkAlerted)
+        else if(_networkAlerted && !_gameData.NetworkGameData.MaxReached)
         {
             _networkAlerted = false;
         }
