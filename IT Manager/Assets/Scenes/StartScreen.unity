@@ -760,8 +760,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 281115585}
-  delay: 10
-  loadTime: 2
+  delay: 7.5
+  loadTime: 5
 --- !u!1 &609414692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,6 +1411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartDelay: 0
+  PrintSpeed: 0.01
   textObjects:
   - {fileID: 1823860396}
   - {fileID: 100394863}
@@ -1427,7 +1428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff46d6e38c07b114abd04c2cb8ff4294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartDelay: 7
+  StartDelay: 4.5
+  PrintSpeed: 0.015
   textObjects:
   - {fileID: 1396407616}
   - {fileID: 198606846}
@@ -1446,7 +1448,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff46d6e38c07b114abd04c2cb8ff4294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartDelay: 4
+  StartDelay: 2.5
+  PrintSpeed: 0.015
   textObjects:
   - {fileID: 1535175905}
   - {fileID: 1662080736}
@@ -1463,7 +1466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b7bb592f15a8f4e8b581548ece7dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartDelay: 10
+  StartDelay: 7
 --- !u!114 &1271108831
 MonoBehaviour:
   m_ObjectHideFlags: 0

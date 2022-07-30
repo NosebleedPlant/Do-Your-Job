@@ -11,6 +11,7 @@ public class Security_TriggerButtons : MonoBehaviour
     [SerializeField] private Color CorrectColor;
     [SerializeField] private Color WrongColor;
     [SerializeField] private GlitchEffect GlitchEffectTrigger;
+    [SerializeField] private Security_SubManager manager;
     private AudioSource[] _buttonSfx;
     private SpriteRenderer _renderer;
     private Sprite _startTex;
@@ -58,7 +59,7 @@ public class Security_TriggerButtons : MonoBehaviour
             LeanTween.scale(SpriteObject,new Vector3(0.6f,0.6f,0.6f),0.15f).setOnStart
             (
                 ()=>
-                {LeanTween.color(SpriteObject,CorrectColor,0.1f);}
+                {LeanTween.color(SpriteObject,CorrectColor,0.1f);manager.Bounce(0.87f);}
             ).setOnComplete
             (
                 ()=>

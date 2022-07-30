@@ -13,7 +13,7 @@ public class SetTime : MonoBehaviour
         timeText.text = "Lasted: "+gameStatusData.SurvivalTime;
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            SceneManager.LoadSceneAsync("StartScreen");
+            SceneManager.LoadSceneAsync("Desktop");
         }
     }
 }

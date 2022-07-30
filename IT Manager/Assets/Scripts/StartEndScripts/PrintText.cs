@@ -5,8 +5,9 @@ using TMPro;
 using System.Text;
 public class PrintText : MonoBehaviour
 {
-    [SerializeField]private float StartDelay;
+    [SerializeField]private float StartDelay,PrintSpeed = 0.03f;
     [SerializeField] private TextMeshProUGUI[] textObjects;
+    
     private string[] textFull;
     private StringBuilder textVisable = new StringBuilder();
     private void Start()
@@ -31,7 +32,7 @@ public class PrintText : MonoBehaviour
             {
                 textVisable.Append(c);
                 textObjects[i].text = textVisable.ToString();
-                yield return new WaitForSeconds(0.03f);
+                yield return new WaitForSeconds(PrintSpeed);
             }
         }
     }

@@ -9,7 +9,7 @@ public class Security_SubManager : MonoBehaviour
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private GameObject[] VirusPrefabs;
     [SerializeField] private Transform PrefabContainer;
-    [SerializeField] private Image ProgressBar;
+    [SerializeField] private Slider ProgressBar;
     [SerializeField] private Transform MiniGameArea;
     [SerializeField] private GameObject FailLine;
     [SerializeField] private Color StartColor,WrongColor;
@@ -42,14 +42,13 @@ public class Security_SubManager : MonoBehaviour
         if(_frameTransform.GetSiblingIndex()==MiniGameArea.childCount-1)
         {
             float completion = _elapsedTime/gameData.SecurityGameData.RestoreTime;
-            ProgressBar.fillAmount = completion;
+            ProgressBar.value = completion;
             _elapsedTime += Time.deltaTime;
             if(completion>=1)
             {
                 gameData.SecurityGameData.CurrentDamage--;
                 _elapsedTime=0;
-                _sfx[0].Play();
-                Bounce();
+                _sfx[0].Play(); 
                 manager.ResetSecurityFall();
             }
         }
@@ -98,7 +97,7 @@ public class Security_SubManager : MonoBehaviour
         if(_frameTransform.GetSiblingIndex()!=MiniGameArea.childCount-1){return;}
         _elapsedTime = 0;
         //HAFEEZ AUDIO HERE
-        _sfx[1].Play();        
+        _sfx[1].Play();       
         // LeanTween.color(FailLine,WrongColor,0.2f).setOnComplete
         // (
         //     ()=>
@@ -108,11 +107,11 @@ public class Security_SubManager : MonoBehaviour
         // );
     }
 
-    private void Bounce()
+    public void Bounce(float size)
     {
         LeanTween.cancel(FrameTransform.gameObject);
         FrameTransform.localScale= new Vector3(0.850176f,0.850176f,0.999936f);
-        LeanTween.scale(FrameTransform.gameObject,new Vector3(0.9f,0.9f,0.999936f),0.1f).setEaseInElastic().setOnComplete
+        LeanTween.scale(FrameTransform.gameObject,new Vector3(size,size,0.999936f),0.1f).setEaseInElastic().setOnComplete
         (
             ()=>
             {

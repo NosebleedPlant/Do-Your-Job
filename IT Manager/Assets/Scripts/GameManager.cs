@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
         _securityFallRoutine = StartCoroutine(_gameData.SecurityGameData.UpdateSecurity());
         StartCoroutine(PopUp());
         StartCoroutine(SpawnStorageAlert());
-        StartCoroutine(SpawnNetworkAlert());
         StartCoroutine(SpawnComplaintAlert());
         _crowdSfx = GetComponent<AudioSource>();
     }
@@ -82,6 +81,8 @@ public class GameManager : MonoBehaviour
         }
 
         if(_gameData.CurrentRevenue<=0){SceneManager.LoadSceneAsync("EndScreen");}
+
+        SpawnNetworkAlert();
     }
 
     private void OnDisable()
@@ -167,18 +168,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnNetworkAlert()
+    private bool _networkAlerted = false;
+    private void SpawnNetworkAlert()
     {
-        while(enabled)
+        if(_gameData.NetworkGameData.MaxReached && _networkAlerted==false)
         {
-            if(_gameData.NetworkGameData.MaxReached)
-            {
-                Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(-257,257),UnityEngine.Random.Range(-190,190),0.137251f);
-                Transform popup = Instantiate(NetworkAlertPrefab,MiniGameArea);
-                popup.localPosition = spawnPosition;
-                spawnPosition = new Vector3(spawnPosition.x,spawnPosition.y,spawnPosition.z);
-            }
-            yield return new WaitForSeconds(9f);
+            _networkAlerted = true;
+            Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(-257,257),UnityEngine.Random.Range(-190,190),0.137251f);
+            Transform popup = Instantiate(NetworkAlertPrefab,MiniGameArea);
+            popup.localPosition = spawnPosition;
+            spawnPosition = new Vector3(spawnPosition.x,spawnPosition.y,spawnPosition.z);
+        }
+        else if(_networkAlerted)
+        {
+            _networkAlerted = false;
         }
     }
 
