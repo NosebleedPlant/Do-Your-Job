@@ -531,6 +531,7 @@ MonoBehaviour:
   ActiveColor: {r: 1, g: 1, b: 0.86274517, a: 1}
   CorrectColor: {r: 0.16470589, g: 0.9058824, b: 0.50980395, a: 1}
   WrongColor: {r: 1, g: 0.023584902, b: 0.2820475, a: 1}
+  GlitchEffectTrigger: {fileID: 511219900}
 --- !u!114 &91661925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4236,7 +4237,9 @@ MonoBehaviour:
   - {fileID: 104677051852144232, guid: faa0fea572b785849bae47d24eb5f7ae, type: 3}
   - {fileID: 5340935680610324022, guid: a3bad790105f5b14c9c2d9bbe8facf35, type: 3}
   - {fileID: 5718221122754978128, guid: 2cadd4098eb728b48bca1f788cdc8734, type: 3}
-  AlertPrefab: {fileID: 5718221122754978128, guid: 5cbae8601f065604cb3e1cc6225f48e2, type: 3}
+  StorageAlertPrefab: {fileID: 5718221122754978128, guid: 5cbae8601f065604cb3e1cc6225f48e2, type: 3}
+  ComplaintAlertPrefab: {fileID: 5718221122754978128, guid: f66840c5d5f5fcf4abea6523ca4b624a, type: 3}
+  NetworkAlertPrefab: {fileID: 5718221122754978128, guid: 63cf481d6cbd3db4baf8e8e8b2e80425, type: 3}
 --- !u!4 &511219894
 Transform:
   m_ObjectHideFlags: 0
@@ -5139,6 +5142,7 @@ MonoBehaviour:
   ActiveColor: {r: 1, g: 1, b: 0.86274517, a: 1}
   CorrectColor: {r: 0.16470589, g: 0.9058824, b: 0.50980395, a: 1}
   WrongColor: {r: 1, g: 0.023584902, b: 0.2820475, a: 1}
+  GlitchEffectTrigger: {fileID: 511219900}
 --- !u!114 &557127762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6555,6 +6559,9 @@ MonoBehaviour:
   PrefabContainer: {fileID: 683063233}
   ProgressBar: {fileID: 1880479744}
   MiniGameArea: {fileID: 1759900078}
+  FailLine: {fileID: 2029604539}
+  StartColor: {r: 0.15294118, g: 0.13725491, b: 0.16470589, a: 1}
+  WrongColor: {r: 1, g: 0.20000002, b: 0.41176474, a: 1}
   GlitchEffectTrigger: {fileID: 511219900}
   gameData: {fileID: 11400000, guid: 18938db552cc60948974b4d0ee943be4, type: 2}
   manager: {fileID: 511219893}
@@ -9124,6 +9131,7 @@ MonoBehaviour:
   ActiveColor: {r: 1, g: 1, b: 0.86274517, a: 1}
   CorrectColor: {r: 0.16470589, g: 0.9058824, b: 0.50980395, a: 1}
   WrongColor: {r: 1, g: 0.023584902, b: 0.2820475, a: 1}
+  GlitchEffectTrigger: {fileID: 511219900}
 --- !u!114 &1071115424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11987,6 +11995,7 @@ MonoBehaviour:
   ActiveColor: {r: 1, g: 1, b: 0.86274517, a: 1}
   CorrectColor: {r: 0.16470589, g: 0.9058824, b: 0.50980395, a: 1}
   WrongColor: {r: 1, g: 0.023584902, b: 0.2820475, a: 1}
+  GlitchEffectTrigger: {fileID: 511219900}
 --- !u!114 &1452178496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15443,6 +15452,7 @@ MonoBehaviour:
   Dressing: {fileID: 829189627}
   MiniGameArea: {fileID: 1759900078}
   GlitchEffectTrigger: {fileID: 511219900}
+  Manager: {fileID: 511219893}
 --- !u!82 &1856515043
 AudioSource:
   m_ObjectHideFlags: 0
