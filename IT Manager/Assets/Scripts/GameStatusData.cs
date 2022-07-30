@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
 
 
 [CreateAssetMenu(fileName = "GameStatusData", menuName = "")]
 public class GameStatusData : ScriptableObject
 {
     [SerializeField] public StorageMiniGameData StorageGameData;
-    [SerializeField] public ComplaintMiniGameData ComplaintGameData;
-    [SerializeField] public SecurityMiniGameData SecurityGameData;
     [SerializeField] public NetworkMiniGameData NetworkGameData;
+    [SerializeField] public SecurityMiniGameData SecurityGameData;
+    [SerializeField] public ComplaintMiniGameData ComplaintGameData;
 
     private bool _gameOver = false;
     public bool GameOver{get=>_gameOver;}
@@ -19,6 +18,8 @@ public class GameStatusData : ScriptableObject
     public int TotalRevenue{get=>_totalRevenue;}
     private int _currentRevenu = _totalRevenue;
     public int CurrentRevenue{get=>_currentRevenu;}
+
+    public string SurvivalTime = "";
     
     public void ResetData()
     {
@@ -27,6 +28,7 @@ public class GameStatusData : ScriptableObject
         SecurityGameData = new SecurityMiniGameData();
         NetworkGameData = new NetworkMiniGameData();
         _currentRevenu = 63000000;
+        SurvivalTime = "";
     }
 
     public IEnumerator UpdateRevenue()
@@ -95,7 +97,7 @@ public class StorageMiniGameData
 [Serializable]
 public class ComplaintMiniGameData
 {
-    [SerializeField] private float _spawnRate = 6f;
+    [SerializeField] private float _spawnRate = 10f;
     public float SpawnRate{get=>_spawnRate;}
 
     [SerializeField] private int _maxComplaintCount = 10;
@@ -133,7 +135,7 @@ public class NetworkMiniGameData
             _current = Mathf.Clamp(_current,0,_max);
         }
     }
-    [SerializeField] private float _fillRate = 1f;
+    [SerializeField] private float _fillRate = 3f;
     public float FillRate{get=>_fillRate;}
     [SerializeField] private int _pairCount =3;//no more then 6 please
     public int PairCount{get=>_pairCount;}
@@ -156,8 +158,10 @@ public class NetworkMiniGameData
 [Serializable]
 public class SecurityMiniGameData
 {
-    [SerializeField] private float _fallRate = 6f;
+    [SerializeField] private float _fallRate = 3f;
     [SerializeField] private int _maxDamage = 7;
+    [SerializeField] private float _restoreTime = 2;
+    public float RestoreTime{get=>_restoreTime;}
     public int MaxDamage {get=>_maxDamage;}
     private int _currentDamage = 0;
     public int CurrentDamage 

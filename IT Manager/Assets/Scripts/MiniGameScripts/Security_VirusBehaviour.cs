@@ -43,7 +43,7 @@ public class Security_VirusBehaviour : MonoBehaviour
     {
         if(other.CompareTag("SCMG_LossArea"))
         {
-            _manager._elapsedTime=0;
+            _manager.OnFail();
         }
     }
 }

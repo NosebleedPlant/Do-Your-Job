@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class ClickToClose : MonoBehaviour,IPointerClickHandler
 {
+    [SerializeField] Transform blocker;
     private GameObject _parentFrame;
     private AudioSource _clickSfx;
     private void Start()
@@ -15,6 +16,7 @@ public class ClickToClose : MonoBehaviour,IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        blocker.SetAsLastSibling();
         _parentFrame.SetActive(false);
         _clickSfx.Play();
     }

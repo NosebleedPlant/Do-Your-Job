@@ -28,4 +28,10 @@ public class GlitchEffect : MonoBehaviour
         GlitchMaterial.SetFloat("_ROffset",0);
         GlitchMaterial.SetFloat("_GOffset",0);
     }
+
+    private void OnDisable()
+    {
+        GlitchMaterial.SetFloat("_ROffset",0);
+        GlitchMaterial.SetFloat("_GOffset",0);
+    }
 }

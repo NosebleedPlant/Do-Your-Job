@@ -10,8 +10,7 @@ public class Security_TriggerButtons : MonoBehaviour
     [SerializeField] private Color ActiveColor;
     [SerializeField] private Color CorrectColor;
     [SerializeField] private Color WrongColor;
-    [SerializeField] private Transform FrameTransform;
-    [SerializeField] private GlitchEffect GlitchEffectTrigger;
+    
     private AudioSource[] _buttonSfx;
     private SpriteRenderer _renderer;
     private Sprite _startTex;
@@ -70,14 +69,12 @@ public class Security_TriggerButtons : MonoBehaviour
                     LeanTween.color(SpriteObject,_startColor,0.1f);
                 }
             );
-            Bounce();
             Destroy(note.gameObject);
         }
         else
         {
             _buttonSfx[1].Play();
             _renderer.sprite = WrongSprite;
-            GlitchEffectTrigger.Trigger();
             LeanTween.color(SpriteObject,WrongColor,0.1f).setOnComplete
             (
                 ()=>
@@ -88,18 +85,5 @@ public class Security_TriggerButtons : MonoBehaviour
                 }
             );
         }
-    }
-
-    private void Bounce()
-    {
-        LeanTween.cancel(FrameTransform.gameObject);
-        FrameTransform.localScale= new Vector3(0.850176f,0.850176f,0.999936f);
-        LeanTween.scale(FrameTransform.gameObject,new Vector3(1,1,0.999936f),0.1f).setEasePunch().setOnComplete
-        (
-            ()=>
-            {
-                LeanTween.scale(FrameTransform.gameObject,new Vector3(0.850176f,0.850176f,0.999936f),0.1f);
-            }
-        );
     }
 }

@@ -11,14 +11,16 @@ public class Security_SubManager : MonoBehaviour
     [SerializeField] private Transform PrefabContainer;
     [SerializeField] private Image ProgressBar;
     [SerializeField] private Transform MiniGameArea;
+    [SerializeField] private GlitchEffect GlitchEffectTrigger;
     private AudioSource _dingSfx;
     private Transform _frameTransform;
     private LayerMask _triggerMask;
-    public float _elapsedTime = 0;
-    private float _resotreTime = 3f;
+    private float _elapsedTime = 0;
 
     //GameState
     [SerializeField] public GameStatusData gameData;  
+    [SerializeField] private GameManager manager;
+    [SerializeField] private Transform FrameTransform;
 
     private void Awake()
     {
@@ -35,10 +37,20 @@ public class Security_SubManager : MonoBehaviour
     
     private void Update()
     {
-        float completion = _elapsedTime/_resotreTime;
-        ProgressBar.fillAmount = completion;
-        _elapsedTime += Time.deltaTime;
-        if(completion>=1){gameData.SecurityGameData.CurrentDamage--;_elapsedTime=0;_dingSfx.Play();}//HAFEEZ ADD AUDIO HERE
+        if(_frameTransform.GetSiblingIndex()==MiniGameArea.childCount-1)
+        {
+            float completion = _elapsedTime/gameData.SecurityGameData.RestoreTime;
+            ProgressBar.fillAmount = completion;
+            _elapsedTime += Time.deltaTime;
+            if(completion>=1)
+            {
+                gameData.SecurityGameData.CurrentDamage--;
+                _elapsedTime=0;
+                _dingSfx.Play();
+                Bounce();
+                manager.ResetSecurityFall();
+            }
+        }
     }
 
     private IEnumerator SpawnRoutine()
@@ -77,5 +89,25 @@ public class Security_SubManager : MonoBehaviour
     {
         Vector2 position = _spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Length)].position;
         return position;
+    }
+
+    public void OnFail()
+    {
+        if(_frameTransform.GetSiblingIndex()!=MiniGameArea.childCount-1){return;}
+        GlitchEffectTrigger.Trigger();
+        _elapsedTime = 0;
+    }
+
+    private void Bounce()
+    {
+        LeanTween.cancel(FrameTransform.gameObject);
+        FrameTransform.localScale= new Vector3(0.850176f,0.850176f,0.999936f);
+        LeanTween.scale(FrameTransform.gameObject,new Vector3(0.9f,0.9f,0.999936f),0.1f).setEaseInElastic().setOnComplete
+        (
+            ()=>
+            {
+                LeanTween.scale(FrameTransform.gameObject,new Vector3(0.850176f,0.850176f,0.999936f),0.1f);
+            }
+        );
     }
 }

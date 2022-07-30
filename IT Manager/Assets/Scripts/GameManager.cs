@@ -6,6 +6,8 @@ using TMPro;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using System;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -30,14 +32,14 @@ public class GameManager : MonoBehaviour
     private float baseVIntensity;
     private Color hurtColor = new Color(1f,0.0518868f,0.1453752f);
     private float hurtIntensity = 0.499f;
-    //000D26
-    
+   private Coroutine _securityFallRoutine;
     private void Awake()
     {
         //initalize command
+        _gameData.ResetData();
         StartCoroutine(_gameData.UpdateRevenue());
         StartCoroutine(_gameData.NetworkGameData.UpdateNetworkUse());
-        StartCoroutine(_gameData.SecurityGameData.UpdateSecurity());
+        _securityFallRoutine = StartCoroutine(_gameData.SecurityGameData.UpdateSecurity());
         StartCoroutine(PopUp());
         StartCoroutine(SpawnAlert());
         _crowdSfx = GetComponent<AudioSource>();
@@ -76,11 +78,12 @@ public class GameManager : MonoBehaviour
         {
             CrowdVolume(0);
         }
+
+        if(_gameData.CurrentRevenue<=0){SceneManager.LoadSceneAsync("EndScreen");}
     }
 
     private void OnDisable()
     {
-        _gameData.ResetData();
         StopAllCoroutines();
     }
 
@@ -165,5 +168,11 @@ public class GameManager : MonoBehaviour
     private void CrowdVolume(float value)
     {
         _crowdSfx.volume = Mathf.Lerp(_crowdSfx.volume, (value/10)*0.2f, 0.05f * Time.deltaTime);
+    }
+
+    public void ResetSecurityFall()
+    {
+        StopCoroutine(_securityFallRoutine);
+        _securityFallRoutine =StartCoroutine(_gameData.SecurityGameData.UpdateSecurity());
     }
 }
