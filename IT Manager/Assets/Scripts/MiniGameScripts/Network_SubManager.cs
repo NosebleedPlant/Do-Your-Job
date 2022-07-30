@@ -17,6 +17,7 @@ public class Network_SubManager : MonoBehaviour
     [SerializeField] private GameObject Dressing;
     [SerializeField] private Transform MiniGameArea;
     [SerializeField] private GlitchEffect GlitchEffectTrigger;
+    [SerializeField] private GameManager Manager;
     private AudioSource[] _ntmgSfx;
     private CanvasGroup PreGameGroup;
     private CanvasGroup PostGameGroup;
@@ -237,6 +238,7 @@ public class Network_SubManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         //add winscreen here
+        Manager.ResetNetworkFill();
         PreGameReady();
     }
     private void OnDisable() => StopAllCoroutines();

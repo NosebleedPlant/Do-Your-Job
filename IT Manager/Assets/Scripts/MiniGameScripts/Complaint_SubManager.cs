@@ -25,13 +25,14 @@ public class Complaint_SubManager : MonoBehaviour
             _currentVisableCount = Mathf.Clamp(_currentVisableCount,0,_visableMaxCount);
         }
     }
+    private Coroutine fillRoutine;
     
     void Start()
     {
         _height  = (complaintContainer.sizeDelta.y)/2;
     }
 
-    private void OnEnable() => StartCoroutine(AddTickets());
+    private void OnEnable() {fillRoutine = StartCoroutine(AddTickets());}
 
     private void OnDisable() =>  StopAllCoroutines();
     

@@ -25,23 +25,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Volume PostProcVolume;
     [SerializeField] private Transform MiniGameArea;
     [SerializeField] private Transform[] PopupPrefabs;
-    [SerializeField] private Transform AlertPrefab;
+    [SerializeField] private Transform StorageAlertPrefab,ComplaintAlertPrefab,NetworkAlertPrefab;
     private AudioSource _crowdSfx;
     private Vignette _vignette;
     private Color baseVColor;
     private float baseVIntensity;
     private Color hurtColor = new Color(1f,0.0518868f,0.1453752f);
     private float hurtIntensity = 0.499f;
-   private Coroutine _securityFallRoutine;
+   private Coroutine _securityFallRoutine,_networkFillRoutine;
     private void Awake()
     {
         //initalize command
         _gameData.ResetData();
         StartCoroutine(_gameData.UpdateRevenue());
-        StartCoroutine(_gameData.NetworkGameData.UpdateNetworkUse());
+       _networkFillRoutine =  StartCoroutine(_gameData.NetworkGameData.UpdateNetworkUse());
         _securityFallRoutine = StartCoroutine(_gameData.SecurityGameData.UpdateSecurity());
         StartCoroutine(PopUp());
-        StartCoroutine(SpawnAlert());
+        StartCoroutine(SpawnStorageAlert());
+        StartCoroutine(SpawnNetworkAlert());
+        StartCoroutine(SpawnComplaintAlert());
         _crowdSfx = GetComponent<AudioSource>();
     }
     
@@ -142,11 +144,11 @@ public class GameManager : MonoBehaviour
                     yield return new WaitForSeconds(0.2f);
                 }
             }
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(9f);
         }
     }
 
-    private IEnumerator SpawnAlert()
+    private IEnumerator SpawnStorageAlert()
     {
         while(enabled)
         {
@@ -155,13 +157,47 @@ public class GameManager : MonoBehaviour
                 Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(-257,257),UnityEngine.Random.Range(-190,190),0.137251f);
                 for(int i=0;i<4;i++)
                 {
-                    Transform popup = Instantiate(AlertPrefab,MiniGameArea);
+                    Transform popup = Instantiate(StorageAlertPrefab,MiniGameArea);
                     popup.localPosition = spawnPosition;
-                    spawnPosition = new Vector3(spawnPosition.x+10f,spawnPosition.y+10f,spawnPosition.z);
+                    spawnPosition = new Vector3(spawnPosition.x+15f,spawnPosition.y+15f,spawnPosition.z);
                     yield return new WaitForSeconds(0.1f);
                 }
             }
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(9f);
+        }
+    }
+
+    private IEnumerator SpawnNetworkAlert()
+    {
+        while(enabled)
+        {
+            if(_gameData.NetworkGameData.MaxReached)
+            {
+                Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(-257,257),UnityEngine.Random.Range(-190,190),0.137251f);
+                Transform popup = Instantiate(NetworkAlertPrefab,MiniGameArea);
+                popup.localPosition = spawnPosition;
+                spawnPosition = new Vector3(spawnPosition.x,spawnPosition.y,spawnPosition.z);
+            }
+            yield return new WaitForSeconds(9f);
+        }
+    }
+
+    private IEnumerator SpawnComplaintAlert()
+    {
+        while(enabled)
+        {
+            if(_gameData.ComplaintGameData.MaxReached)
+            {
+                Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(-257,257),UnityEngine.Random.Range(-190,190),0.137251f);
+                for(int i=0;i<3;i++)
+                {
+                    Transform popup = Instantiate(ComplaintAlertPrefab,MiniGameArea);
+                    popup.localPosition = spawnPosition;
+                    spawnPosition = new Vector3(spawnPosition.x-15f,spawnPosition.y-15f,spawnPosition.z);
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
+            yield return new WaitForSeconds(9f);
         }
     }
 
@@ -174,5 +210,11 @@ public class GameManager : MonoBehaviour
     {
         StopCoroutine(_securityFallRoutine);
         _securityFallRoutine =StartCoroutine(_gameData.SecurityGameData.UpdateSecurity());
+    }
+
+    public void ResetNetworkFill()
+    {
+        StopCoroutine(_networkFillRoutine);
+        _networkFillRoutine =StartCoroutine(_gameData.NetworkGameData.UpdateNetworkUse());
     }
 }

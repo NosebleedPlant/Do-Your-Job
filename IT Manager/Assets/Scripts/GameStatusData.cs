@@ -51,10 +51,10 @@ public class GameStatusData : ScriptableObject
 [Serializable]
 public class StorageMiniGameData
 {
-    private float _currentDelay = 0.5f;
+    private float _currentDelay = 1f;
     public float CurrentSpawnDelay{get=>_currentDelay;}
-    [SerializeField]private float _minSpawnDelay = 0.5f;
-    [SerializeField]private float _maxSpawnDelay = 1f;
+    [SerializeField]private float _minSpawnDelay = 1f;
+    [SerializeField]private float _maxSpawnDelay = 1.5f;
 
     private Vector2 _currentSpeedRange = new Vector2(2f,2.5f);
     public Vector2 CurrentSpeedRange{get=>_currentSpeedRange;}
@@ -90,14 +90,14 @@ public class StorageMiniGameData
 
     public void UpdateSpawnDelay()
     {
-        _currentSpeedRange.x = Mathf.Lerp(_minSpawnDelay,_maxSpawnDelay,CurrentFill);
+        _currentDelay = Mathf.Lerp(_minSpawnDelay,_maxSpawnDelay,CurrentFill);
     }
 }
 
 [Serializable]
 public class ComplaintMiniGameData
 {
-    [SerializeField] private float _spawnRate = 10f;
+    [SerializeField] private float _spawnRate = 14f;
     public float SpawnRate{get=>_spawnRate;}
 
     [SerializeField] private int _maxComplaintCount = 10;
@@ -133,9 +133,10 @@ public class NetworkMiniGameData
         {
             _current = value;
             _current = Mathf.Clamp(_current,0,_max);
+            if(_current>=_max){_maxReached=true;}
         }
     }
-    [SerializeField] private float _fillRate = 3f;
+    [SerializeField] private float _fillRate = 1.5f;
     public float FillRate{get=>_fillRate;}
     [SerializeField] private int _pairCount =3;//no more then 6 please
     public int PairCount{get=>_pairCount;}
@@ -158,7 +159,7 @@ public class NetworkMiniGameData
 [Serializable]
 public class SecurityMiniGameData
 {
-    [SerializeField] private float _fallRate = 3f;
+    [SerializeField] private float _fallRate = 8f;
     [SerializeField] private int _maxDamage = 7;
     [SerializeField] private float _restoreTime = 2;
     public float RestoreTime{get=>_restoreTime;}
@@ -185,6 +186,7 @@ public class SecurityMiniGameData
         while(true)
         {
             yield return new WaitForSeconds(_fallRate);
+            Debug.Log("test");
             CurrentDamage++;
         }
     }

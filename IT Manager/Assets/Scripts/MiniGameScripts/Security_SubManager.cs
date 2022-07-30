@@ -11,6 +11,8 @@ public class Security_SubManager : MonoBehaviour
     [SerializeField] private Transform PrefabContainer;
     [SerializeField] private Image ProgressBar;
     [SerializeField] private Transform MiniGameArea;
+    [SerializeField] private GameObject FailLine;
+    [SerializeField] private Color StartColor,WrongColor;
     [SerializeField] private GlitchEffect GlitchEffectTrigger;
     private AudioSource _dingSfx;
     private Transform _frameTransform;
@@ -94,8 +96,17 @@ public class Security_SubManager : MonoBehaviour
     public void OnFail()
     {
         if(_frameTransform.GetSiblingIndex()!=MiniGameArea.childCount-1){return;}
-        GlitchEffectTrigger.Trigger();
         _elapsedTime = 0;
+        GlitchEffectTrigger.Trigger();
+        //HAFEEZ AUDIO HERE
+        
+        // LeanTween.color(FailLine,WrongColor,0.2f).setOnComplete
+        // (
+        //     ()=>
+        //     {
+        //         LeanTween.color(FailLine,StartColor,0.2f);
+        //     }
+        // );
     }
 
     private void Bounce()

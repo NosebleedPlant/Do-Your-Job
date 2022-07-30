@@ -58,7 +58,6 @@ public class InputManager : MonoBehaviour
         {
             if (_click_results[0].gameObject.CompareTag("MinigameWindow"))
             {
-                Debug.Log(_click_results[0].gameObject.name);
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(_mouseEventData.position);
                 func(worldPosition);
             }
