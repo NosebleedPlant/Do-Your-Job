@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviour
 
     private void CrowdVolume(float value)
     {
-        _crowdSfx.volume = Mathf.Lerp(_crowdSfx.volume, (value/10)*0.2f, 0.05f * Time.deltaTime);
+        _crowdSfx.volume = Mathf.Lerp(_crowdSfx.volume, (value/10)*0.2f, 0.1f * Time.deltaTime);
     }
 
     public void ResetSecurityFall()

@@ -14,7 +14,7 @@ public class Security_SubManager : MonoBehaviour
     [SerializeField] private GameObject FailLine;
     [SerializeField] private Color StartColor,WrongColor;
     [SerializeField] private GlitchEffect GlitchEffectTrigger;
-    private AudioSource _dingSfx;
+    private AudioSource[] _sfx;
     private Transform _frameTransform;
     private LayerMask _triggerMask;
     private float _elapsedTime = 0;
@@ -29,7 +29,7 @@ public class Security_SubManager : MonoBehaviour
         activateTrigger = _ActivateTrigger;
         _frameTransform = GameObject.Find("SecurityFrame").transform;
         _triggerMask= LayerMask.GetMask("SCMG_TriggerArea");
-        _dingSfx = GetComponent<AudioSource>();
+        _sfx = GetComponents<AudioSource>();
     }
 
     private void OnEnable() => StartCoroutine(SpawnRoutine());
@@ -48,7 +48,7 @@ public class Security_SubManager : MonoBehaviour
             {
                 gameData.SecurityGameData.CurrentDamage--;
                 _elapsedTime=0;
-                _dingSfx.Play();
+                _sfx[0].Play();
                 Bounce();
                 manager.ResetSecurityFall();
             }
@@ -99,7 +99,7 @@ public class Security_SubManager : MonoBehaviour
         _elapsedTime = 0;
         GlitchEffectTrigger.Trigger();
         //HAFEEZ AUDIO HERE
-        
+        _sfx[1].Play();        
         // LeanTween.color(FailLine,WrongColor,0.2f).setOnComplete
         // (
         //     ()=>
