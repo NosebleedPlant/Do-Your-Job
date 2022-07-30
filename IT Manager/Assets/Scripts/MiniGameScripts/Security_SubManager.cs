@@ -97,7 +97,6 @@ public class Security_SubManager : MonoBehaviour
     {
         if(_frameTransform.GetSiblingIndex()!=MiniGameArea.childCount-1){return;}
         _elapsedTime = 0;
-        GlitchEffectTrigger.Trigger();
         //HAFEEZ AUDIO HERE
         _sfx[1].Play();        
         // LeanTween.color(FailLine,WrongColor,0.2f).setOnComplete

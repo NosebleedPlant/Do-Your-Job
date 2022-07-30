@@ -12,6 +12,6 @@ public class TimeSet : MonoBehaviour
     {
         float time = Time.time;
         gameStatusData.SurvivalTime = time.ToString("00:00"); 
-        timeDisplay.text = time.ToString("00:00")+"min \nSince Hire.";
+        timeDisplay.text = time.ToString("0000")+"secs \nSince Hire.";
     }
 }

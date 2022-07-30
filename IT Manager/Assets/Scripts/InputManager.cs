@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
         _mouseEventData.position = Mouse.current.position.ReadValue();
         _click_results.Clear();
         _uiRaycaster.Raycast(_mouseEventData, _click_results);
-        if(_click_results!=null)
+        if(_click_results.Count>0)
         {
             if (_click_results[0].gameObject.CompareTag("MinigameWindow"))
             {

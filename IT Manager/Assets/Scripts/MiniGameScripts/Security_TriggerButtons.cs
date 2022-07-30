@@ -75,7 +75,7 @@ public class Security_TriggerButtons : MonoBehaviour
         {
             _buttonSfx[1].Play();
             _renderer.sprite = WrongSprite;
-            // GlitchEffectTrigger.Trigger();
+            GlitchEffectTrigger.Trigger();
             LeanTween.color(SpriteObject,WrongColor,0.1f).setOnComplete
             (
                 ()=>
