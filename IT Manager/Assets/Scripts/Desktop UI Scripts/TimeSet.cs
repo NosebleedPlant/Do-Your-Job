@@ -16,7 +16,6 @@ public class TimeSet : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(TimeSpan.FromSeconds(starttime.Second));
         float time = Time.time;
         gameStatusData.SurvivalTime = time.ToString("00000"); 
         timeDisplay.text = time.ToString("0000")+"secs \nSince Hire.";

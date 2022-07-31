@@ -40,7 +40,6 @@ public class Network_SubManager : MonoBehaviour
     //called on reset
     private void PreGameReady()
     {
-        Debug.Log("called");
         _connected =0;
         PreGame.SetActive(true);
         PreGameGroup.interactable = true;
@@ -76,7 +75,6 @@ public class Network_SubManager : MonoBehaviour
         Dressing.SetActive(true);
         PreGame.SetActive(false);
         InstancePortIP_Pairs();
-        Debug.Log("on ready");
         _ntmgSfx[0].Play();
     }
 

@@ -186,7 +186,6 @@ public class SecurityMiniGameData
         while(true)
         {
             yield return new WaitForSeconds(_fallRate);
-            Debug.Log("test");
             CurrentDamage++;
         }
     }

@@ -13,17 +13,18 @@ MonoBehaviour:
   m_Name: GameStatusData
   m_EditorClassIdentifier: 
   StorageGameData:
-    _minSpawnDelay: 0.5
-    _maxSpawnDelay: 1
+    _minSpawnDelay: 1
+    _maxSpawnDelay: 1.5
     _maxFileCount: 40
-  ComplaintGameData:
-    _spawnRate: 6
-    _maxComplaintCount: 10
-  SecurityGameData:
-    _fallRate: 6
-    _maxDamage: 7
-    _spawnRate: 0.4
   NetworkGameData:
-    _fillRate: 3
+    _fillRate: 0.1
     _pairCount: 3
-  SurvivalTime: 00:82
+  SecurityGameData:
+    _fallRate: 8
+    _maxDamage: 7
+    _restoreTime: 2
+    _spawnRate: 0.4
+  ComplaintGameData:
+    _spawnRate: 14
+    _maxComplaintCount: 10
+  SurvivalTime: 00020

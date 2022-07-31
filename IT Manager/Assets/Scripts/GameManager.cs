@@ -84,12 +84,14 @@ public class GameManager : MonoBehaviour
 
         SpawnNetworkAlert();
 
-        if (_gameData.NetworkGameData.MaxReached)
+        if (_gameData.NetworkGameData.MaxReached&&!_sfx[1].isPlaying)
         {
+            Debug.Log("1");
             _sfx[1].Play();
         }
-        else
+        else if(!_gameData.NetworkGameData.MaxReached&&_sfx[1].isPlaying)
         {
+            Debug.Log("2");
             _sfx[1].Stop();
         }
     }
@@ -187,12 +189,10 @@ public class GameManager : MonoBehaviour
             Transform popup = Instantiate(NetworkAlertPrefab,MiniGameArea);
             popup.localPosition = spawnPosition;
             spawnPosition = new Vector3(spawnPosition.x,spawnPosition.y,spawnPosition.z);
-            _sfx[1].Play();
         }
         else if(_networkAlerted && !_gameData.NetworkGameData.MaxReached)
         {
             _networkAlerted = false;
-            _sfx[1].Stop();
         }
     }
 
