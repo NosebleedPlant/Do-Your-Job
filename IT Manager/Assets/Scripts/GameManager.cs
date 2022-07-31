@@ -155,8 +155,9 @@ public class GameManager : MonoBehaviour
                     popup.localPosition = spawnPosition;
                     yield return new WaitForSeconds(0.2f);
                 }
+                yield return new WaitForSeconds(5f);
             }
-            yield return new WaitForSeconds(9f);
+            yield return null;
         }
     }
 

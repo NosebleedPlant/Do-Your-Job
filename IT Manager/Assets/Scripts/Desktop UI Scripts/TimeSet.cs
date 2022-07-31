@@ -9,15 +9,16 @@ public class TimeSet : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timeDisplay;
     [SerializeField] private GameStatusData gameStatusData;
 
-    private DateTime starttime;
-    private void OnEnable()
+    private float timer;
+    private void Start()
     {
-        starttime = DateTime.Now;
+        Debug.Log("called");
+        timer = 0;
     }
     private void Update()
     {
-        float time = Time.time;
-        gameStatusData.SurvivalTime = time.ToString("00000"); 
-        timeDisplay.text = time.ToString("0000")+"secs \nSince Hire.";
+        timer += Time.deltaTime;
+        gameStatusData.SurvivalTime = timer.ToString("00000"); 
+        timeDisplay.text = gameStatusData.SurvivalTime +"secs \nSince Hire.";
     }
 }
