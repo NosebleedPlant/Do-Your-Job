@@ -630,6 +630,7 @@ GameObject:
   - component: {fileID: 281115586}
   - component: {fileID: 281115585}
   - component: {fileID: 281115588}
+  - component: {fileID: 281115589}
   m_Layer: 5
   m_Name: LoadingBar
   m_TagString: Untagged
@@ -762,6 +763,22 @@ MonoBehaviour:
   slider: {fileID: 281115585}
   delay: 7.5
   loadTime: 5
+--- !u!114 &281115589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281115583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff46d6e38c07b114abd04c2cb8ff4294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartDelay: 7.5
+  PrintSpeed: 0.1
+  textObjects:
+  - {fileID: 1871149576}
 --- !u!1 &609414692
 GameObject:
   m_ObjectHideFlags: 0
@@ -2783,7 +2800,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871149574}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

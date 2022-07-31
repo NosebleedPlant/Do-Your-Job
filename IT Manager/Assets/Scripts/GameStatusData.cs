@@ -125,7 +125,7 @@ public class ComplaintMiniGameData
 public class NetworkMiniGameData
 {
     private int _max = 100;
-    private int _current = 0;
+    [SerializeField]private int _current = 0;
     public int Current
     {
         get=>_current;

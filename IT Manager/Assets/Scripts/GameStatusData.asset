@@ -17,7 +17,8 @@ MonoBehaviour:
     _maxSpawnDelay: 1.5
     _maxFileCount: 40
   NetworkGameData:
-    _fillRate: 0.1
+    _current: 6
+    _fillRate: 1.5
     _pairCount: 3
   SecurityGameData:
     _fallRate: 8
@@ -27,4 +28,4 @@ MonoBehaviour:
   ComplaintGameData:
     _spawnRate: 14
     _maxComplaintCount: 10
-  SurvivalTime: 00020
+  SurvivalTime: 00017
