@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform MiniGameArea;
     [SerializeField] private Transform[] PopupPrefabs;
     [SerializeField] private Transform StorageAlertPrefab,ComplaintAlertPrefab,NetworkAlertPrefab;
-    private AudioSource _crowdSfx;
+    private AudioSource[] _sfx;
     private Vignette _vignette;
     private Color baseVColor;
     private float baseVIntensity;
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PopUp());
         StartCoroutine(SpawnStorageAlert());
         StartCoroutine(SpawnComplaintAlert());
-        _crowdSfx = GetComponent<AudioSource>();
+        _sfx = GetComponents<AudioSource>();
     }
     
     private void Start() 
@@ -83,6 +83,15 @@ public class GameManager : MonoBehaviour
         if(_gameData.CurrentRevenue<=0){SceneManager.LoadSceneAsync("EndScreen");}
 
         SpawnNetworkAlert();
+
+        if (_gameData.NetworkGameData.MaxReached)
+        {
+            _sfx[1].Play();
+        }
+        else
+        {
+            _sfx[1].Stop();
+        }
     }
 
     private void OnDisable()
@@ -178,10 +187,12 @@ public class GameManager : MonoBehaviour
             Transform popup = Instantiate(NetworkAlertPrefab,MiniGameArea);
             popup.localPosition = spawnPosition;
             spawnPosition = new Vector3(spawnPosition.x,spawnPosition.y,spawnPosition.z);
+            _sfx[1].Play();
         }
         else if(_networkAlerted && !_gameData.NetworkGameData.MaxReached)
         {
             _networkAlerted = false;
+            _sfx[1].Stop();
         }
     }
 
@@ -206,7 +217,7 @@ public class GameManager : MonoBehaviour
 
     private void CrowdVolume(float value)
     {
-        _crowdSfx.volume = Mathf.Lerp(_crowdSfx.volume, (value/10)*0.2f, 0.1f * Time.deltaTime);
+        _sfx[0].volume = Mathf.Lerp(_sfx[0].volume, (value/10)*0.2f, 0.1f * Time.deltaTime);
     }
 
     public void ResetSecurityFall()
