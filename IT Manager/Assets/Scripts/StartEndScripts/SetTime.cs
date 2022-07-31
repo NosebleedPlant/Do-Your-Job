@@ -10,7 +10,7 @@ public class SetTime : MonoBehaviour
     [SerializeField] TextMeshProUGUI timeText;
     void Update()
     {
-        timeText.text = "Lasted: "+gameStatusData.SurvivalTime;
+        timeText.text = "Lasted: "+gameStatusData.SurvivalTime+ " secs";
         if(Input.GetKeyDown(KeyCode.Return))
         {
             SceneManager.LoadSceneAsync("Desktop");
