@@ -1,3 +1,3 @@
 # it-management-game
  
-#Details at: https://nosebleedplant.itch.io/do-your-job
+# Details at: https://nosebleedplant.itch.io/do-your-job
