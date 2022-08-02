@@ -3,4 +3,5 @@
  
 You are at a new job, the company is great, u love it here, everything is lovely :) People totally don't yell at you, things are absolutely not falling apart for systemic reasons, you are defiantly not over worked and most importantly you are happy!. 
  
-# Details at: https://nosebleedplant.itch.io/do-your-job
+## Details at: https://nosebleedplant.itch.io/do-your-job
+## Trailer at: https://youtu.be/Lg8xoecfMLQ
