@@ -58,9 +58,9 @@
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/NetBuild.loader.js";
       var config = {
-        dataUrl: buildUrl + "/NetBuild.data.gz",
-        frameworkUrl: buildUrl + "/NetBuild.framework.js.gz",
-        codeUrl: buildUrl + "/NetBuild.wasm.gz",
+        dataUrl: buildUrl + "/NetBuild.data.unityweb",
+        frameworkUrl: buildUrl + "/NetBuild.framework.js.unityweb",
+        codeUrl: buildUrl + "/NetBuild.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "NoseBleedPlant",
         productName: "DoYourJob",
@@ -99,7 +99,7 @@
         canvas.style.height = "600px";
       }
 
-      canvas.style.background = "url('" + buildUrl + "/NetBuild.jpg.gz') center / cover";
+      canvas.style.background = "url('" + buildUrl + "/NetBuild.jpg.unityweb') center / cover";
       loadingBar.style.display = "block";
 
       var script = document.createElement("script");
